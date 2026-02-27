@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The EBFC Show — Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:         #0D0D0F;
+      --bg2:        #131316;
+      --bg3:        #1A1A1E;
+      --bg4:        #222228;
+      --yellow:     #F5C842;
+      --yellow-dk:  #C9A22A;
+      --yellow-pale:#FFF3C4;
+      --red:        #E53E3E;
+      --blue:       #3B82F6;
+      --blue-lt:    #60A5FA;
+      --white:      #F8F9FA;
+      --gray:       #9CA3AF;
+      --gray-dk:    #4B5563;
+      --line:       rgba(245,200,66,0.12);
+      --line-h:     rgba(245,200,66,0.35);
+      --font-d:     'Bebas Neue', 'Impact', sans-serif;
+      --font-u:     'Inter', sans-serif;
+      --font-m:     'JetBrains Mono', monospace;
+      --ease:       cubic-bezier(0.22, 0.61, 0.36, 1);
+      --r:          10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-u);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── SCANLINE TEXTURE ───────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(245,200,66,0.015) 2px, rgba(245,200,66,0.015) 4px);
+    }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,15,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--yellow);
+      height: 56px;
+      display: flex; align-items: center;
+      padding: 0 1.5rem;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-right: auto;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-mic {
+      width: 28px; height: 28px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+    .nav-title {
+      font-family: var(--font-d);
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .nav-title span { color: var(--yellow); }
+    nav a.nav-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 0 1rem;
+      height: 100%;
+      display: flex; align-items: center;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav a.nav-link:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 0;
+      overflow: hidden;
+    }
+    .hero-inner {
+      padding: 5rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) { .hero-inner { grid-template-columns: 1fr; } }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(245,200,66,0.1);
+      border: 1px solid var(--yellow);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: slideIn 0.6s var(--ease) 0.1s forwards;
+    }
+    .live-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .hero h1 {
+      font-family: var(--font-d);
+      font-size: clamp(4rem, 12vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      opacity: 0;
+      animation: slideIn 0.6s var(--ease) 0.25s forwards;
+    }
+    .hero h1 .yellow { color: var(--yellow); }
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-top: 1rem;
+      max-width: 500px;
+      opacity: 0;
+      animation: slideIn 0.6s var(--ease) 0.4s forwards;
+    }
+    .hero-expand {
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--yellow);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: slideIn 0.6s var(--ease) 0.55s forwards;
+    }
+    .hero-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: slideIn 0.6s var(--ease) 0.65s forwards;
+    }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: var(--font-d); font-size: 2.5rem; color: var(--yellow); letter-spacing: 0.04em; line-height: 1; }
+    .stat-label { font-size: 0.65rem; font-weight: 600; color: var(--gray); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.2rem; }
+    .hero-waveform {
+      display: flex; align-items: center; gap: 3px;
+      height: 80px;
+      opacity: 0;
+      animation: slideIn 0.6s var(--ease) 0.3s forwards;
+    }
+    .wave-bar {
+      width: 4px;
+      background: var(--yellow);
+      border-radius: 2px;
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    @keyframes wave {
+      0%,100%{transform:scaleY(0.3);opacity:0.4}
+      50%{transform:scaleY(1);opacity:1}
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── TICKER ─────────────────────────────────────────── */
+    .ticker {
+      background: var(--yellow);
+      color: var(--bg);
+      padding: 0.5rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative; z-index: 1;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 22s linear infinite;
+    }
+    .ticker-inner span {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0 2rem;
+    }
+    .ticker-dot { opacity: 0.4; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTIONS ───────────────────────────────────────── */
+    .section {
+      position: relative; z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .section + .section { border-top: 1px solid rgba(255,255,255,0.06); }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+    }
+    .section-tag::before { content: '//'; opacity: 0.5; }
+    .section-title {
+      font-family: var(--font-d);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+      line-height: 1.05;
+    }
+
+    /* ── PALETTE ────────────────────────────────────────── */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .swatch {
+      border-radius: var(--r);
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s;
+    }
+    .swatch:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 36px rgba(0,0,0,0.5); }
+    .swatch-color {
+      height: 100px;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .swatch-copy-hint {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; color: #fff;
+      text-transform: uppercase; opacity: 0; transition: opacity 0.2s;
+    }
+    .swatch:hover .swatch-copy-hint { opacity: 1; }
+    .swatch-info { background: var(--bg2); padding: 0.8rem; }
+    .swatch-name { font-size: 0.78rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .swatch-hex { font-family: var(--font-m); font-size: 0.7rem; color: var(--gray); }
+    .swatch-role { font-size: 0.62rem; color: var(--gray-dk); margin-top: 0.2rem; }
+
+    .copy-toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: var(--yellow); color: var(--bg);
+      font-size: 0.82rem; font-weight: 800;
+      padding: 0.6rem 1.4rem; border-radius: 4px;
+      opacity: 0; pointer-events: none; z-index: 9999;
+      transition: opacity 0.3s; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .copy-toast.show { opacity: 1; }
+
+    /* ── TYPOGRAPHY ─────────────────────────────────────── */
+    .type-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .type-spec {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+      padding: 2rem;
+    }
+    .type-meta {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 1.2rem; padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-family: var(--font-m);
+    }
+
+    /* ── VOICE ──────────────────────────────────────────── */
+    .voice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .voice-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .voice-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--yellow);
+    }
+    .voice-word {
+      font-family: var(--font-d);
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: var(--yellow);
+      display: block; margin-bottom: 0.5rem;
+    }
+    .voice-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .dos-donts { grid-template-columns: 1fr; } }
+    .do-col, .dont-col { background: var(--bg2); border-radius: var(--r); overflow: hidden; }
+    .do-header, .dont-header {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; font-family: var(--font-m);
+    }
+    .do-header { background: rgba(52,211,153,0.1); color: #34D399; border-bottom: 1px solid rgba(52,211,153,0.2); }
+    .dont-header { background: rgba(239,68,68,0.1); color: #EF4444; border-bottom: 1px solid rgba(239,68,68,0.2); }
+    .do-list, .dont-list { list-style: none; padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .do-list li, .dont-list li { font-size: 0.82rem; color: var(--gray); padding-left: 1.2rem; position: relative; line-height: 1.5; }
+    .do-list li::before { content: '✓'; position: absolute; left: 0; color: #34D399; font-weight: 800; }
+    .dont-list li::before { content: '✕'; position: absolute; left: 0; color: #EF4444; font-weight: 800; }
+
+    /* ── EPISODE CARD ───────────────────────────────────── */
+    .episode-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      transition: border-color 0.25s, transform 0.25s var(--ease);
+      cursor: default;
+    }
+    .episode-card:hover { border-color: var(--yellow); transform: translateX(4px); }
+    .ep-num {
+      font-family: var(--font-d);
+      font-size: 2.5rem;
+      color: var(--yellow);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 60px; text-align: center;
+    }
+    .ep-content { flex: 1; }
+    .ep-tag {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 0.4rem; font-family: var(--font-m);
+    }
+    .ep-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; line-height: 1.35; }
+    .ep-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── BUTTONS ────────────────────────────────────────── */
+    .btns-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
+    .btn-p {
+      background: var(--yellow);
+      color: var(--bg);
+      border: none; border-radius: 6px;
+      padding: 0.8rem 2rem;
+      font-family: var(--font-u);
+      font-size: 0.85rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s, background 0.2s;
+    }
+    .btn-p:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,200,66,0.4); background: #FFD35A; }
+    .btn-s {
+      background: transparent;
+      color: var(--yellow);
+      border: 2px solid var(--yellow);
+      border-radius: 6px;
+      padding: 0.8rem 2rem;
+      font-family: var(--font-u);
+      font-size: 0.85rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.25s var(--ease);
+    }
+    .btn-s:hover { background: var(--yellow); color: var(--bg); transform: translateY(-2px); }
+    .btn-g {
+      background: transparent;
+      color: var(--gray);
+      border: 1px solid var(--gray-dk);
+      border-radius: 6px;
+      padding: 0.8rem 2rem;
+      font-family: var(--font-u);
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, transform 0.25s var(--ease);
+    }
+    .btn-g:hover { color: var(--white); border-color: var(--white); transform: translateY(-2px); }
+
+    /* ── CARDS GRID ─────────────────────────────────────── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .brand-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+      padding: 1.8rem;
+      transition: border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+      cursor: default; position: relative; overflow: hidden;
+    }
+    .brand-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--yellow), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .brand-card:hover { border-color: rgba(245,200,66,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+    .brand-card:hover::after { opacity: 1; }
+    .card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .card-title { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+    .card-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.65; }
+
+    /* ── PHOTO GUIDE ────────────────────────────────────── */
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .photo-box {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+      padding: 1.4rem;
+    }
+    .photo-box h4 { font-family: var(--font-d); font-size: 1.2rem; color: var(--yellow); margin-bottom: 0.5rem; letter-spacing: 0.06em; }
+    .photo-box p { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── TEMPLATES ──────────────────────────────────────── */
+    .li-mock {
+      background: #1B1F23;
+      border-radius: var(--r);
+      padding: 1.5rem;
+      max-width: 560px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .li-hdr { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1rem; }
+    .li-av {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-d); font-weight: 700; color: var(--bg); font-size: 1rem; flex-shrink: 0;
+    }
+    .li-name { font-size: 0.9rem; font-weight: 700; color: #E2E8F0; }
+    .li-title-sm { font-size: 0.72rem; color: #64748B; }
+    .li-body { font-size: 0.88rem; color: #CBD5E1; line-height: 1.6; }
+    .li-hook { display: block; font-weight: 800; color: #F8F9FA; margin-bottom: 0.75rem; font-size: 1rem; }
+    .li-hash { margin-top: 0.75rem; font-size: 0.78rem; color: #60A5FA; }
+
+    .email-mock {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r);
+      overflow: hidden; max-width: 560px;
+    }
+    .email-hdr {
+      background: var(--bg);
+      padding: 2rem;
+      text-align: center;
+      border-bottom: 3px solid var(--yellow);
+      position: relative; overflow: hidden;
+    }
+    .email-hdr::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(245,200,66,0.03) 10px, rgba(245,200,66,0.03) 20px);
+    }
+    .email-show-title {
+      font-family: var(--font-d);
+      font-size: 2rem; letter-spacing: 0.12em;
+      color: var(--yellow); position: relative;
+    }
+    .email-show-sub { font-size: 0.68rem; font-weight: 700; color: var(--gray); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 0.3rem; position: relative; }
+    .email-body-m { padding: 1.5rem 2rem; }
+    .email-body-m p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; margin-bottom: 0.8rem; }
+    .email-footer-m { background: var(--bg); padding: 1rem 2rem; font-size: 0.68rem; color: var(--gray-dk); text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    .slide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .slide-mock {
+      border-radius: var(--r); overflow: hidden;
+      aspect-ratio: 16/9;
+      position: relative; display: flex;
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .slide-lbl {
+      position: absolute; top: 0.6rem; left: 0.6rem;
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: var(--font-m);
+    }
+    .slide-title { font-family: var(--font-d); text-align: center; font-size: 1.2rem; line-height: 1.2; letter-spacing: 0.05em; }
+
+    .blog-mock {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r);
+      padding: 2rem 2.5rem; max-width: 680px;
+    }
+    .bm-tag { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--yellow); font-family: var(--font-m); margin-bottom: 0.5rem; }
+    .bm-h1 { font-family: var(--font-d); font-size: clamp(1.6rem,4vw,2.2rem); letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.5rem; }
+    .bm-meta { font-size: 0.7rem; color: var(--gray-dk); margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .bm-lede { font-size: 1rem; font-weight: 600; color: var(--white); line-height: 1.65; margin-bottom: 1rem; }
+    .bm-body { font-size: 0.88rem; color: var(--gray); line-height: 1.75; margin-bottom: 1rem; }
+    .bm-h2 { font-family: var(--font-d); font-size: 1.4rem; letter-spacing: 0.05em; color: var(--white); margin: 1.5rem 0 0.6rem; }
+    blockquote {
+      border-left: 3px solid var(--yellow);
+      padding: 0.5rem 0 0.5rem 1.2rem;
+      margin: 1.2rem 0;
+      font-size: 1rem; font-weight: 600; color: var(--white); line-height: 1.5;
+    }
+
+    /* ── HOSTS ──────────────────────────────────────────── */
+    .hosts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .host-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r);
+      padding: 2rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .host-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-dk));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-d); font-size: 1.8rem; color: var(--bg);
+      margin: 0 auto 1rem;
+      border: 3px solid var(--yellow);
+    }
+    .host-name { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
+    .host-role { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.8rem; font-family: var(--font-m); }
+    .host-bio { font-size: 0.78rem; color: var(--gray); line-height: 1.65; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--bg2);
+      border-top: 2px solid var(--yellow);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.75rem; color: var(--gray-dk); }
+    footer a { color: var(--yellow); text-decoration: none; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .section { padding: 3rem 1.5rem; }
+      .palette-grid { grid-template-columns: repeat(2,1fr); }
+      .hero-waveform { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="copy-toast" id="toast">Copied!</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-mic">🎙</div>
+    <span class="nav-title">THE <span>EBFC</span> SHOW</span>
+  </a>
+  <a class="nav-link" href="#palette">Color</a>
+  <a class="nav-link" href="#typography">Type</a>
+  <a class="nav-link" href="#voice">Voice</a>
+  <a class="nav-link" href="#elements">Elements</a>
+  <a class="nav-link" href="#templates">Templates</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><div class="live-dot"></div> Official Brand Kit · 2026</div>
+      <h1>THE<br><span class="yellow">EBFC</span><br>SHOW</h1>
+      <p class="hero-sub">Engineer · Builder · Finance · Construct</p>
+      <p class="hero-expand">Construction's podcast for Lean, Scrum &amp; Innovation</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Hosts</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Episodes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Industries</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-waveform" id="waveform"></div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- COLOR PALETTE -->
+<section class="section" id="palette">
+  <p class="section-tag">01 — Brand Identity</p>
+  <h2 class="section-title">COLOR PALETTE</h2>
+  <div class="palette-grid" id="paletteGrid"></div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section" id="typography">
+  <p class="section-tag">02 — Brand Identity</p>
+  <h2 class="section-title">TYPOGRAPHY</h2>
+  <div class="type-grid">
+
+    <div class="type-spec">
+      <p class="type-meta">// Display / Impact — Bebas Neue</p>
+      <div style="font-family:var(--font-d);font-size:clamp(3rem,9vw,6rem);letter-spacing:0.06em;color:var(--white);line-height:0.95;margin-bottom:0.5rem;">THE EBFC SHOW</div>
+      <div style="font-family:var(--font-d);font-size:clamp(1.8rem,5vw,3rem);letter-spacing:0.05em;color:var(--yellow);">ENGINEER BUILDER FINANCE CONSTRUCT</div>
+      <p style="font-size:0.72rem;color:var(--gray-dk);margin-top:1rem;">Bebas Neue — ALL CAPS only · Use for: Logo, hero titles, episode numbers, section headers, big stats</p>
+    </div>
+
+    <div class="type-spec">
+      <p class="type-meta">// Body / UI — Inter</p>
+      <p style="font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:0.5rem;">Inter 800 — Section titles, episode names, card headings</p>
+      <p style="font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.5rem;">Inter 600 — Lead paragraphs, important callouts, host names</p>
+      <p style="font-size:1rem;font-weight:400;color:var(--gray);margin-bottom:0.5rem;">Inter 400 — Body text, descriptions, show notes</p>
+      <p style="font-size:0.78rem;font-weight:400;color:var(--gray-dk);margin-bottom:0.5rem;">Inter 400 Small — Captions, timestamps, metadata</p>
+      <p style="font-size:0.72rem;color:var(--gray-dk);margin-top:0.5rem;">Inter — 300/400/500/600/700/800/900 available · Use for: All body text, UI, show notes, descriptions</p>
+    </div>
+
+    <div class="type-spec">
+      <p class="type-meta">// Code / Tags — JetBrains Mono</p>
+      <p style="font-family:var(--font-m);font-size:1rem;color:var(--yellow);margin-bottom:0.4rem;">// EPISODE_042 :: LEAN_CONSTRUCTION</p>
+      <p style="font-family:var(--font-m);font-size:0.85rem;color:var(--gray);margin-bottom:0.4rem;">EBFC_SHOW :: SEASON_04 :: BUILD_BETTER</p>
+      <p style="font-size:0.72rem;color:var(--gray-dk);margin-top:0.5rem;">JetBrains Mono — Use for: Episode tags, technical labels, stat labels, section tags — adds a broadcast/tech energy</p>
+    </div>
+
+    <div class="type-spec" style="background:var(--bg3);">
+      <p class="type-meta">// Type Scale</p>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:60px;font-size:0.6rem;color:var(--gray-dk);font-family:var(--font-m);flex-shrink:0;">HERO</span>
+          <span style="font-family:var(--font-d);font-size:2.5rem;color:var(--white);letter-spacing:0.06em;">DISPLAY</span>
+          <span style="font-size:0.62rem;color:var(--gray-dk);font-family:var(--font-m);">80–120px · Bebas</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:60px;font-size:0.6rem;color:var(--gray-dk);font-family:var(--font-m);flex-shrink:0;">H1</span>
+          <span style="font-family:var(--font-d);font-size:2rem;color:var(--white);letter-spacing:0.05em;">SECTION TITLE</span>
+          <span style="font-size:0.62rem;color:var(--gray-dk);font-family:var(--font-m);">48px · Bebas</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:60px;font-size:0.6rem;color:var(--gray-dk);font-family:var(--font-m);flex-shrink:0;">H2</span>
+          <span style="font-size:1.4rem;font-weight:800;color:var(--white);">Episode Name</span>
+          <span style="font-size:0.62rem;color:var(--gray-dk);font-family:var(--font-m);">24px · Inter 800</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:60px;font-size:0.6rem;color:var(--gray-dk);font-family:var(--font-m);flex-shrink:0;">BODY</span>
+          <span style="font-size:1rem;color:var(--gray);">Show notes and descriptions</span>
+          <span style="font-size:0.62rem;color:var(--gray-dk);font-family:var(--font-m);">16px · Inter 400</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:60px;font-size:0.6rem;color:var(--gray-dk);font-family:var(--font-m);flex-shrink:0;">TAG</span>
+          <span style="font-size:0.68rem;font-weight:800;color:var(--yellow);font-family:var(--font-m);">EPISODE_TAG :: LABEL</span>
+          <span style="font-size:0.62rem;color:var(--gray-dk);font-family:var(--font-m);">11px · Mono 800</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOSTS -->
+<section class="section" id="hosts">
+  <p class="section-tag">03 — Brand Identity</p>
+  <h2 class="section-title">THE HOSTS</h2>
+  <div class="hosts-grid">
+    <div class="host-card">
+      <div class="host-avatar">F</div>
+      <p class="host-name">Felipe Engineer-Manriquez</p>
+      <p class="host-role">CEO &amp; Host 🎙</p>
+      <p class="host-bio">International keynote speaker, Registered Scrum Trainer™ (RST), and Construction Changemaker. Lean Construction Institute Chairman's Award 2019. Pioneering Lean + Scrum + AI for the construction industry.</p>
+    </div>
+    <div class="host-card">
+      <div class="host-avatar">M</div>
+      <p class="host-name">Mike Chiles</p>
+      <p class="host-role">Co-Host</p>
+      <p class="host-bio">Construction industry veteran bringing field perspective and real-world experience to conversations about project delivery, innovation, and team performance.</p>
+    </div>
+    <div class="host-card">
+      <div class="host-avatar">V</div>
+      <p class="host-name">Victor Ortiz</p>
+      <p class="host-role">Co-Host</p>
+      <p class="host-bio">Finance and business perspective on construction. Bridges the gap between operational excellence and financial performance in the built environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE & TONE -->
+<section class="section" id="voice">
+  <p class="section-tag">04 — Voice &amp; Tone</p>
+  <h2 class="section-title">BRAND VOICE</h2>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <span class="voice-word">EDUCATIONAL</span>
+      <span class="voice-desc">Every episode teaches something real. No fluff. Practical knowledge you can use on Monday morning.</span>
+    </div>
+    <div class="voice-card">
+      <span class="voice-word">CONVERSATIONAL</span>
+      <span class="voice-desc">Real talk between people who know the industry. It sounds like a great conversation you'd have on a jobsite.</span>
+    </div>
+    <div class="voice-card">
+      <span class="voice-word">INSIDER</span>
+      <span class="voice-desc">We speak the language — Lean, pull planning, last planner, sprints, retrospectives. No translation needed.</span>
+    </div>
+    <div class="voice-card">
+      <span class="voice-word">ENERGETIC</span>
+      <span class="voice-desc">High-energy episodes that don't waste your time. Punchy intros. Quick pacing. Dynamic back-and-forth.</span>
+    </div>
+  </div>
+
+  <div class="dos-donts" style="margin-bottom:2.5rem;">
+    <div class="do-col">
+      <div class="do-header">// DO</div>
+      <ul class="do-list">
+        <li>Open with a bold claim or hot take</li>
+        <li>Name frameworks directly: Lean, Scrum, Agile, Last Planner</li>
+        <li>Use show-specific language: "episode," "listeners," "the show"</li>
+        <li>Make it searchable: clear topic, episode number, guest name</li>
+        <li>Include a clear takeaway every listener can use</li>
+        <li>Reference the community and store naturally</li>
+        <li>Speak to GCs, subs, owners, PMs, and field supervisors</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="dont-header">// DON'T</div>
+      <ul class="dont-list">
+        <li>Use tech startup buzzwords — this is construction</li>
+        <li>Make episodes feel like lectures — it's a conversation</li>
+        <li>Ignore the trades — they're half the audience</li>
+        <li>Bury the value — front-load what listeners will learn</li>
+        <li>Generic construction stock imagery on episode art</li>
+        <li>Lowercase the show name — always THE EBFC SHOW</li>
+        <li>Vague episode titles — be specific and searchable</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.8rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">SAMPLE EPISODE CARDS</h3>
+  <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem;">
+    <div class="episode-card">
+      <div class="ep-num">042</div>
+      <div class="ep-content">
+        <p class="ep-tag">// Lean Construction</p>
+        <p class="ep-title">Why Pull Planning Still Fails (And What to Do About It)</p>
+        <p class="ep-desc">Felipe, Mike, and Victor break down the most common Last Planner mistakes — and the exact fixes that production teams have used to recover schedule on real projects.</p>
+      </div>
+    </div>
+    <div class="episode-card">
+      <div class="ep-num">057</div>
+      <div class="ep-content">
+        <p class="ep-tag">// Scrum in Construction</p>
+        <p class="ep-title">Scrum Master vs. The Hot Ones Challenge 🌶 — Felipe &amp; Son Noah</p>
+        <p class="ep-desc">What do hot wings and hot takes on Scrum have in common? This fiery episode flips the script as Felipe gets grilled while battling 10 blazing sauces. Spicy, smart, and surprisingly deep.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.8rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">SAMPLE LINKEDIN POSTS</h3>
+  <div style="display:flex;flex-direction:column;gap:1rem;">
+    <div style="background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow);"></div>
+      <p style="font-size:0.65rem;font-weight:800;letter-spacing:0.14em;color:var(--yellow);font-family:var(--font-m);margin-bottom:0.8rem;">// EP LAUNCH POST</p>
+      <p style="font-size:0.88rem;color:var(--gray);line-height:1.7;"><strong style="color:var(--white);">New episode of The EBFC Show is live 🎙</strong><br><br>
+      This week we get into [TOPIC] — something most construction teams are getting wrong right now.<br><br>
+      Here's what you'll take away:<br>
+      → [Key insight 1]<br>
+      → [Key insight 2]<br>
+      → [Practical tool or technique]<br><br>
+      Listen on Apple Podcasts, Spotify, or at theebfcshow.com<br><br>
+      What's your biggest challenge with [TOPIC]? Drop it in the comments. 👇</p>
+      <p style="font-size:0.72rem;color:#60A5FA;margin-top:0.8rem;">#EBFCShow #LeanConstruction #Scrum #Construction #Podcast</p>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL ELEMENTS -->
+<section class="section" id="elements">
+  <p class="section-tag">05 — Visual Elements</p>
+  <h2 class="section-title">UI COMPONENTS</h2>
+
+  <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">BUTTONS</h3>
+  <div class="btns-row">
+    <button class="btn-p">🎙 Listen Now</button>
+    <button class="btn-s">Subscribe Free</button>
+    <button class="btn-g">All Episodes</button>
+  </div>
+  <div style="background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:2rem;">
+    <p style="font-size:0.75rem;color:var(--gray);line-height:1.6;font-family:var(--font-m);">// PRIMARY: Yellow fill — for listen/subscribe CTAs only. One per page. · SECONDARY: Yellow outline — key secondary actions. · GHOST: Subtle — tertiary navigation, archive links.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">CONTENT CARDS</h3>
+  <div class="cards-grid" style="margin-bottom:2rem;">
+    <div class="brand-card">
+      <div class="card-icon">🏗️</div>
+      <p class="card-title">Lean Construction</p>
+      <p class="card-desc">Deep dives into Last Planner, pull planning, value stream mapping, and waste reduction for construction teams.</p>
+    </div>
+    <div class="brand-card">
+      <div class="card-icon">🔄</div>
+      <p class="card-title">Scrum &amp; Agile</p>
+      <p class="card-desc">How Scrum sprints, retrospectives, and daily standups translate directly to project delivery in the field.</p>
+    </div>
+    <div class="brand-card">
+      <div class="card-icon">🤖</div>
+      <p class="card-title">AI in Construction</p>
+      <p class="card-desc">Practical AI tools for estimation, scheduling, safety, and field coordination — cutting through the hype.</p>
+    </div>
+    <div class="brand-card">
+      <div class="card-icon">💰</div>
+      <p class="card-title">Finance &amp; Business</p>
+      <p class="card-desc">The business side of construction — cash flow, bonding, subcontractor relationships, and growth strategy.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">PHOTOGRAPHY STYLE</h3>
+  <div class="photo-grid">
+    <div class="photo-box">
+      <h4>ENERGY</h4>
+      <p>High-contrast, bold. Think live broadcast energy. Microphones, headphones, recording sessions in action.</p>
+    </div>
+    <div class="photo-box">
+      <h4>JOBSITE</h4>
+      <p>Real construction environments — cranes, concrete, steel. Action over posed. Gritty and authentic.</p>
+    </div>
+    <div class="photo-box">
+      <h4>COLOR GRADE</h4>
+      <p>High contrast, slightly warm yellows and ambers. Deep shadows. Punchy highlights. Think documentary film.</p>
+    </div>
+    <div class="photo-box">
+      <h4>COVER ART</h4>
+      <p>Episode art: Bold type, high contrast, host photo if applicable. Always legible at thumbnail size on mobile.</p>
+    </div>
+    <div class="photo-box">
+      <h4>ICONS</h4>
+      <p>Filled, high-contrast icons. No thin lines. Construction-specific: hard hat, crane, blueprint, mic, wrench.</p>
+    </div>
+    <div class="photo-box">
+      <h4>AVOID</h4>
+      <p>Stock podcast mic photos. Generic business people in suits. Low-resolution imagery. Pastel or muted tones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section class="section" id="templates">
+  <p class="section-tag">06 — Templates</p>
+  <h2 class="section-title">CONTENT TEMPLATES</h2>
+
+  <div style="display:flex;flex-direction:column;gap:2.5rem;">
+
+    <!-- LinkedIn -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">LINKEDIN POST TEMPLATE</h3>
+      <div class="li-mock">
+        <div class="li-hdr">
+          <div class="li-av">EBFC</div>
+          <div>
+            <p class="li-name">The EBFC Show</p>
+            <p class="li-title-sm">Construction Podcast · Lean · Scrum · Innovation</p>
+          </div>
+        </div>
+        <div class="li-body">
+          <span class="li-hook">🎙 NEW EPISODE: [Episode Number] — [Episode Title]</span>
+          [One punchy sentence about what listeners will learn or why this matters RIGHT NOW in construction]<br><br>
+          In this episode:<br>
+          ✅ [Key insight 1 — specific, actionable]<br>
+          ✅ [Key insight 2 — specific, actionable]<br>
+          ✅ [Key insight 3 — specific, actionable]<br><br>
+          [1–2 sentences: who is the guest, what's their background, why you trust their perspective]<br><br>
+          🔗 Listen: [Link to episode]<br><br>
+          [Engagement question related to the episode topic]
+          <div class="li-hash">#EBFCShow #LeanConstruction #ConstructionPodcast #Scrum #[TopicTag]</div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1rem 1.2rem;margin-top:0.8rem;font-family:var(--font-m);">
+        <p style="font-size:0.72rem;color:var(--gray);line-height:1.6;">// Post within 24h of episode launch · Tag guests · Always include episode number for searchability · 5 hashtags max · Emoji used sparingly for energy, not decoration</p>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">EMAIL HEADER TEMPLATE</h3>
+      <div class="email-mock">
+        <div class="email-hdr">
+          <div class="email-show-title">THE EBFC SHOW</div>
+          <div class="email-show-sub">Engineer · Builder · Finance · Construct</div>
+        </div>
+        <div class="email-body-m">
+          <p><strong style="color:var(--white);">Episode [Number] is live: [Title]</strong></p>
+          <p>Hey [First Name] — [Personal opener: one sentence that feels like it was written just for them, referencing something timely in construction]</p>
+          <p>[2–3 sentences: what this episode covers and why it matters to someone in their role. Specific, not generic.]</p>
+          <p>▶ [Primary CTA: "Listen now (XX min)"]</p>
+        </div>
+        <div class="email-footer-m">
+          THE EBFC SHOW · theebfcshow.com<br>
+          <span style="opacity:0.6;">You're getting this because you subscribed · Unsubscribe</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide Scheme -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">PRESENTATION SLIDES</h3>
+      <div class="slide-grid">
+        <div class="slide-mock" style="background:var(--bg);">
+          <span class="slide-lbl" style="color:var(--yellow);font-family:var(--font-m);">// TITLE</span>
+          <span class="slide-title" style="color:var(--white);">THE EBFC SHOW<br><span style="color:var(--yellow);font-size:0.7em;">EPISODE DECK</span></span>
+        </div>
+        <div class="slide-mock" style="background:var(--bg2);">
+          <span class="slide-lbl" style="color:var(--yellow);font-family:var(--font-m);">// CONTENT</span>
+          <span class="slide-title" style="color:var(--white);font-size:0.85rem;">Dark bg, white text<br><span style="font-family:var(--font-u);font-weight:400;font-size:0.65rem;color:var(--gray);">Inter body copy</span></span>
+        </div>
+        <div class="slide-mock" style="background:var(--yellow);">
+          <span class="slide-lbl" style="color:var(--bg);font-family:var(--font-m);">// STAT/QUOTE</span>
+          <span class="slide-title" style="color:var(--bg);">KEY INSIGHT<br>OR NUMBER</span>
+        </div>
+        <div class="slide-mock" style="background:var(--bg3);border:2px solid var(--yellow);">
+          <span class="slide-lbl" style="color:var(--yellow);font-family:var(--font-m);">// HIGHLIGHT</span>
+          <span class="slide-title" style="color:var(--white);font-size:0.85rem;">Yellow border<br><span style="font-size:0.65rem;color:var(--gray);">Key moments</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Guide -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.4rem;letter-spacing:0.05em;color:var(--white);margin-bottom:1rem;">BLOG / SHOW NOTES FORMAT</h3>
+      <div class="blog-mock">
+        <div class="bm-tag">// EP_042 :: LEAN_CONSTRUCTION :: 45 MIN</div>
+        <div class="bm-h1">[HEADLINE: Episode Number + Bold Claim + Guest Name (if applicable)]</div>
+        <div class="bm-meta">Episode 042 · Published [Date] · 45 min · Hosted by Felipe Engineer-Manriquez, Mike Chiles, Victor Ortiz</div>
+        <div class="bm-lede">[2–3 sentences. What will listeners learn? Why does this matter to their project right now? Front-load the value.]</div>
+        <div class="bm-h2">In This Episode</div>
+        <div class="bm-body">[Bullet list of key topics and timestamps. Make it skimmable — listeners decide whether to listen based on this section.]</div>
+        <blockquote>"[Pull quote from episode — the most shareable, actionable insight. Under 25 words.]"</blockquote>
+        <div class="bm-body">[3–5 paragraphs of expanded show notes. Include frameworks mentioned, resources referenced, links to tools. Each paragraph = one idea.]</div>
+        <div class="bm-h2">Resources &amp; Links</div>
+        <div class="bm-body">[List all books, tools, frameworks, websites mentioned. Include guest's social handles and website.]</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>THE EBFC SHOW Brand Kit · 2026 · <a href="https://www.theebfcshow.com" target="_blank">theebfcshow.com</a></p>
+  <p style="margin-top:0.4rem;">Engineer · Builder · Finance · Construct · Construction's Podcast for Lean, Scrum &amp; Innovation</p>
+</footer>
+
+<script>
+  // Waveform bars
+  const wf = document.getElementById('waveform');
+  for (let i = 0; i < 22; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wave-bar';
+    const h = Math.random() * 60 + 20;
+    bar.style.height = h + 'px';
+    bar.style.animationDelay = (Math.random() * 1.2) + 's';
+    bar.style.opacity = (0.4 + Math.random() * 0.6).toString();
+    wf.appendChild(bar);
+  }
+
+  // Ticker
+  const tickerItems = [
+    'THE EBFC SHOW', '🎙', 'ENGINEER BUILDER FINANCE CONSTRUCT', '🏗️',
+    'LEAN CONSTRUCTION', '🔄', 'SCRUM FOR JOBSITES', '⚡',
+    'NEW EPISODES WEEKLY', '🎧', 'THEEBFCSHOW.COM', '🏆',
+    'BUILD BETTER', '💡', 'RST™ RSM™ RPO™', '🔧',
+    'THE EBFC SHOW', '🎙', 'ENGINEER BUILDER FINANCE CONSTRUCT', '🏗️',
+    'LEAN CONSTRUCTION', '🔄', 'SCRUM FOR JOBSITES', '⚡',
+    'NEW EPISODES WEEKLY', '🎧', 'THEEBFCSHOW.COM', '🏆',
+  ];
+  const ticker = document.getElementById('ticker');
+  tickerItems.forEach(t => {
+    const span = document.createElement('span');
+    span.textContent = t;
+    if (t.length <= 2) span.className = 'ticker-dot';
+    ticker.appendChild(span);
+  });
+
+  // Color palette
+  const palette = [
+    { name: 'Studio Black', hex: '#0D0D0F', role: 'Primary background' },
+    { name: 'Dark Surface', hex: '#131316', role: 'Card background' },
+    { name: 'Elevated Surface', hex: '#1A1A1E', role: 'Secondary surface' },
+    { name: 'Highlight Surface', hex: '#222228', role: 'Hover, selected states' },
+    { name: 'Signal Yellow', hex: '#F5C842', role: 'Primary brand accent · CTA' },
+    { name: 'Yellow Dark', hex: '#C9A22A', role: 'Pressed state · Shadows' },
+    { name: 'Yellow Pale', hex: '#FFF3C4', role: 'Text on yellow bg' },
+    { name: 'Alert Red', hex: '#E53E3E', role: 'Live dot · Error states' },
+    { name: 'Info Blue', hex: '#3B82F6', role: 'Links · Hashtags' },
+    { name: 'White', hex: '#F8F9FA', role: 'Primary text' },
+    { name: 'Gray', hex: '#9CA3AF', role: 'Secondary text · Body' },
+    { name: 'Gray Dark', hex: '#4B5563', role: 'Tertiary · Metadata' },
+  ];
+
+  const grid = document.getElementById('paletteGrid');
+  palette.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'swatch';
+    el.innerHTML = `
+      <div class="swatch-color" style="background:${c.hex};">
+        <div class="swatch-copy-hint">COPY</div>
+      </div>
+      <div class="swatch-info">
+        <p class="swatch-name">${c.name}</p>
+        <p class="swatch-hex">${c.hex}</p>
+        <p class="swatch-role">${c.role}</p>
+      </div>`;
+    el.addEventListener('click', () => copyHex(c.hex));
+    grid.appendChild(el);
+  });
+
+  function copyHex(hex) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const t = document.getElementById('toast');
+      t.textContent = `COPIED ${hex}`;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    });
+  }
+
+  // Scroll animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0) translateX(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.section').forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(20px)';
+    s.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    obs.observe(s);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EBFC Brand Kits — 3 Brands</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0C0B09;
+      color: #F0E4CC;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 50% at 50% -5%, rgba(193,127,62,0.08) 0%, transparent 60%);
+    }
+
+    .container {
+      position: relative; z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      color: #C17F3E; margin-bottom: 1rem;
+      opacity: 0; animation: rise 0.7s ease 0.1s forwards;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 700; line-height: 1.1; color: #F0E4CC;
+      opacity: 0; animation: rise 0.7s ease 0.2s forwards;
+    }
+    h1 em { color: #C17F3E; font-style: italic; }
+    .subtitle {
+      margin-top: 1rem; font-size: 1rem; color: #A09070; line-height: 1.65;
+      max-width: 520px;
+      opacity: 0; animation: rise 0.7s ease 0.35s forwards;
+    }
+    .divider {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin: 2.5rem 0;
+      opacity: 0; animation: rise 0.7s ease 0.45s forwards;
+    }
+    .divider span { flex: 1; height: 1px; background: rgba(193,127,62,0.18); }
+    .gem { width: 5px; height: 5px; background: #C17F3E; transform: rotate(45deg); }
+
+    .kits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      opacity: 0; animation: rise 0.7s ease 0.55s forwards;
+    }
+
+    .kit-card {
+      display: block;
+      text-decoration: none;
+      background: #141210;
+      border: 1px solid rgba(193,127,62,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 0.3s, box-shadow 0.3s;
+    }
+    .kit-card:hover { transform: translateY(-6px); border-color: rgba(193,127,62,0.5); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+
+    .kit-preview {
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .kit-preview .preview-title {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Felipe preview */
+    .preview-felipe { background: #0C0B09; }
+    .preview-felipe::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(193,127,62,0.2) 0%, transparent 70%);
+    }
+    .preview-felipe .preview-title .pt-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 700; color: #F0E4CC; line-height: 1.1;
+    }
+    .preview-felipe .preview-title .pt-tag {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: #C17F3E; margin-top: 0.4rem;
+    }
+
+    /* EBFC Show preview */
+    .preview-show { background: #0D0D0F; }
+    .preview-show::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(245,200,66,0.02) 3px, rgba(245,200,66,0.02) 6px);
+    }
+    .preview-show .preview-title .pt-name {
+      font-family: 'Impact', sans-serif;
+      font-size: 2rem; letter-spacing: 0.08em; color: #F8F9FA; line-height: 1;
+    }
+    .preview-show .preview-title .pt-name span { color: #F5C842; }
+    .preview-show .preview-title .pt-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #9CA3AF; margin-top: 0.4rem;
+    }
+
+    /* Community preview */
+    .preview-cop { background: #1A2332; }
+    .preview-cop::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(14,138,122,0.2) 0%, transparent 60%),
+        radial-gradient(circle at 70% 80%, rgba(212,168,67,0.08) 0%, transparent 50%);
+    }
+    .preview-cop .preview-title .pt-name {
+      font-family: 'Georgia', serif;
+      font-size: 1.3rem; font-weight: 700; color: #F8F7F4; line-height: 1.2;
+    }
+    .preview-cop .preview-title .pt-name span { color: #5ECFC5; }
+    .preview-cop .preview-title .pt-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(248,247,244,0.45); margin-top: 0.4rem;
+    }
+
+    .kit-info { padding: 1.4rem 1.5rem; }
+    .kit-num {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: #C17F3E; margin-bottom: 0.4rem;
+    }
+    .kit-name { font-size: 1rem; font-weight: 700; color: #F0E4CC; margin-bottom: 0.4rem; }
+    .kit-desc { font-size: 0.78rem; color: #A09070; line-height: 1.6; margin-bottom: 1rem; }
+    .kit-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      background: rgba(193,127,62,0.1);
+      border: 1px solid rgba(193,127,62,0.2);
+      color: #C17F3E;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+    }
+    .kit-arrow {
+      margin-left: auto;
+      font-size: 0.78rem; color: #A09070;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .kit-card:hover .kit-arrow { color: #C17F3E; transform: translateX(4px); }
+    .kit-footer { display: flex; align-items: center; gap: 0.5rem; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 2rem;
+      border-top: 1px solid rgba(193,127,62,0.15);
+      font-size: 0.72rem; color: #6A5C48;
+    }
+    footer a { color: #C17F3E; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .container { padding: 4rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="eyebrow">Brand Kit Hub</p>
+    <h1>Three Brands.<br>One <em>Ecosystem.</em></h1>
+    <p class="subtitle">Official brand guidelines for the Felipe Engineer-Manriquez ecosystem. Each kit covers color, typography, voice, components, and content templates.</p>
+
+    <div class="divider"><span></span><div class="gem"></div><span></span></div>
+
+    <div class="kits-grid">
+
+      <!-- Felipe -->
+      <a class="kit-card" href="./felipe/index.html">
+        <div class="kit-preview preview-felipe">
+          <div class="preview-title">
+            <div class="pt-name">Felipe<br>Engineer-Manriquez</div>
+            <div class="pt-tag">Personal Brand</div>
+          </div>
+        </div>
+        <div class="kit-info">
+          <p class="kit-num">Brand 01</p>
+          <p class="kit-name">Felipe Engineer-Manriquez</p>
+          <p class="kit-desc">Personal brand for the RST™, keynote speaker, author, and Construction Changemaker. Dark luxury aesthetic with copper accents.</p>
+          <div class="kit-footer">
+            <div class="kit-tags">
+              <span class="tag">Dark + Copper</span>
+              <span class="tag">Cormorant + Jost</span>
+              <span class="tag">Authoritative</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- EBFC Show -->
+      <a class="kit-card" href="./ebfc-show/index.html">
+        <div class="kit-preview preview-show">
+          <div class="preview-title">
+            <div class="pt-name">THE <span>EBFC</span> SHOW</div>
+            <div class="pt-tag">Construction Podcast</div>
+          </div>
+        </div>
+        <div class="kit-info">
+          <p class="kit-num">Brand 02</p>
+          <p class="kit-name">The EBFC Show</p>
+          <p class="kit-desc">Engineer Builder Finance Construct — construction's podcast for Lean, Scrum, and innovation. Bold broadcast aesthetic with signal yellow.</p>
+          <div class="kit-footer">
+            <div class="kit-tags">
+              <span class="tag">Dark + Yellow</span>
+              <span class="tag">Bebas + Inter</span>
+              <span class="tag">Energetic</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Community -->
+      <a class="kit-card" href="./ebfc-community/index.html">
+        <div class="kit-preview preview-cop">
+          <div class="preview-title">
+            <div class="pt-name">EBFC Scrum<br><span>Community of Practice</span></div>
+            <div class="pt-tag">RSM Certification · Community</div>
+          </div>
+        </div>
+        <div class="kit-info">
+          <p class="kit-num">Brand 03</p>
+          <p class="kit-name">EBFC Scrum Community of Practice</p>
+          <p class="kit-desc">Where construction professionals learn Scrum, earn RSM™ certification, and build better projects together. Welcoming, professional, inclusive.</p>
+          <div class="kit-footer">
+            <div class="kit-tags">
+              <span class="tag">Teal + Navy</span>
+              <span class="tag">Fraunces + Jakarta</span>
+              <span class="tag">Community</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>EBFC Brand Kits · 2026 · <a href="https://felipe.engineer" target="_blank">felipe.engineer</a> · <a href="https://www.theebfcshow.com" target="_blank">theebfcshow.com</a></p>
+  </footer>
+</body>
+</html>

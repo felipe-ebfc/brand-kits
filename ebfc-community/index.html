@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EBFC Scrum Community of Practice — Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:          #F8F7F4;
+      --bg2:         #FFFFFF;
+      --bg-dark:     #1A2332;
+      --bg-dark2:    #243044;
+      --teal:        #0E8A7A;
+      --teal-lt:     #12B09D;
+      --teal-pale:   #E6F5F3;
+      --teal-mid:    #0A6B5D;
+      --navy:        #1A2332;
+      --navy-lt:     #2D4268;
+      --gold:        #D4A843;
+      --gold-lt:     #E8C168;
+      --gold-pale:   #FDF6E3;
+      --text:        #1A2332;
+      --text-2:      #4A5568;
+      --text-3:      #718096;
+      --text-inv:    #F8F7F4;
+      --line:        rgba(14,138,122,0.15);
+      --line-h:      rgba(14,138,122,0.4);
+      --shadow:      rgba(26,35,50,0.08);
+      --font-d:      'Fraunces', Georgia, serif;
+      --font-u:      'Plus Jakarta Sans', sans-serif;
+      --ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
+      --r:           12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-u);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(248,247,244,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      height: 60px;
+      display: flex; align-items: center;
+      padding: 0 2rem;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.7rem;
+      margin-right: auto;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .nav-wordmark {
+      font-family: var(--font-u);
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .nav-wordmark span { color: var(--teal); }
+    nav a.nl {
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      padding: 0 1rem;
+      height: 100%;
+      display: flex; align-items: center;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav a.nl:hover { color: var(--teal); border-bottom-color: var(--teal); }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      background: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 2rem 5rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(14,138,122,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 10%, rgba(212,168,67,0.08) 0%, transparent 50%);
+    }
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(rgba(248,247,244,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-inner {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 750px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(14,138,122,0.15);
+      border: 1px solid rgba(14,138,122,0.35);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5ECFC5;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease) 0.1s forwards;
+    }
+    .hero h1 {
+      font-family: var(--font-d);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--text-inv);
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease) 0.25s forwards;
+    }
+    .hero h1 .teal { color: #5ECFC5; }
+    .hero-sub {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: rgba(248,247,244,0.65);
+      line-height: 1.65;
+      max-width: 420px;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease) 0.4s forwards;
+    }
+    .hero-ctas {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease) 0.55s forwards;
+    }
+    .btn-hero-p {
+      background: var(--teal);
+      color: #fff;
+      border: none; border-radius: 8px;
+      padding: 0.8rem 1.8rem;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.25s var(--ease), box-shadow 0.25s;
+    }
+    .btn-hero-p:hover { background: var(--teal-lt); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,138,122,0.4); }
+    .btn-hero-s {
+      background: transparent;
+      color: rgba(248,247,244,0.85);
+      border: 1.5px solid rgba(248,247,244,0.3);
+      border-radius: 8px;
+      padding: 0.8rem 1.8rem;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.25s var(--ease);
+    }
+    .btn-hero-s:hover { border-color: rgba(248,247,244,0.7); color: #fff; transform: translateY(-2px); }
+
+    /* Membership cards in hero */
+    .member-cards {
+      display: flex; flex-direction: column; gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s var(--ease) 0.4s forwards;
+    }
+    .mem-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r);
+      padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      backdrop-filter: blur(8px);
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .mem-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(14,138,122,0.5); }
+    .mem-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .mem-label { font-size: 0.88rem; font-weight: 700; color: var(--text-inv); margin-bottom: 0.2rem; }
+    .mem-desc { font-size: 0.72rem; color: rgba(248,247,244,0.55); }
+    .mem-badge {
+      margin-left: auto;
+      background: rgba(14,138,122,0.25);
+      color: #5ECFC5;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 100px;
+      flex-shrink: 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ───────────────────────────────────────── */
+    .section {
+      max-width: 1100px; margin: 0 auto; padding: 4.5rem 2rem;
+    }
+    .section-on-dark {
+      background: var(--bg-dark); color: var(--text-inv);
+    }
+    .section-on-dark .section { color: var(--text-inv); }
+    .section + .section:not(.on-dark) { border-top: 1px solid rgba(26,35,50,0.08); }
+    .section-tag {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.4rem; display: block;
+    }
+    .section-title {
+      font-family: var(--font-d);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+    }
+    .section-title.inv { color: var(--text-inv); }
+
+    /* ── PALETTE ────────────────────────────────────────── */
+    .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 1rem; }
+    .swatch {
+      border-radius: var(--r);
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(26,35,50,0.1);
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s;
+    }
+    .swatch:hover { transform: translateY(-4px); box-shadow: 0 10px 32px var(--shadow); }
+    .swatch-color {
+      height: 95px;
+      position: relative;
+    }
+    .swatch-copy-hint {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; color: #fff;
+      text-transform: uppercase; opacity: 0; transition: opacity 0.2s;
+    }
+    .swatch:hover .swatch-copy-hint { opacity: 1; }
+    .swatch-info { background: #fff; padding: 0.8rem; }
+    .swatch-name { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .swatch-hex { font-size: 0.7rem; color: var(--text-3); font-family: 'Courier New', monospace; }
+    .swatch-role { font-size: 0.62rem; color: rgba(26,35,50,0.4); margin-top: 0.2rem; }
+
+    .copy-toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: var(--teal); color: #fff;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 0.6rem 1.4rem; border-radius: 100px;
+      opacity: 0; pointer-events: none; z-index: 9999;
+      transition: opacity 0.3s; letter-spacing: 0.04em;
+    }
+    .copy-toast.show { opacity: 1; }
+
+    /* ── TYPOGRAPHY ─────────────────────────────────────── */
+    .type-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .type-spec {
+      background: #fff;
+      border: 1px solid rgba(26,35,50,0.08);
+      border-radius: var(--r);
+      padding: 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+    .type-meta {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1.2rem; padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(14,138,122,0.15);
+    }
+
+    /* ── VOICE ──────────────────────────────────────────── */
+    .voice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .voice-card {
+      background: #fff;
+      border: 1px solid rgba(14,138,122,0.15);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px var(--shadow);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s;
+    }
+    .voice-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--shadow); }
+    .voice-word {
+      font-family: var(--font-d);
+      font-size: 1.8rem; font-weight: 900;
+      color: var(--teal); display: block; margin-bottom: 0.5rem;
+    }
+    .voice-desc { font-size: 0.78rem; color: var(--text-2); line-height: 1.65; }
+
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .dos-donts { grid-template-columns: 1fr; } }
+    .do-col, .dont-col { background: #fff; border-radius: var(--r); overflow: hidden; box-shadow: 0 2px 10px var(--shadow); }
+    .do-header, .dont-header {
+      padding: 0.8rem 1.2rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .do-header { background: #ECFDF5; color: #065F46; border-bottom: 1px solid #A7F3D0; }
+    .dont-header { background: #FEF2F2; color: #991B1B; border-bottom: 1px solid #FECACA; }
+    .do-list, .dont-list { list-style: none; padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .do-list li, .dont-list li { font-size: 0.82rem; color: var(--text-2); padding-left: 1.2rem; position: relative; line-height: 1.5; }
+    .do-list li::before { content: '✓'; position: absolute; left: 0; color: #059669; font-weight: 800; }
+    .dont-list li::before { content: '✕'; position: absolute; left: 0; color: #DC2626; font-weight: 800; }
+
+    /* ── BUTTONS ────────────────────────────────────────── */
+    .btns-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
+    .btn-p {
+      background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+      color: #fff; border: none; border-radius: 8px;
+      padding: 0.8rem 2rem;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s, opacity 0.2s;
+    }
+    .btn-p:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,138,122,0.35); opacity: 0.92; }
+    .btn-s {
+      background: transparent; color: var(--teal);
+      border: 2px solid var(--teal); border-radius: 8px;
+      padding: 0.8rem 2rem;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.25s var(--ease);
+    }
+    .btn-s:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+    .btn-g {
+      background: transparent; color: var(--text-2);
+      border: 1px solid rgba(26,35,50,0.2); border-radius: 8px;
+      padding: 0.8rem 2rem;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, transform 0.25s var(--ease);
+    }
+    .btn-g:hover { color: var(--text); border-color: var(--text-2); transform: translateY(-2px); }
+
+    /* ── CARDS ──────────────────────────────────────────── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .brand-card {
+      background: #fff;
+      border: 1px solid rgba(14,138,122,0.12);
+      border-radius: var(--r);
+      padding: 1.8rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .brand-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-lt));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .brand-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(14,138,122,0.12); border-color: var(--teal); }
+    .brand-card:hover::before { opacity: 1; }
+    .card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .card-title { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+    .card-desc { font-size: 0.8rem; color: var(--text-2); line-height: 1.65; }
+    .card-tag {
+      display: inline-block; margin-top: 1rem;
+      background: var(--teal-pale);
+      color: var(--teal-mid);
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 100px;
+    }
+
+    /* ── OFFERINGS ──────────────────────────────────────── */
+    .offerings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .offering-card {
+      background: #fff;
+      border: 1px solid rgba(14,138,122,0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px var(--shadow);
+      position: relative; overflow: hidden;
+    }
+    .offering-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+    .offering-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .offering-title { font-family: var(--font-d); font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .offering-sub { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem; }
+    .offering-desc { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; margin-bottom: 1.2rem; }
+    .offering-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .offering-features li { font-size: 0.8rem; color: var(--text-2); padding-left: 1.3rem; position: relative; line-height: 1.5; }
+    .offering-features li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); font-weight: 800; font-size: 0.82rem; }
+
+    /* ── PHOTO GUIDE ────────────────────────────────────── */
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .photo-box {
+      background: #fff;
+      border: 1px solid rgba(26,35,50,0.08);
+      border-radius: var(--r);
+      padding: 1.4rem;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    .photo-box h4 { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700; color: var(--teal); margin-bottom: 0.5rem; }
+    .photo-box p { font-size: 0.78rem; color: var(--text-2); line-height: 1.6; }
+
+    /* ── TEMPLATES ──────────────────────────────────────── */
+    .li-mock {
+      background: #fff;
+      border-radius: var(--r);
+      padding: 1.5rem;
+      max-width: 560px;
+      border: 1px solid rgba(26,35,50,0.1);
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+    .li-hdr { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1rem; }
+    .li-av {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; font-size: 0.8rem; flex-shrink: 0;
+    }
+    .li-name { font-size: 0.9rem; font-weight: 700; color: #1E293B; }
+    .li-title-sm { font-size: 0.72rem; color: #64748B; }
+    .li-body { font-size: 0.88rem; color: #334155; line-height: 1.65; }
+    .li-hook { display: block; font-weight: 800; color: #1E293B; margin-bottom: 0.75rem; font-size: 0.95rem; }
+    .li-hash { margin-top: 0.75rem; font-size: 0.78rem; color: #3B82F6; }
+
+    .email-mock {
+      background: var(--bg);
+      border: 1px solid rgba(26,35,50,0.1);
+      border-radius: var(--r);
+      overflow: hidden; max-width: 560px;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    .email-hdr {
+      background: var(--bg-dark);
+      padding: 2.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--teal);
+    }
+    .email-wordmark {
+      font-family: var(--font-d);
+      font-size: 1.5rem; font-weight: 700;
+      color: #fff;
+    }
+    .email-wordmark span { color: #5ECFC5; }
+    .email-tagline-sm { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.45); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+    .email-body-m { background: #fff; padding: 2rem 2.5rem; }
+    .email-body-m p { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; margin-bottom: 0.8rem; }
+    .email-footer-m { background: var(--bg); padding: 1rem 2.5rem; font-size: 0.68rem; color: var(--text-3); text-align: center; border-top: 1px solid rgba(26,35,50,0.08); }
+
+    .slide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .slide-mock {
+      border-radius: var(--r); overflow: hidden;
+      aspect-ratio: 16/9;
+      position: relative; display: flex;
+      align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .slide-lbl {
+      position: absolute; top: 0.6rem; left: 0.6rem;
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .slide-title { font-family: var(--font-d); text-align: center; font-size: 1.1rem; line-height: 1.2; font-weight: 700; }
+
+    .blog-mock {
+      background: #fff;
+      border: 1px solid rgba(26,35,50,0.08);
+      border-radius: var(--r);
+      padding: 2rem 2.5rem; max-width: 680px;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+    .bm-tag { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem; }
+    .bm-h1 { font-family: var(--font-d); font-size: clamp(1.5rem,4vw,2rem); font-weight: 900; color: var(--text); margin-bottom: 0.5rem; line-height: 1.2; }
+    .bm-meta { font-size: 0.7rem; color: var(--text-3); margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(26,35,50,0.08); }
+    .bm-lede { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.65; margin-bottom: 1rem; }
+    .bm-body { font-size: 0.88rem; color: var(--text-2); line-height: 1.75; margin-bottom: 1rem; }
+    .bm-h2 { font-family: var(--font-d); font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 0.6rem; }
+    blockquote {
+      border-left: 3px solid var(--teal);
+      background: var(--teal-pale);
+      padding: 1rem 1.2rem;
+      margin: 1.2rem 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 1rem; font-weight: 600; color: var(--teal-mid); line-height: 1.6;
+    }
+
+    /* ── SPRINT VISUAL ──────────────────────────────────── */
+    .sprint-board {
+      background: var(--bg-dark);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+    }
+    @media (max-width: 600px) { .sprint-board { grid-template-columns: repeat(2, 1fr); } }
+    .sprint-col { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 0.8rem; }
+    .sprint-col-header {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(248,247,244,0.5); margin-bottom: 0.6rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sprint-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 6px; padding: 0.6rem 0.7rem; margin-bottom: 0.5rem;
+      font-size: 0.72rem; color: rgba(248,247,244,0.8); line-height: 1.4;
+    }
+    .sprint-card.done { text-decoration: line-through; opacity: 0.5; }
+    .sprint-card .sp-tag { font-size: 0.55rem; font-weight: 800; color: #5ECFC5; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.2rem; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--bg-dark);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.75rem; color: rgba(248,247,244,0.4); }
+    footer a { color: #5ECFC5; text-decoration: none; }
+    .footer-wordmark { font-family: var(--font-d); font-size: 1.2rem; font-weight: 700; color: rgba(248,247,244,0.85); margin-bottom: 0.5rem; }
+    .footer-wordmark span { color: #5ECFC5; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .section { padding: 3rem 1.5rem; }
+      .hero { padding: 4rem 1.5rem 3.5rem; }
+      .palette-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="copy-toast" id="toast">Copied!</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-icon">🔄</div>
+    <span class="nav-wordmark">EBFC <span>Scrum CoP</span></span>
+  </a>
+  <a class="nl" href="#palette">Color</a>
+  <a class="nl" href="#typography">Type</a>
+  <a class="nl" href="#offerings">Offerings</a>
+  <a class="nl" href="#voice">Voice</a>
+  <a class="nl" href="#elements">Elements</a>
+  <a class="nl" href="#templates">Templates</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">🌱 Community Brand Kit · 2026</div>
+      <h1>EBFC <span class="teal">Scrum</span><br>Community<br>of Practice</h1>
+      <p class="hero-sub">Where construction professionals learn Scrum, earn RSM™ certification, and build better projects together.</p>
+      <div class="hero-ctas">
+        <button class="btn-hero-p">Join the Community</button>
+        <button class="btn-hero-s">Explore the RSM Course</button>
+      </div>
+    </div>
+    <div class="member-cards">
+      <div class="mem-card">
+        <div class="mem-icon">🎓</div>
+        <div>
+          <p class="mem-label">RSM Certification Course</p>
+          <p class="mem-desc">Become a Registered Scrum Master™ for construction</p>
+        </div>
+        <span class="mem-badge">Self-Paced</span>
+      </div>
+      <div class="mem-card">
+        <div class="mem-icon">👥</div>
+        <div>
+          <p class="mem-label">Community Membership</p>
+          <p class="mem-desc">Peer learning, Q&A, shared templates &amp; tools</p>
+        </div>
+        <span class="mem-badge">Active</span>
+      </div>
+      <div class="mem-card">
+        <div class="mem-icon">🎯</div>
+        <div>
+          <p class="mem-label">Weekly Deep Dives</p>
+          <p class="mem-desc">Live sessions with Felipe &amp; expert guests</p>
+        </div>
+        <span class="mem-badge">Weekly</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- COLOR PALETTE -->
+<section class="section" id="palette">
+  <span class="section-tag">01 — Brand Identity</span>
+  <h2 class="section-title">Color Palette</h2>
+  <div class="palette-grid" id="paletteGrid"></div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section" id="typography">
+  <span class="section-tag">02 — Brand Identity</span>
+  <h2 class="section-title">Typography System</h2>
+  <div class="type-grid">
+
+    <div class="type-spec">
+      <p class="type-meta">Display / Warmth — Fraunces</p>
+      <p style="font-family:var(--font-d);font-size:clamp(2rem,6vw,3.5rem);font-weight:900;color:var(--text);line-height:1.1;margin-bottom:0.5rem;">Learn Scrum.<br>Build Better.</p>
+      <p style="font-family:var(--font-d);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--teal);margin-bottom:0.5rem;font-style:italic;">Your community for Lean construction.</p>
+      <p style="font-size:0.72rem;color:var(--text-3);margin-top:0.8rem;">Fraunces — 400/600/700/900 · Italic available · Use for: Hero headlines, section titles, pull quotes, testimonials, warm/inviting moments</p>
+    </div>
+
+    <div class="type-spec">
+      <p class="type-meta">UI / Community — Plus Jakarta Sans</p>
+      <p style="font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Jakarta 800 — Card titles, member names, course titles</p>
+      <p style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.5rem;">Jakarta 600 — Lead paragraphs, CTAs, navigation items</p>
+      <p style="font-size:1rem;font-weight:400;color:var(--text-2);margin-bottom:0.5rem;">Jakarta 400 — Body text, descriptions, community posts</p>
+      <p style="font-size:0.78rem;font-weight:400;color:var(--text-3);margin-bottom:0.5rem;">Jakarta 400 Small — Captions, timestamps, tags</p>
+      <p style="font-size:0.72rem;color:var(--text-3);margin-top:0.5rem;">Plus Jakarta Sans — 300/400/500/600/700/800 · Warm and approachable while remaining professional</p>
+    </div>
+
+    <div class="type-spec" style="background:#F8FFFE;border-color:var(--line);">
+      <p class="type-meta">Type Scale Reference</p>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;">
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:55px;font-size:0.6rem;color:var(--text-3);flex-shrink:0;">Hero</span>
+          <span style="font-family:var(--font-d);font-size:2.2rem;font-weight:900;color:var(--text);">Community</span>
+          <span style="font-size:0.62rem;color:var(--text-3);">56px · Fraunces 900</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:55px;font-size:0.6rem;color:var(--text-3);flex-shrink:0;">H1</span>
+          <span style="font-family:var(--font-d);font-size:1.7rem;font-weight:700;color:var(--text);">Section Title</span>
+          <span style="font-size:0.62rem;color:var(--text-3);">36px · Fraunces 700</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:55px;font-size:0.6rem;color:var(--text-3);flex-shrink:0;">H2</span>
+          <span style="font-size:1.25rem;font-weight:800;color:var(--text);">Course or Card Title</span>
+          <span style="font-size:0.62rem;color:var(--text-3);">22px · Jakarta 800</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:55px;font-size:0.6rem;color:var(--text-3);flex-shrink:0;">Body</span>
+          <span style="font-size:1rem;color:var(--text-2);">Community description</span>
+          <span style="font-size:0.62rem;color:var(--text-3);">16px · Jakarta 400</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;">
+          <span style="width:55px;font-size:0.6rem;color:var(--text-3);flex-shrink:0;">Tag</span>
+          <span style="font-size:0.68rem;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:0.12em;">Scrum · CoP · RSM</span>
+          <span style="font-size:0.62rem;color:var(--text-3);">11px · Jakarta 800</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO ZONE -->
+<section class="section" id="logo">
+  <span class="section-tag">03 — Brand Identity</span>
+  <h2 class="section-title">Logo Usage</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem;">
+    <div style="background:var(--bg2);border:1px solid rgba(14,138,122,0.15);border-radius:var(--r);padding:3rem 2rem;text-align:center;">
+      <div style="font-family:var(--font-d);font-size:1.3rem;font-weight:900;color:var(--text);line-height:1.2;">EBFC Scrum<br><span style="color:var(--teal);">Community of Practice</span></div>
+      <p style="font-size:0.65rem;color:var(--text-3);margin-top:0.8rem;text-transform:uppercase;letter-spacing:0.1em;">Light Background</p>
+    </div>
+    <div style="background:var(--bg-dark);border:1px solid rgba(14,138,122,0.3);border-radius:var(--r);padding:3rem 2rem;text-align:center;">
+      <div style="font-family:var(--font-d);font-size:1.3rem;font-weight:900;color:#fff;line-height:1.2;">EBFC Scrum<br><span style="color:#5ECFC5;">Community of Practice</span></div>
+      <p style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:0.8rem;text-transform:uppercase;letter-spacing:0.1em;">Dark Background</p>
+    </div>
+    <div style="background:var(--teal);border-radius:var(--r);padding:3rem 2rem;text-align:center;">
+      <div style="font-family:var(--font-d);font-size:1.3rem;font-weight:900;color:#fff;line-height:1.2;">EBFC Scrum<br>Community of Practice</div>
+      <p style="font-size:0.65rem;color:rgba(255,255,255,0.7);margin-top:0.8rem;text-transform:uppercase;letter-spacing:0.1em;">Teal Background</p>
+    </div>
+  </div>
+  <div style="background:#F0FDFB;border:1px dashed rgba(14,138,122,0.4);border-radius:var(--r);padding:2rem;max-width:560px;">
+    <p style="font-size:0.72rem;font-weight:800;color:var(--teal);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.8rem;">Usage Rules</p>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+      <li style="font-size:0.8rem;color:var(--text-2);padding-left:1.2rem;position:relative;">
+        <span style="position:absolute;left:0;color:var(--teal);font-weight:800;">→</span>
+        Always write "EBFC Scrum Community of Practice" in full on first reference
+      </li>
+      <li style="font-size:0.8rem;color:var(--text-2);padding-left:1.2rem;position:relative;">
+        <span style="position:absolute;left:0;color:var(--teal);font-weight:800;">→</span>
+        "Scrum CoP" is acceptable as a short form after first use
+      </li>
+      <li style="font-size:0.8rem;color:var(--text-2);padding-left:1.2rem;position:relative;">
+        <span style="position:absolute;left:0;color:var(--teal);font-weight:800;">→</span>
+        Never abbreviate to just "EBFC" — that refers to the podcast brand
+      </li>
+      <li style="font-size:0.8rem;color:var(--text-2);padding-left:1.2rem;position:relative;">
+        <span style="position:absolute;left:0;color:var(--teal);font-weight:800;">→</span>
+        Clear zone: equal to the cap height of "E" on all sides
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section class="section" id="offerings">
+  <span class="section-tag">04 — Products &amp; Offerings</span>
+  <h2 class="section-title">Community Offerings</h2>
+  <div class="offerings-grid">
+    <div class="offering-card">
+      <div class="offering-accent"></div>
+      <div class="offering-icon">🎓</div>
+      <p class="offering-title">RSM Certification Course</p>
+      <p class="offering-sub">Registered Scrum Master™ for Construction</p>
+      <p class="offering-desc">The only Scrum Master certification built specifically for construction professionals. Self-paced. Recognized. Career-advancing.</p>
+      <ul class="offering-features">
+        <li>Scrum fundamentals applied to jobsite reality</li>
+        <li>Construction-specific case studies and scenarios</li>
+        <li>RSM™ exam preparation and practice tests</li>
+        <li>Lifetime access + updates as standards evolve</li>
+        <li>Taught by Felipe Engineer-Manriquez, RST™</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-accent"></div>
+      <div class="offering-icon">👥</div>
+      <p class="offering-title">Community Membership</p>
+      <p class="offering-sub">Peer Learning + Expert Access</p>
+      <p class="offering-desc">Join a community of construction professionals actively implementing Lean and Scrum on real projects. Ask questions. Share wins. Learn from the field.</p>
+      <ul class="offering-features">
+        <li>Private community forum for members only</li>
+        <li>Shared templates, tools, and field guides</li>
+        <li>Member Q&A with Felipe and guest experts</li>
+        <li>Construction Scrum implementation playbooks</li>
+        <li>Monthly Office Hours with the community</li>
+      </ul>
+    </div>
+    <div class="offering-card">
+      <div class="offering-accent"></div>
+      <div class="offering-icon">🎯</div>
+      <p class="offering-title">Weekly Deep Dives</p>
+      <p class="offering-sub">Live Sessions · Expert Guests</p>
+      <p class="offering-desc">Weekly live sessions that go deeper than the podcast. Real case studies. Real problems. Real solutions — with time for your questions.</p>
+      <ul class="offering-features">
+        <li>60-minute live sessions every week</li>
+        <li>Expert guests from construction + Agile worlds</li>
+        <li>Recordings available for all members</li>
+        <li>Pre-session resource drops and reading</li>
+        <li>Post-session implementation guides</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SPRINT BOARD VISUAL -->
+<div style="background:var(--bg-dark);padding:4rem 0;">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <span class="section-tag" style="color:#5ECFC5;">05 — Visual Reference</span>
+    <h2 class="section-title inv">Sprint Board — Construction Style</h2>
+    <div class="sprint-board">
+      <div class="sprint-col">
+        <div class="sprint-col-header">Backlog</div>
+        <div class="sprint-card"><span class="sp-tag">Story</span>Define pull plan for Level 3 MEP</div>
+        <div class="sprint-card"><span class="sp-tag">Story</span>Create constraint log template</div>
+        <div class="sprint-card"><span class="sp-tag">Spike</span>Research BIM integration options</div>
+      </div>
+      <div class="sprint-col">
+        <div class="sprint-col-header">To Do</div>
+        <div class="sprint-card"><span class="sp-tag">Story</span>Run first LPS session with trade partners</div>
+        <div class="sprint-card"><span class="sp-tag">Task</span>Identify 6-week lookahead owners</div>
+      </div>
+      <div class="sprint-col">
+        <div class="sprint-col-header">In Progress</div>
+        <div class="sprint-card"><span class="sp-tag">Story</span>Document team working agreements</div>
+        <div class="sprint-card"><span class="sp-tag">Task</span>Sprint planning with site super</div>
+      </div>
+      <div class="sprint-col">
+        <div class="sprint-col-header">Done</div>
+        <div class="sprint-card done"><span class="sp-tag">Story</span>Train team on Scrum fundamentals</div>
+        <div class="sprint-card done"><span class="sp-tag">Task</span>Set up daily standup cadence</div>
+        <div class="sprint-card done"><span class="sp-tag">Story</span>Define Definition of Done for phase</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOICE & TONE -->
+<section class="section" id="voice">
+  <span class="section-tag">06 — Voice &amp; Tone</span>
+  <h2 class="section-title">Brand Voice</h2>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <span class="voice-word">Inclusive</span>
+      <span class="voice-desc">Every level is welcome — foreman, PM, exec. No gatekeeping. Every question is valid. Expertise doesn't equal exclusion.</span>
+    </div>
+    <div class="voice-card">
+      <span class="voice-word">Practical</span>
+      <span class="voice-desc">Frameworks are only useful if they work on a real jobsite. We test everything against construction reality before teaching it.</span>
+    </div>
+    <div class="voice-card">
+      <span class="voice-word">Encouraging</span>
+      <span class="voice-desc">Change is hard. We celebrate small wins, normalize setbacks, and keep the team moving forward with honesty and warmth.</span>
+    </div>
+    <div class="voice-card">
+      <span class="voice-word">Expert</span>
+      <span class="voice-desc">Deep domain knowledge in Scrum AND construction. We've lived both. That dual fluency is what makes this community unique.</span>
+    </div>
+  </div>
+
+  <div class="dos-donts" style="margin-bottom:2.5rem;">
+    <div class="do-col">
+      <div class="do-header">✓ Do</div>
+      <ul class="do-list">
+        <li>Use "we" — this is a community, not a course catalog</li>
+        <li>Celebrate member wins publicly and specifically</li>
+        <li>Connect every concept to jobsite application</li>
+        <li>Use "construction Scrum" language — not generic Agile</li>
+        <li>Acknowledge the difficulty of change management</li>
+        <li>Reference RSM™, RST™ credentials accurately</li>
+        <li>Invite questions — never make anyone feel behind</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="dont-header">✕ Don't</div>
+      <ul class="dont-list">
+        <li>Use academic Scrum jargon without construction context</li>
+        <li>Position as "certification factory" — depth matters</li>
+        <li>Overpromise transformation speed — real change takes time</li>
+        <li>Use tech startup Agile framing — this is construction</li>
+        <li>Exclude trades workers — they're often the best adopters</li>
+        <li>Be preachy — show results, don't lecture</li>
+        <li>Make existing members feel less-than for still learning</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.6rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Sample Headlines</h3>
+  <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2.5rem;">
+    <div style="background:#fff;border:1px solid rgba(14,138,122,0.12);border-radius:var(--r);padding:1rem 1.4rem;font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);">Construction Teams Are Running Scrum. Here's What's Actually Working.</div>
+    <div style="background:#fff;border:1px solid rgba(14,138,122,0.12);border-radius:var(--r);padding:1rem 1.4rem;font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);">Your First Sprint Starts on the Jobsite, Not in a Classroom</div>
+    <div style="background:#fff;border:1px solid rgba(14,138,122,0.12);border-radius:var(--r);padding:1rem 1.4rem;font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);">Join 500+ Construction Pros Who Are Done Firefighting Projects</div>
+    <div style="background:#fff;border:1px solid rgba(14,138,122,0.12);border-radius:var(--r);padding:1rem 1.4rem;font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);">RSM™ Certified — and What Changed on My Next Project</div>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.6rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Sample LinkedIn Posts</h3>
+  <div style="display:flex;flex-direction:column;gap:1rem;">
+    <div style="background:#fff;border:1px solid rgba(14,138,122,0.12);border-radius:var(--r);padding:1.5rem;box-shadow:0 2px 12px var(--shadow);">
+      <p style="font-size:0.65rem;font-weight:800;letter-spacing:0.14em;color:var(--teal);text-transform:uppercase;margin-bottom:0.8rem;">Community Post</p>
+      <p style="font-size:0.88rem;color:var(--text-2);line-height:1.7;">
+        <strong style="color:var(--text);">A superintendent in our Scrum Community of Practice just saved 3 weeks on a concrete pour phase.</strong><br><br>
+        Not with a new scheduling software.<br>
+        Not with a new contract.<br>
+        With a 15-minute daily standup and a visual sprint board.<br><br>
+        That's what happens when construction professionals learn Scrum the right way — applied to real project constraints, real crews, real schedules.<br><br>
+        If you're curious how this works on your projects, we have an open community and an RSM™ certification course built just for this.<br><br>
+        Link in bio 👇
+      </p>
+      <p style="font-size:0.72rem;color:#3B82F6;margin-top:0.8rem;">#ScrumConstruction #LeanConstruction #RSM #EBFC #ConstructionManagement</p>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL ELEMENTS -->
+<section class="section" id="elements">
+  <span class="section-tag">07 — Visual Elements</span>
+  <h2 class="section-title">UI Components</h2>
+
+  <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Button Styles</h3>
+  <div class="btns-row">
+    <button class="btn-p">Join the Community</button>
+    <button class="btn-s">Start RSM Course</button>
+    <button class="btn-g">Learn More</button>
+  </div>
+  <div style="background:#F0FDFB;border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:2rem;">
+    <p style="font-size:0.75rem;color:var(--text-2);line-height:1.6;"><strong style="color:var(--teal);">Primary:</strong> Teal gradient — join/signup actions. One per view.<br>
+    <strong style="color:var(--teal);">Secondary:</strong> Teal outline — course enrollment, secondary CTAs.<br>
+    <strong style="color:var(--teal);">Ghost:</strong> Subtle — explore/learn more links, tertiary navigation.</p>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Content Cards</h3>
+  <div class="cards-grid" style="margin-bottom:2rem;">
+    <div class="brand-card">
+      <div class="card-icon">📋</div>
+      <p class="card-title">Sprint Planning</p>
+      <p class="card-desc">How to run a construction Sprint Planning session that actually results in reliable commitments from your trade partners.</p>
+      <span class="card-tag">Process</span>
+    </div>
+    <div class="brand-card">
+      <div class="card-icon">🔍</div>
+      <p class="card-title">Sprint Review</p>
+      <p class="card-desc">Inspect what you built. Show real work, not status reports. Connect field progress to project value delivery.</p>
+      <span class="card-tag">Ceremony</span>
+    </div>
+    <div class="brand-card">
+      <div class="card-icon">🔄</div>
+      <p class="card-title">Retrospective</p>
+      <p class="card-desc">The continuous improvement engine of Scrum. Run retros your construction team will actually look forward to.</p>
+      <span class="card-tag">Improvement</span>
+    </div>
+    <div class="brand-card">
+      <div class="card-icon">📊</div>
+      <p class="card-title">Velocity Tracking</p>
+      <p class="card-desc">Measure team capacity and improve forecasting accuracy on construction projects using story points and throughput.</p>
+      <span class="card-tag">Metrics</span>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Photography Style</h3>
+  <div class="photo-grid">
+    <div class="photo-box">
+      <h4>Community Feel</h4>
+      <p>Collaborative moments — people learning together, whiteboard sessions, team retrospectives. Warm and human.</p>
+    </div>
+    <div class="photo-box">
+      <h4>Jobsite Reality</h4>
+      <p>Real construction environments where Scrum is being practiced. Visual management boards on jobsites. Daily standups in the field.</p>
+    </div>
+    <div class="photo-box">
+      <h4>Color Grade</h4>
+      <p>Clean, bright, slightly warm. Teal tones reinforced in post. Avoid overly dark or dramatic — this brand is approachable.</p>
+    </div>
+    <div class="photo-box">
+      <h4>People</h4>
+      <p>Diverse construction professionals at every level — from trades to executives. Genuine expressions, working moments, not posed.</p>
+    </div>
+    <div class="photo-box">
+      <h4>Icons Style</h4>
+      <p>Rounded, filled icons. Construction + Agile hybrids: sticky notes on a sprint board, hard hat next to a laptop, crane in sprint.</p>
+    </div>
+    <div class="photo-box">
+      <h4>Avoid</h4>
+      <p>Generic Agile stock photos (post-it note close-ups). All-white tech office settings. Any image that says "software team."</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section class="section" id="templates">
+  <span class="section-tag">08 — Templates</span>
+  <h2 class="section-title">Content Templates</h2>
+
+  <div style="display:flex;flex-direction:column;gap:2.5rem;">
+
+    <!-- LinkedIn -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">LinkedIn Post Template</h3>
+      <div class="li-mock">
+        <div class="li-hdr">
+          <div class="li-av">CoP</div>
+          <div>
+            <p class="li-name">EBFC Scrum Community of Practice</p>
+            <p class="li-title-sm">Construction · Scrum · Lean · RSM Certification · Community</p>
+          </div>
+        </div>
+        <div class="li-body">
+          <span class="li-hook">[MEMBER WIN or INSIGHT that proves the community's value — specific, not generic]</span>
+          [Context: Why this matters to a construction professional scrolling LinkedIn right now]<br><br>
+          Here's what made the difference:<br>
+          → [Specific Scrum or Lean practice they applied]<br>
+          → [How they adapted it to their construction context]<br>
+          → [The measurable result on their project]<br><br>
+          [Community invitation — warm, not salesy. Reference what they'd gain.]<br><br>
+          Ready to try this on your project? [Soft CTA]
+          <div class="li-hash">#ScrumCoP #LeanConstruction #RSM #EBFCShow #ConstructionScrum</div>
+        </div>
+      </div>
+      <div style="background:#F0FDFB;border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.2rem;margin-top:0.8rem;">
+        <p style="font-size:0.75rem;color:var(--text-2);line-height:1.6;">Lead with member results, not features. The community sells itself through outcomes. Use "we" language to signal belonging. Always end with a low-friction CTA — learn more, not "buy now."</p>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Email Header Template</h3>
+      <div class="email-mock">
+        <div class="email-hdr">
+          <div class="email-wordmark">EBFC <span>Scrum CoP</span></div>
+          <div class="email-tagline-sm">Community of Practice · Construction Scrum</div>
+        </div>
+        <div class="email-body-m">
+          <p>Hey [First Name] 👋</p>
+          <p>[Warm opener — 1 sentence referencing something real: a recent Deep Dive topic, a member win, a construction milestone. Feels like a message from a teammate, not a newsletter.]</p>
+          <p>[Value: What's happening in the community this week? What can they learn or access?]</p>
+          <p>[Soft CTA — join the conversation, watch the replay, try this template on your project.]</p>
+        </div>
+        <div class="email-footer-m">
+          EBFC Scrum Community of Practice · store.theebfcshow.com<br>
+          <span style="opacity:0.6;">Member update · Manage preferences · Unsubscribe</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slides -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Presentation Color Scheme</h3>
+      <div class="slide-grid">
+        <div class="slide-mock" style="background:var(--bg-dark);">
+          <span class="slide-lbl" style="color:#5ECFC5;">Title</span>
+          <span class="slide-title" style="color:#fff;font-family:var(--font-d);">EBFC Scrum<br><span style="color:#5ECFC5;">CoP</span></span>
+        </div>
+        <div class="slide-mock" style="background:#fff;border:1px solid rgba(26,35,50,0.1);">
+          <span class="slide-lbl" style="color:var(--teal);">Content</span>
+          <span class="slide-title" style="color:var(--text);">Light bg<br><span style="font-family:var(--font-u);font-weight:400;font-size:0.65rem;color:var(--text-2);">Body text</span></span>
+        </div>
+        <div class="slide-mock" style="background:var(--teal);">
+          <span class="slide-lbl" style="color:rgba(255,255,255,0.7);">Accent</span>
+          <span class="slide-title" style="color:#fff;">Key Insight<br>or Data</span>
+        </div>
+        <div class="slide-mock" style="background:var(--gold-pale);border:1px solid rgba(212,168,67,0.3);">
+          <span class="slide-lbl" style="color:var(--gold);">Quote</span>
+          <span class="slide-title" style="color:var(--text);font-size:0.9rem;font-family:var(--font-d);font-style:italic;">"Member<br>Testimonial"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog -->
+    <div>
+      <h3 style="font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:1rem;">Blog Post Format</h3>
+      <div class="blog-mock">
+        <div class="bm-tag">Scrum in Construction · 6 min read</div>
+        <div class="bm-h1">[Headline: Specific Result + How + Context — Makes reader say "that's exactly my problem"]</div>
+        <div class="bm-meta">By EBFC Scrum Community of Practice · [Date] · [Category]</div>
+        <div class="bm-lede">[Lead: 2 sentences. State the problem that brought the reader here. Make it feel personal. "If you've ever tried to run a sprint review on a jobsite and watched everyone check out after 5 minutes — this is for you."]</div>
+        <div class="bm-h2">The Core Challenge</div>
+        <div class="bm-body">[Explain the problem in construction terms. Reference real project scenarios. Validate their experience before offering solutions.]</div>
+        <blockquote>"Scrum didn't change our project — it changed how our team talks to each other. That changed everything."<br><span style="font-size:0.75rem;font-weight:600;">— EBFC Community Member, Senior PM</span></blockquote>
+        <div class="bm-h2">What Actually Works on a Jobsite</div>
+        <div class="bm-body">[Concrete, step-by-step guidance adapted for construction. Show your work. Use examples. Link to community resources and templates.]</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-wordmark">EBFC <span>Scrum CoP</span></p>
+  <p>Community of Practice · <a href="https://store.theebfcshow.com" target="_blank">store.theebfcshow.com</a></p>
+  <p style="margin-top:0.5rem;">RSM Certification · Community Membership · Weekly Deep Dives</p>
+  <p style="margin-top:0.5rem;">Part of the <a href="https://www.theebfcshow.com" target="_blank">EBFC Show</a> ecosystem · Hosted by <a href="https://felipe.engineer" target="_blank">Felipe Engineer-Manriquez</a></p>
+</footer>
+
+<script>
+  // Palette data
+  const palette = [
+    { name: 'Warm White', hex: '#F8F7F4', role: 'Page background · Warm off-white' },
+    { name: 'Pure White', hex: '#FFFFFF', role: 'Card surfaces · Content areas' },
+    { name: 'Navy Dark', hex: '#1A2332', role: 'Hero bg · Footer · Strong contrast' },
+    { name: 'Navy Light', hex: '#243044', role: 'Dark card bg · Elevated on navy' },
+    { name: 'Teal Primary', hex: '#0E8A7A', role: 'Brand accent · CTA · Links' },
+    { name: 'Teal Light', hex: '#12B09D', role: 'Hover state · Gradient end' },
+    { name: 'Teal Pale', hex: '#E6F5F3', role: 'Background tints · Callout boxes' },
+    { name: 'Gold', hex: '#D4A843', role: 'Secondary accent · Testimonials' },
+    { name: 'Gold Light', hex: '#E8C168', role: 'Gold hover · Gradient end' },
+    { name: 'Text Dark', hex: '#1A2332', role: 'Primary text · Headings' },
+    { name: 'Text Mid', hex: '#4A5568', role: 'Secondary text · Body' },
+    { name: 'Text Light', hex: '#718096', role: 'Tertiary · Captions · Meta' },
+  ];
+
+  const grid = document.getElementById('paletteGrid');
+  palette.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'swatch';
+    el.innerHTML = `
+      <div class="swatch-color" style="background:${c.hex};">
+        <div class="swatch-copy-hint">Copy</div>
+      </div>
+      <div class="swatch-info">
+        <p class="swatch-name">${c.name}</p>
+        <p class="swatch-hex">${c.hex}</p>
+        <p class="swatch-role">${c.role}</p>
+      </div>`;
+    el.addEventListener('click', () => copyHex(c.hex));
+    grid.appendChild(el);
+  });
+
+  function copyHex(hex) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const t = document.getElementById('toast');
+      t.textContent = `Copied ${hex}`;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    });
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.section, .offering-card, .brand-card').forEach(el => {
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
