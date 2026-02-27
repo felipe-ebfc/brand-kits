@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Construction Scrum — Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue:      #004AAD;
+      --blue-dk:   #003580;
+      --blue-xdk:  #001A3D;
+      --blue-lt:   #1E6DD9;
+      --blue-pale: #D6E4FF;
+      --gold:      #D4A827;
+      --gold-lt:   #F0C94A;
+      --gold-dk:   #A07C18;
+      --gold-pale: #FDF3CC;
+      --white:     #F5F8FF;
+      --gray:      #6B7FA3;
+      --gray-dk:   #3A4A6B;
+      --bg:        #040B18;
+      --bg2:       #080F20;
+      --bg3:       #0D1628;
+      --bg4:       #121E34;
+      --line:      rgba(0,74,173,0.2);
+      --font-d:    'Playfair Display', Georgia, serif;
+      --font-u:    'Source Sans 3', system-ui, sans-serif;
+      --font-m:    'JetBrains Mono', monospace;
+      --r:         10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-u);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,74,173,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,74,173,0.025) 1px, transparent 1px),
+        radial-gradient(ellipse 80% 55% at 50% -5%, rgba(0,74,173,0.10) 0%, transparent 60%);
+      background-size: 48px 48px, 48px 48px, 100% 100%;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(4,11,24,0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--blue);
+      height: 60px;
+      display: flex; align-items: center;
+      padding: 0 1.5rem;
+      gap: 0.2rem;
+      overflow-x: auto;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-right: auto; text-decoration: none; flex-shrink: 0;
+    }
+    .nav-icon {
+      width: 28px; height: 28px; background: var(--blue); border-radius: 5px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+    }
+    .nav-title { font-family: var(--font-d); font-size: 1rem; font-weight: 700; color: var(--white); }
+    .nav-title span { color: var(--gold); }
+    nav a.nl {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap; padding: 0 0.8rem; height: 100%;
+      display: flex; align-items: center;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: color .2s, border-color .2s;
+    }
+    nav a.nl:hover { color: var(--gold-lt); border-bottom-color: var(--gold); }
+
+    /* LAYOUT */
+    main { position: relative; z-index: 1; }
+    section { padding: 5rem 1.5rem; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    h2 { font-family: var(--font-d); font-size: clamp(2rem,5vw,3rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
+    h3 { font-family: var(--font-d); font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5rem; }
+    p.lead { font-size: 1.1rem; color: var(--gray); line-height: 1.7; max-width: 680px; }
+    .divider { height: 1px; background: var(--line); margin: 3rem 0; }
+
+    /* HERO */
+    #identity {
+      min-height: 85vh; display: flex; align-items: center;
+      padding: 8rem 1.5rem 5rem;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media(max-width:768px){ .hero-grid { grid-template-columns: 1fr; } }
+    .hero-eye {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .hero-h1 {
+      font-family: var(--font-d); font-size: clamp(2.8rem,6vw,4.5rem); font-weight: 900;
+      line-height: 1.08; margin-bottom: 1rem; color: var(--white);
+    }
+    .hero-h1 em { color: var(--gold); font-style: italic; }
+    .hero-tag { font-size: 1.05rem; color: var(--gray); line-height: 1.65; max-width: 480px; margin-bottom: 2rem; }
+    .logo-badge {
+      background: var(--bg4); border: 2px solid var(--blue); border-radius: var(--r);
+      padding: 2.5rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .logo-badge::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,74,173,0.15), transparent 70%);
+    }
+    .lb-icon { font-size: 3rem; margin-bottom: 1rem; position: relative; }
+    .lb-name {
+      font-family: var(--font-d); font-size: 1.6rem; font-weight: 700;
+      color: var(--white); line-height: 1.15; position: relative; margin-bottom: 0.4rem;
+    }
+    .lb-name span { color: var(--gold); }
+    .lb-sub {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue-lt); position: relative;
+    }
+    .lb-rule { width: 40px; height: 2px; background: var(--gold); margin: 1rem auto; }
+    .lb-tag { font-size: 0.78rem; color: var(--gray); line-height: 1.55; position: relative; max-width: 240px; margin: 0 auto; }
+
+    /* PALETTE */
+    .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .swatch {
+      border-radius: var(--r); overflow: hidden; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .swatch:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+    .sw-color { height: 80px; position: relative; }
+    .sw-copy {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.35); opacity: 0; transition: opacity .2s;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: #fff;
+    }
+    .swatch:hover .sw-copy { opacity: 1; }
+    .sw-info { background: var(--bg4); padding: 0.8rem 1rem; }
+    .sw-name { font-size: 0.72rem; font-weight: 700; color: var(--white); letter-spacing: 0.04em; }
+    .sw-hex { font-family: var(--font-m); font-size: 0.7rem; color: var(--gray); margin-top: 0.2rem; }
+    .sw-use { font-size: 0.65rem; color: var(--gray); margin-top: 0.3rem; line-height: 1.4; }
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--gold); color: var(--bg); padding: 0.6rem 1.4rem;
+      border-radius: 100px; font-size: 0.78rem; font-weight: 700; z-index: 9999;
+      transition: transform .3s; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* TYPOGRAPHY */
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media(max-width:768px){ .type-grid { grid-template-columns: 1fr; } }
+    .type-card { background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); padding: 2rem; }
+    .type-family {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .type-specimen { margin-bottom: 1rem; }
+    .type-weights { display: flex; flex-direction: column; gap: 0.5rem; }
+    .tw { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
+    .tw:last-child { border-bottom: none; }
+    .tw-label { font-size: 0.62rem; color: var(--gray); font-family: var(--font-m); }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media(max-width:768px){ .stats-grid { grid-template-columns: 1fr; } }
+    .stat-card {
+      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r);
+      padding: 2rem 1.5rem; text-align: center; position: relative; overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .stat-card:hover { border-color: var(--blue); transform: translateY(-4px); }
+    .stat-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--gold);
+    }
+    .stat-num {
+      font-family: var(--font-d); font-size: clamp(3rem,6vw,4.5rem); font-weight: 900;
+      color: var(--gold); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .stat-label { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
+    .stat-source { font-size: 0.7rem; color: var(--gray); font-family: var(--font-m); }
+
+    /* VOICE */
+    .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media(max-width:768px){ .voice-grid { grid-template-columns: 1fr; } }
+    .voice-card { background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); padding: 1.8rem; }
+    .voice-card.do { border-left: 3px solid var(--gold); }
+    .voice-card.dont { border-left: 3px solid rgba(200,60,60,0.7); }
+    .vc-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .do .vc-label { color: var(--gold); }
+    .dont .vc-label { color: rgba(220,80,80,0.9); }
+    .voice-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .voice-card li { font-size: 0.88rem; color: var(--gray); line-height: 1.5; padding-left: 1.2rem; position: relative; }
+    .voice-card li::before { content: '→'; position: absolute; left: 0; }
+    .do li::before { color: var(--gold); }
+    .dont li::before { content: '✕'; color: rgba(220,80,80,0.9); }
+    .headlines { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+    .hl-item {
+      background: var(--bg3); border: 1px solid var(--line); border-left: 3px solid var(--blue);
+      border-radius: var(--r); padding: 1rem 1.2rem;
+    }
+    .hl-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+    .hl-text { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+    .attrs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+    .attr-pill {
+      background: rgba(0,74,173,0.15); border: 1px solid rgba(0,74,173,0.35);
+      color: var(--blue-pale); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+      padding: 0.3rem 0.8rem; border-radius: 100px;
+    }
+
+    /* BUTTONS */
+    .btn-grid { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.6rem; border-radius: 6px; border: none; cursor: pointer;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em;
+      transition: all .2s; text-decoration: none;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-lt); box-shadow: 0 0 0 3px rgba(0,74,173,0.3); }
+    .btn-gold { background: var(--gold); color: var(--bg); }
+    .btn-gold:hover { background: var(--gold-lt); box-shadow: 0 0 0 3px rgba(212,168,39,0.3); }
+    .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--blue); }
+    .btn-outline:hover { background: rgba(0,74,173,0.12); }
+    .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--line); }
+    .btn-ghost:hover { border-color: var(--gray); color: var(--white); }
+    .btn-sm { padding: 0.45rem 1rem; font-size: 0.78rem; }
+    .btn-lg { padding: 1rem 2.2rem; font-size: 1rem; }
+
+    /* CARD COMPONENT */
+    .comp-card {
+      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r);
+      overflow: hidden; max-width: 340px; transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .comp-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); border-color: var(--blue); }
+    .cc-top {
+      background: var(--blue-xdk); padding: 1.5rem;
+      border-bottom: 2px solid var(--gold); position: relative;
+    }
+    .cc-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--gold); color: var(--bg); padding: 0.2rem 0.6rem; border-radius: 3px;
+      display: inline-block; margin-bottom: 0.8rem;
+    }
+    .cc-title { font-family: var(--font-d); font-size: 1.15rem; font-weight: 700; line-height: 1.25; }
+    .cc-meta { font-size: 0.7rem; color: var(--gray); margin-top: 0.3rem; font-family: var(--font-m); }
+    .cc-body { padding: 1.5rem; }
+    .cc-text { font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.2rem; }
+    .cc-footer { display: flex; align-items: center; justify-content: space-between; }
+    .cc-stat { font-family: var(--font-d); font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+    .cc-stat-l { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* LINKEDIN */
+    .li-mock {
+      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
+      max-width: 560px;
+    }
+    .li-header { background: var(--blue-xdk); padding: 1.2rem 1.5rem; border-bottom: 2px solid var(--blue); display: flex; align-items: center; gap: 0.8rem; }
+    .li-avatar { width: 40px; height: 40px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--bg); font-size: 0.9rem; flex-shrink: 0; }
+    .li-who { flex: 1; }
+    .li-name-ln { font-size: 0.85rem; font-weight: 700; color: var(--white); }
+    .li-title-ln { font-size: 0.7rem; color: var(--gray); }
+    .li-body { padding: 1.5rem; }
+    .li-text { font-size: 0.88rem; line-height: 1.65; color: var(--white); white-space: pre-line; margin-bottom: 1.2rem; }
+    .li-text strong { color: var(--gold); }
+    .li-footer-bar { background: var(--bg4); padding: 0.8rem 1.5rem; border-top: 1px solid var(--line); display: flex; gap: 1rem; }
+    .li-action { font-size: 0.72rem; color: var(--gray); font-weight: 600; cursor: pointer; transition: color .2s; }
+    .li-action:hover { color: var(--blue-lt); }
+
+    /* EMAIL HEADER */
+    .email-mock {
+      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
+      max-width: 600px;
+    }
+    .email-header {
+      background: var(--blue); padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .email-logo { font-family: var(--font-d); font-size: 1.2rem; font-weight: 700; color: #fff; }
+    .email-logo span { color: var(--gold); }
+    .email-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      background: rgba(255,255,255,0.15); color: #fff; padding: 0.25rem 0.7rem; border-radius: 3px;
+    }
+    .email-body { padding: 2rem 2.5rem; }
+    .email-hl { font-family: var(--font-d); font-size: 1.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.8rem; color: var(--white); }
+    .email-hl span { color: var(--gold); }
+    .email-p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.5rem; }
+    .email-cta { background: var(--blue); color: #fff; padding: 0.75rem 1.8rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; text-decoration: none; display: inline-block; }
+    .email-footer { background: var(--bg4); padding: 1rem 2.5rem; border-top: 1px solid var(--line); font-size: 0.7rem; color: var(--gray); }
+
+    /* SOCIAL POSTS */
+    .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media(max-width:768px){ .social-grid { grid-template-columns: 1fr; } }
+    .post-card {
+      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); padding: 1.5rem;
+    }
+    .post-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem;
+    }
+    .post-text { font-size: 0.88rem; line-height: 1.65; color: var(--white); white-space: pre-line; }
+    .post-text strong { color: var(--gold); }
+    .post-tags { margin-top: 0.8rem; font-size: 0.78rem; color: var(--blue-lt); font-weight: 600; }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1; text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem; color: var(--gray);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    section { animation: rise 0.5s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-icon">🏗️</div>
+    <div class="nav-title">Construction <span>Scrum</span></div>
+  </a>
+  <a class="nl" href="#identity">Identity</a>
+  <a class="nl" href="#palette">Palette</a>
+  <a class="nl" href="#typography">Type</a>
+  <a class="nl" href="#voice">Voice</a>
+  <a class="nl" href="#stats">Stats</a>
+  <a class="nl" href="#components">Components</a>
+  <a class="nl" href="#templates">Templates</a>
+  <a class="nl" href="#social">Social</a>
+</nav>
+
+<main>
+
+<!-- HERO / IDENTITY -->
+<section id="identity">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hero-eye">Brand Kit · Version 1.0</p>
+      <h1 class="hero-h1">Construction<br><em>Scrum.</em></h1>
+      <p class="hero-tag">Applying agile Scrum methodology to construction project delivery — reducing overruns, accelerating timelines, and building better.</p>
+      <div class="attrs">
+        <span class="attr-pill">Blueprint Precision</span>
+        <span class="attr-pill">Authoritative</span>
+        <span class="attr-pill">Evidence-Based</span>
+        <span class="attr-pill">Practical</span>
+        <span class="attr-pill">Educational</span>
+      </div>
+    </div>
+    <div class="logo-badge">
+      <div class="lb-icon">🏗️</div>
+      <div class="lb-name">Construction <span>Scrum</span></div>
+      <div class="lb-sub">Agile · Built for the Field</div>
+      <div class="lb-rule"></div>
+      <div class="lb-tag">Delivering construction projects on time, on budget — every sprint, every build.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section id="palette" style="padding-top:2rem;">
+  <div class="wrap">
+    <p class="sec-label">02 — Color System</p>
+    <h2>Color <em style="color:var(--gold);font-style:italic;">Palette</em></h2>
+    <p class="lead" style="margin-bottom:2.5rem;">Blueprint blue for structure and authority. Gold for results, wins, and transformation. Click any swatch to copy the hex code.</p>
+
+    <div class="palette-grid">
+      <div class="swatch" onclick="copyHex('#004AAD','Blueprint Blue')">
+        <div class="sw-color" style="background:#004AAD;"><div class="sw-copy">Click to copy</div></div>
+        <div class="sw-info">
+          <div class="sw-name">Blueprint Blue</div>
+          <div class="sw-hex">#004AAD</div>
+          <div class="sw-use">Primary brand color. Nav, CTAs, structure.</div>
+        </div>
+      </div>
+      <div class="swatch" onclick="copyHex('#D4A827','Gold')">
+        <div class="sw-color" style="background:#D4A827;"><div class="sw-copy">Click to copy</div></div>
+        <div class="sw-info">
+          <div class="sw-name">Result Gold</div>
+          <div class="sw-hex">#D4A827</div>
+          <div class="sw-use">Results, wins, key data, accents.</div>
+        </div>
+      </div>
+      <div class="swatch" onclick="copyHex('#003580','Blueprint Dark')">
+        <div class="sw-color" style="background:#003580;"><div class="sw-copy">Click to copy</div></div>
+        <div class="sw-info">
+          <div class="sw-name">Blueprint Dark</div>
+          <div class="sw-hex">#003580</div>
+          <div class="sw-use">Dark backgrounds, depth, hover states.</div>
+        </div>
+      </div>
+      <div class="swatch" onclick="copyHex('#1E6DD9','Blueprint Light')">
+        <div class="sw-color" style="background:#1E6DD9;"><div class="sw-copy">Click to copy</div></div>
+        <div class="sw-info">
+          <div class="sw-name">Blueprint Light</div>
+          <div class="sw-hex">#1E6DD9</div>
+          <div class="sw-use">Links, interactive elements, hover.</div>
+        </div>
+      </div>
+      <div class="swatch" onclick="copyHex('#D6E4FF','Blue Pale')">
+        <div class="sw-color" style="background:#D6E4FF;"><div class="sw-copy">Click to copy</div></div>
+        <div class="sw-info">
+          <div class="sw-name">Blueprint Pale</div>
+          <div class="sw-hex">#D6E4FF</div>
+          <div class="sw-use">Light mode backgrounds, pill labels.</div>
+        </div>
+      </div>
+      <div class="swatch" onclick="copyHex('#040B18','Night Site')">
+        <div class="sw-color" style="background:#040B18; border:1px solid rgba(255,255,255,0.08);"><div class="sw-copy">Click to copy</div></div>
+        <div class="sw-info">
+          <div class="sw-name">Night Site</div>
+          <div class="sw-hex">#040B18</div>
+          <div class="sw-use">Primary dark background.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section id="typography">
+  <div class="wrap">
+    <p class="sec-label">03 — Typography</p>
+    <h2>Type <em style="color:var(--gold);font-style:italic;">System</em></h2>
+    <p class="lead" style="margin-bottom:2.5rem;">Two-font system. Playfair Display for editorial authority. Source Sans 3 for field-ready readability.</p>
+
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-family">Display — Playfair Display</div>
+        <div class="type-specimen">
+          <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;line-height:1.1;color:var(--white);">Building Better.</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--white);margin-top:0.4rem;">Scrum Changes Everything.</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--gold);margin-top:0.4rem;">Results on every sprint.</div>
+        </div>
+        <div class="type-weights">
+          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:400">Playfair Regular 400</span><span class="tw-label">Subheads</span></div>
+          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:600">Playfair SemiBold 600</span><span class="tw-label">Section heads</span></div>
+          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:700">Playfair Bold 700</span><span class="tw-label">Headlines</span></div>
+          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:900">Playfair Black 900</span><span class="tw-label">Hero display</span></div>
+        </div>
+      </div>
+
+      <div class="type-card">
+        <div class="type-family">Body — Source Sans 3</div>
+        <div class="type-specimen">
+          <div style="font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:400;color:var(--gray);line-height:1.7;margin-bottom:0.8rem;">Scrum brings the structured clarity that construction teams need. Short sprints, daily standups, and a transparent backlog — adapted for the jobsite.</div>
+          <div style="font-family:'Source Sans 3',sans-serif;font-size:0.88rem;font-weight:600;color:var(--white);">Sprint Goal: Complete structural framing by Friday.</div>
+        </div>
+        <div class="type-weights">
+          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:300;color:var(--gray)">Source Sans Light 300</span><span class="tw-label">Captions</span></div>
+          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:400">Source Sans Regular 400</span><span class="tw-label">Body text</span></div>
+          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:600">Source Sans SemiBold 600</span><span class="tw-label">Emphasis</span></div>
+          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:700">Source Sans Bold 700</span><span class="tw-label">Labels/CTAs</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE & TONE -->
+<section id="voice">
+  <div class="wrap">
+    <p class="sec-label">04 — Voice & Tone</p>
+    <h2>Voice <em style="color:var(--gold);font-style:italic;">&amp; Tone</em></h2>
+    <p class="lead" style="margin-bottom:2.5rem;">Educational, authoritative, practical, and evidence-based. We cite data. We build credibility one fact at a time.</p>
+
+    <div class="voice-grid">
+      <div class="voice-card do">
+        <div class="vc-label">✓ Do This</div>
+        <ul>
+          <li>Lead with data — cite research and project outcomes</li>
+          <li>Use construction-native language (foreman, RFI, submittal)</li>
+          <li>Be direct and prescriptive: "Run 2-week sprints, not 6-month phases"</li>
+          <li>Acknowledge the real problems of the field first</li>
+          <li>Celebrate wins with specifics — "Saved 18 days on concrete pour"</li>
+          <li>Frame Scrum as practical, not theoretical</li>
+        </ul>
+      </div>
+      <div class="voice-card dont">
+        <div class="vc-label">✕ Avoid This</div>
+        <ul>
+          <li>Generic agile talk with no construction context</li>
+          <li>Jargon-heavy tech-bro language</li>
+          <li>Vague promises without evidence ("transforms your team!")</li>
+          <li>Dismissing traditional construction methods outright</li>
+          <li>Overly casual or jokey tone on serious project failure data</li>
+          <li>Hiding uncertainty — be honest about what Scrum can't fix</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="headlines">
+      <div class="hl-item">
+        <div class="hl-label">Stat Lead</div>
+        <div class="hl-text">"75% of construction projects finish late. Scrum closes that gap — sprint by sprint."</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-label">Challenge/Solution</div>
+        <div class="hl-text">"Your schedule isn't broken. Your planning method is. Here's how to fix it."</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-label">Field-Forward</div>
+        <div class="hl-text">"Scrum isn't software. It's a rhythm. And the best jobsites already run on it."</div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-label">Transformation</div>
+        <div class="hl-text">"From RFI bottlenecks to daily standups that actually solve them. One sprint at a time."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" style="background:var(--bg2);">
+  <div class="wrap">
+    <p class="sec-label">05 — Key Statistics</p>
+    <h2>The Crisis <em style="color:var(--gold);font-style:italic;">by the Numbers</em></h2>
+    <p class="lead" style="margin-bottom:2.5rem;">Lead with evidence. Construction's chronic delivery failure is the problem. Scrum is the answer. Never let the data disappear into a footnote.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">75%</div>
+        <div class="stat-label">of projects finish late</div>
+        <div style="font-size:0.83rem;color:var(--gray);line-height:1.6;margin:0.8rem 0;">The construction industry's on-time delivery rate hasn't meaningfully improved in decades. Scrum introduces sprint cadence that forces early visibility on slippage.</div>
+        <div class="stat-source">McKinsey Global Institute · Reinventing Construction</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">75%</div>
+        <div class="stat-label">of projects exceed budget</div>
+        <div style="font-size:0.83rem;color:var(--gray);line-height:1.6;margin:0.8rem 0;">Budget overruns are treated as inevitable. They aren't. Short sprints with clear scope locks reduce the risk of scope creep that bleeds budgets dry.</div>
+        <div class="stat-source">McKinsey Global Institute · Reinventing Construction</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">90%</div>
+        <div class="stat-label">of overruns exceed 30%</div>
+        <div style="font-size:0.83rem;color:var(--gray);line-height:1.6;margin:0.8rem 0;">When projects go over budget, they really go over — by 30% or more. Scrum's inspect-and-adapt loop catches deviation in weeks, not quarters.</div>
+        <div class="stat-source">Oxford Said Business School · Bent Flyvbjerg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+  <div class="wrap">
+    <p class="sec-label">06 — UI Components</p>
+    <h2>Brand <em style="color:var(--gold);font-style:italic;">Components</em></h2>
+
+    <!-- Buttons -->
+    <h3 style="margin-bottom:1.2rem;margin-top:1.5rem;">Button Styles</h3>
+    <div class="btn-grid" style="margin-bottom:3rem;">
+      <button class="btn btn-primary btn-lg">Get Started</button>
+      <button class="btn btn-primary">Primary CTA</button>
+      <button class="btn btn-gold">View Results →</button>
+      <button class="btn btn-outline">Learn More</button>
+      <button class="btn btn-ghost">Read Article</button>
+      <button class="btn btn-primary btn-sm">Small CTA</button>
+      <button class="btn btn-gold btn-sm">Download</button>
+    </div>
+
+    <!-- Card -->
+    <h3 style="margin-bottom:1.2rem;">Content Card</h3>
+    <div class="comp-card">
+      <div class="cc-top">
+        <div class="cc-badge">Case Study</div>
+        <div class="cc-title">Hospital Expansion — Scrum Sprint Delivery</div>
+        <div class="cc-meta">Subcontractor: MEP · 14-week project · 7 sprints</div>
+      </div>
+      <div class="cc-body">
+        <div class="cc-text">Implemented 2-week Scrum sprints across 4 trade crews. Daily standups replaced weekly meetings. Coordination RFIs dropped 40% by sprint 3.</div>
+        <div class="cc-footer">
+          <div>
+            <div class="cc-stat">18 days</div>
+            <div class="cc-stat-l">saved vs. baseline</div>
+          </div>
+          <a href="#" class="btn btn-gold btn-sm">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section id="templates" style="background:var(--bg2);">
+  <div class="wrap">
+    <p class="sec-label">07 — Content Templates</p>
+    <h2>Templates <em style="color:var(--gold);font-style:italic;">&amp; Mocks</em></h2>
+
+    <!-- LinkedIn Post -->
+    <h3 style="margin-bottom:1.2rem;margin-top:1.5rem;">LinkedIn Post Template</h3>
+    <div class="li-mock" style="margin-bottom:3rem;">
+      <div class="li-header">
+        <div class="li-avatar">FM</div>
+        <div class="li-who">
+          <div class="li-name-ln">Felipe Engineer-Manriquez, RST™</div>
+          <div class="li-title-ln">Construction Scrum · Lean Builder · LinkedIn Top Voice</div>
+        </div>
+      </div>
+      <div class="li-body">
+        <div class="li-text"><strong>75% of construction projects finish late.</strong>
+Not because the workers aren't skilled.
+Not because the materials didn't show up.
+
+Because the *planning system* is broken.
+
+We plan in phases that last 6 months.
+Problems hide for 5 months and 29 days.
+Then everyone scrambles.
+
+<strong>Scrum fixes this by compressing time.</strong>
+
+→ 2-week sprints instead of 6-month phases
+→ Daily standups that surface blockers in real time
+→ A backlog that makes scope visible to the entire team
+→ A rhythm that the whole crew can trust
+
+I've seen it work on hospital expansions, schools, and civil projects.
+
+The field is ready. Are the managers?
+
+#ConstructionScrum #LeanConstruction #Agile #ProjectDelivery</div>
+        <div class="li-footer-bar">
+          <span class="li-action">👍 Like</span>
+          <span class="li-action">💬 Comment</span>
+          <span class="li-action">🔁 Repost</span>
+          <span class="li-action">✉️ Send</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Header -->
+    <h3 style="margin-bottom:1.2rem;">Email Header Mock</h3>
+    <div class="email-mock">
+      <div class="email-header">
+        <div class="email-logo">Construction <span>Scrum</span></div>
+        <div class="email-badge">Sprint Newsletter</div>
+      </div>
+      <div class="email-body">
+        <div class="email-hl">This Week's Sprint:<br><span>Fixing Budget Overruns Before They Start</span></div>
+        <div class="email-p">Most construction budgets don't blow up in one day. They erode slowly — 2% here, a change order there. By the time the PM sees the number, it's too late. Scrum's sprint review cycle changes that equation. Here's exactly how.</div>
+        <a href="#" class="email-cta">Read This Sprint's Issue →</a>
+      </div>
+      <div class="email-footer">Construction Scrum · Unsubscribe · Privacy Policy</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL POSTS -->
+<section id="social">
+  <div class="wrap">
+    <p class="sec-label">08 — Social Content</p>
+    <h2>Sample <em style="color:var(--gold);font-style:italic;">Social Posts</em></h2>
+    <p class="lead" style="margin-bottom:2.5rem;">Ready-to-use post frameworks. Always lead with the problem or data. End with a clear takeaway or question.</p>
+
+    <div class="social-grid">
+      <div class="post-card">
+        <div class="post-label">LinkedIn · Stat Hook</div>
+        <div class="post-text"><strong>The construction industry wastes $1.6 trillion a year.</strong>
+
+Most of it is preventable.
+
+Not by working harder — by planning smarter.
+
+Here's the 3-step Scrum framework I use on every project:</div>
+        <div class="post-tags">#ConstructionScrum #LeanConstruction #Agile</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-label">LinkedIn · Story Format</div>
+        <div class="post-text">Day 1 of the project: the schedule looks perfect.
+
+Day 14: first RFI lands. Nobody logged it.
+Day 30: 3 blocked tasks. 1 crew standing still.
+Day 60: the PM calls it "unforeseen conditions."
+
+We ran Scrum instead.
+
+<strong>Day 14: RFI flagged in sprint backlog. Resolved in 48h.</strong>
+Day 30: blockers surfaced in standup. Crew kept moving.
+Day 60: on track.</div>
+        <div class="post-tags">#Construction #Scrum #ProjectManagement</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-label">Short-Form / Carousel Teaser</div>
+        <div class="post-text">5 things Scrum fixes in construction that a Gantt chart can't:
+
+1. Hidden blockers
+2. Scope creep nobody tracks
+3. Crews waiting on decisions
+4. RFIs that sit for 3 weeks
+5. A schedule nobody believes
+
+<strong>Swipe to see how →</strong></div>
+        <div class="post-tags">#ConstructionTech #Scrum #Agile</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-label">Engagement / Question Post</div>
+        <div class="post-text">Quick poll for construction professionals:
+
+When your project runs over budget, what's the #1 cause?
+
+A) Scope changes not caught early
+B) Material cost escalation
+C) Coordination failures between trades
+D) Unrealistic schedule from the start
+
+<strong>My experience: it's almost always A + D together.</strong>
+
+What's yours?</div>
+        <div class="post-tags">#ConstructionManagement #Poll #Leadership</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Construction Scrum Brand Kit · 2026 · Part of the <a href="../index.html">EBFC Brand Ecosystem</a> · <a href="https://felipe.engineer" target="_blank">felipe.engineer</a></p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function copyHex(hex, name) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const t = document.getElementById('toast');
+      t.textContent = `${name} ${hex} copied!`;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    });
+  }
+</script>
+</body>
+</html>
