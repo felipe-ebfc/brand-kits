@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+    /* ── TOKENS ──────────────────────────────────────── */
     :root {
       --blue:      #004AAD;
       --blue-dk:   #003580;
@@ -17,18 +18,19 @@
       --gold:      #D4A827;
       --gold-lt:   #F0C94A;
       --gold-dk:   #A07C18;
-      --gold-pale: #FDF3CC;
       --white:     #F5F8FF;
+      --gray-lt:   #CBD5E9;
       --gray:      #6B7FA3;
       --gray-dk:   #3A4A6B;
       --bg:        #040B18;
       --bg2:       #080F20;
       --bg3:       #0D1628;
       --bg4:       #121E34;
-      --line:      rgba(0,74,173,0.2);
+      --bg5:       #192540;
       --font-d:    'Playfair Display', Georgia, serif;
       --font-u:    'Source Sans 3', system-ui, sans-serif;
       --font-m:    'JetBrains Mono', monospace;
+      --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
       --r:         10px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,6 +42,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
+    /* Blueprint grid texture */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -50,7 +53,7 @@
       background-size: 48px 48px, 48px 48px, 100% 100%;
     }
 
-    /* NAV */
+    /* ── NAV ──────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(4,11,24,0.96);
@@ -59,704 +62,1643 @@
       height: 60px;
       display: flex; align-items: center;
       padding: 0 1.5rem;
-      gap: 0.2rem;
       overflow-x: auto;
     }
     .nav-brand {
-      display: flex; align-items: center; gap: 0.6rem;
+      display: flex; align-items: center; gap: 0.7rem;
       margin-right: auto; text-decoration: none; flex-shrink: 0;
     }
     .nav-icon {
-      width: 28px; height: 28px; background: var(--blue); border-radius: 5px;
-      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+      width: 30px; height: 30px;
+      background: var(--blue); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; line-height: 1;
     }
-    .nav-title { font-family: var(--font-d); font-size: 1rem; font-weight: 700; color: var(--white); }
+    .nav-title { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700; color: var(--white); }
     .nav-title span { color: var(--gold); }
     nav a.nl {
       color: var(--gray); text-decoration: none;
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      white-space: nowrap; padding: 0 0.8rem; height: 100%;
-      display: flex; align-items: center;
+      font-size: 0.71rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      white-space: nowrap; padding: 0 0.9rem;
+      height: 100%; display: flex; align-items: center;
       border-bottom: 2px solid transparent; margin-bottom: -2px;
       transition: color .2s, border-color .2s;
     }
     nav a.nl:hover { color: var(--gold-lt); border-bottom-color: var(--gold); }
 
-    /* LAYOUT */
-    main { position: relative; z-index: 1; }
-    section { padding: 5rem 1.5rem; }
-    .wrap { max-width: 1100px; margin: 0 auto; }
-    .sec-label {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero { position: relative; z-index: 1; overflow: hidden; }
+    .hero::before, .hero::after {
+      content: ''; position: absolute;
+      width: 64px; height: 64px;
+      border: 1.5px solid rgba(0,74,173,0.25); pointer-events: none;
     }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-    h2 { font-family: var(--font-d); font-size: clamp(2rem,5vw,3rem); font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
-    h3 { font-family: var(--font-d); font-size: 1.35rem; font-weight: 600; margin-bottom: 0.5rem; }
-    p.lead { font-size: 1.1rem; color: var(--gray); line-height: 1.7; max-width: 680px; }
-    .divider { height: 1px; background: var(--line); margin: 3rem 0; }
+    .hero::before { top: 2rem; left: 2rem; border-right: none; border-bottom: none; }
+    .hero::after  { bottom: 2rem; right: 2rem; border-left: none; border-top: none; }
+    .hero-inner {
+      padding: 6rem 2rem 4.5rem;
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: center;
+    }
+    @media (max-width: 740px) { .hero-inner { grid-template-columns: 1fr; gap: 2rem; } }
+    .h-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(0,74,173,0.1); border: 1px solid var(--blue);
+      border-radius: 4px; padding: 0.3rem 0.85rem;
+      font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue-pale); margin-bottom: 1.4rem;
+      opacity: 0; animation: fadeUp .6s var(--ease) .1s forwards;
+    }
+    .gold-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+    .hero h1 {
+      font-family: var(--font-d);
+      font-size: clamp(3rem, 9vw, 5.5rem);
+      font-weight: 900; line-height: 1.05; color: var(--white);
+      opacity: 0; animation: fadeUp .6s var(--ease) .25s forwards;
+    }
+    .hero h1 .acc { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--gray-lt);
+      line-height: 1.7; margin-top: 1.2rem; max-width: 520px;
+      opacity: 0; animation: fadeUp .6s var(--ease) .4s forwards;
+    }
+    .hero-meta {
+      margin-top: 0.75rem; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase;
+      opacity: 0; animation: fadeUp .6s var(--ease) .55s forwards;
+    }
+    .bp-badge { opacity: 0; animation: fadeUp .6s var(--ease) .3s forwards; }
+    .badge-circle {
+      width: 178px; height: 178px; border-radius: 50%;
+      border: 2px solid var(--blue);
+      background: rgba(0,74,173,0.06);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 1rem; position: relative;
+    }
+    .badge-circle::before {
+      content: ''; position: absolute; inset: 9px;
+      border-radius: 50%; border: 1px dashed rgba(0,74,173,0.3);
+    }
+    .bc-lbl { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.3rem; }
+    .bc-icon { font-size: 2.2rem; line-height: 1; margin-bottom: 0.3rem; }
+    .bc-name { font-family: var(--font-d); font-size: 0.88rem; font-weight: 700; color: var(--white); line-height: 1.2; }
+    .bc-sub  { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-top: 0.3rem; }
+    @media (max-width: 740px) { .badge-circle { width: 140px; height: 140px; } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-    /* HERO */
-    #identity {
-      min-height: 85vh; display: flex; align-items: center;
-      padding: 8rem 1.5rem 5rem;
+    /* ── TICKER ───────────────────────────────────────── */
+    .ticker {
+      background: var(--blue); color: #fff;
+      padding: 0.55rem 0; overflow: hidden; white-space: nowrap;
+      position: relative; z-index: 1;
+      border-top: 1px solid #1E6DD9; border-bottom: 1px solid var(--blue-dk);
     }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    @media(max-width:768px){ .hero-grid { grid-template-columns: 1fr; } }
-    .hero-eye {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 1.2rem;
-    }
-    .hero-h1 {
-      font-family: var(--font-d); font-size: clamp(2.8rem,6vw,4.5rem); font-weight: 900;
-      line-height: 1.08; margin-bottom: 1rem; color: var(--white);
-    }
-    .hero-h1 em { color: var(--gold); font-style: italic; }
-    .hero-tag { font-size: 1.05rem; color: var(--gray); line-height: 1.65; max-width: 480px; margin-bottom: 2rem; }
-    .logo-badge {
-      background: var(--bg4); border: 2px solid var(--blue); border-radius: var(--r);
-      padding: 2.5rem; text-align: center; position: relative; overflow: hidden;
-    }
-    .logo-badge::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(0,74,173,0.15), transparent 70%);
-    }
-    .lb-icon { font-size: 3rem; margin-bottom: 1rem; position: relative; }
-    .lb-name {
-      font-family: var(--font-d); font-size: 1.6rem; font-weight: 700;
-      color: var(--white); line-height: 1.15; position: relative; margin-bottom: 0.4rem;
-    }
-    .lb-name span { color: var(--gold); }
-    .lb-sub {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--blue-lt); position: relative;
-    }
-    .lb-rule { width: 40px; height: 2px; background: var(--gold); margin: 1rem auto; }
-    .lb-tag { font-size: 0.78rem; color: var(--gray); line-height: 1.55; position: relative; max-width: 240px; margin: 0 auto; }
+    .ticker-inner { display: inline-block; animation: tick 30s linear infinite; }
+    .ticker-inner span { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0 2rem; }
+    .t-sep { color: var(--gold) !important; }
+    @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* PALETTE */
-    .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    /* ── SECTIONS ─────────────────────────────────────── */
+    .section {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section + .section { border-top: 1px solid rgba(255,255,255,0.05); }
+    .s-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .s-label::before {
+      content: ''; display: inline-block;
+      width: 22px; height: 2px; background: var(--gold); border-radius: 1px;
+    }
+    .s-title {
+      font-family: var(--font-d);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.15; margin-bottom: 0.5rem;
+    }
+    .s-sub {
+      font-size: 0.95rem; color: var(--gray);
+      line-height: 1.65; max-width: 600px; margin-bottom: 3rem;
+    }
+    .sub-label {
+      font-family: var(--font-m);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray);
+      margin-bottom: 0.75rem; margin-top: 2.5rem;
+    }
+
+    /* ── PALETTE ──────────────────────────────────────── */
+    .pal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 1rem; margin-bottom: 3rem;
+    }
     .swatch {
       border-radius: var(--r); overflow: hidden; cursor: pointer;
       border: 1px solid rgba(255,255,255,0.06);
-      transition: transform .2s, box-shadow .2s;
+      transition: transform .25s var(--ease), box-shadow .25s;
     }
-    .swatch:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
-    .sw-color { height: 80px; position: relative; }
-    .sw-copy {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.35); opacity: 0; transition: opacity .2s;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: #fff;
+    .swatch:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .sw-color { height: 108px; position: relative; }
+    .sw-hint {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      color: #fff; text-transform: uppercase;
+      opacity: 0; transition: opacity .2s;
     }
-    .swatch:hover .sw-copy { opacity: 1; }
-    .sw-info { background: var(--bg4); padding: 0.8rem 1rem; }
-    .sw-name { font-size: 0.72rem; font-weight: 700; color: var(--white); letter-spacing: 0.04em; }
-    .sw-hex { font-family: var(--font-m); font-size: 0.7rem; color: var(--gray); margin-top: 0.2rem; }
-    .sw-use { font-size: 0.65rem; color: var(--gray); margin-top: 0.3rem; line-height: 1.4; }
-    .toast {
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: var(--gold); color: var(--bg); padding: 0.6rem 1.4rem;
-      border-radius: 100px; font-size: 0.78rem; font-weight: 700; z-index: 9999;
-      transition: transform .3s; pointer-events: none;
+    .swatch:hover .sw-hint { opacity: 1; }
+    .sw-check {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; opacity: 0; transition: opacity .3s;
     }
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    .swatch.copied .sw-check { opacity: 1; }
+    .swatch.copied .sw-hint { opacity: 0 !important; }
+    .sw-info { background: var(--bg3); padding: 0.85rem 1rem; }
+    .sw-name { font-size: 0.78rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .sw-hex  { font-family: var(--font-m); font-size: 0.68rem; color: var(--gray); }
+    .sw-role { font-size: 0.6rem; color: var(--gray-dk); margin-top: 0.2rem; line-height: 1.4; }
+    .copy-toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--gold); color: #0A0F1C;
+      font-size: 0.78rem; font-weight: 800;
+      padding: 0.6rem 1.5rem; border-radius: 6px;
+      opacity: 0; pointer-events: none; z-index: 9999;
+      transition: opacity .25s, transform .25s;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* TYPOGRAPHY */
-    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    @media(max-width:768px){ .type-grid { grid-template-columns: 1fr; } }
-    .type-card { background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); padding: 2rem; }
-    .type-family {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 1rem;
+    /* ── TYPOGRAPHY ───────────────────────────────────── */
+    .type-cards { display: flex; flex-direction: column; gap: 1.4rem; margin-bottom: 3rem; }
+    .type-card {
+      background: var(--bg3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--r); padding: 2rem 2.5rem;
+      position: relative; overflow: hidden;
     }
-    .type-specimen { margin-bottom: 1rem; }
-    .type-weights { display: flex; flex-direction: column; gap: 0.5rem; }
-    .tw { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
-    .tw:last-child { border-bottom: none; }
-    .tw-label { font-size: 0.62rem; color: var(--gray); font-family: var(--font-m); }
+    .type-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%; background: var(--blue);
+    }
+    .type-card.gl::before { background: var(--gold); }
+    .type-badge {
+      font-family: var(--font-m); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray);
+      margin-bottom: 1.2rem; padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .font-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 0.5rem; }
+    @media (max-width: 600px) { .font-pair { grid-template-columns: 1fr; } }
+    .fp-meta { font-size: 0.72rem; color: var(--gray); margin-bottom: 0.5rem; }
+    .fp-meta strong { color: var(--blue-pale); }
 
-    /* STATS */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    @media(max-width:768px){ .stats-grid { grid-template-columns: 1fr; } }
-    .stat-card {
-      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r);
-      padding: 2rem 1.5rem; text-align: center; position: relative; overflow: hidden;
+    /* ── VOICE & TONE ─────────────────────────────────── */
+    .traits-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .trait-card {
+      background: var(--bg3); border: 1px solid rgba(0,74,173,0.2);
+      border-radius: var(--r); padding: 1.5rem;
       transition: border-color .2s, transform .2s;
     }
-    .stat-card:hover { border-color: var(--blue); transform: translateY(-4px); }
-    .stat-card::before {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-      background: var(--gold);
+    .trait-card:hover { border-color: rgba(0,74,173,0.5); transform: translateY(-3px); }
+    .tc-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .tc-word { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
+    .tc-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.55; }
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .dos-donts { grid-template-columns: 1fr; } }
+    .do-card, .dont-card {
+      background: var(--bg3); border-radius: var(--r);
+      padding: 1.8rem; border: 1px solid rgba(255,255,255,0.06);
     }
-    .stat-num {
-      font-family: var(--font-d); font-size: clamp(3rem,6vw,4.5rem); font-weight: 900;
-      color: var(--gold); line-height: 1; margin-bottom: 0.5rem;
-    }
-    .stat-label { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
-    .stat-source { font-size: 0.7rem; color: var(--gray); font-family: var(--font-m); }
-
-    /* VOICE */
-    .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    @media(max-width:768px){ .voice-grid { grid-template-columns: 1fr; } }
-    .voice-card { background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); padding: 1.8rem; }
-    .voice-card.do { border-left: 3px solid var(--gold); }
-    .voice-card.dont { border-left: 3px solid rgba(200,60,60,0.7); }
-    .vc-label {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .do .vc-label { color: var(--gold); }
-    .dont .vc-label { color: rgba(220,80,80,0.9); }
-    .voice-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .voice-card li { font-size: 0.88rem; color: var(--gray); line-height: 1.5; padding-left: 1.2rem; position: relative; }
-    .voice-card li::before { content: '→'; position: absolute; left: 0; }
-    .do li::before { color: var(--gold); }
-    .dont li::before { content: '✕'; color: rgba(220,80,80,0.9); }
-    .headlines { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+    .do-card   { border-top: 3px solid #22C55E; }
+    .dont-card { border-top: 3px solid #EF4444; }
+    .dd-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .do-card   .dd-head { color: #22C55E; }
+    .dont-card .dd-head { color: #EF4444; }
+    .dd-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .dd-list li { font-size: 0.84rem; color: var(--gray-lt); line-height: 1.55; padding-left: 1.2rem; position: relative; }
+    .dd-list li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; border-radius: 50%; }
+    .do-card   .dd-list li::before { background: #22C55E; }
+    .dont-card .dd-list li::before { background: #EF4444; }
+    .hls-list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
     .hl-item {
-      background: var(--bg3); border: 1px solid var(--line); border-left: 3px solid var(--blue);
-      border-radius: var(--r); padding: 1rem 1.2rem;
+      background: var(--bg3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; padding: 1.1rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: border-color .2s;
     }
-    .hl-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
-    .hl-text { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700; color: var(--white); line-height: 1.3; }
-    .attrs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
-    .attr-pill {
-      background: rgba(0,74,173,0.15); border: 1px solid rgba(0,74,173,0.35);
-      color: var(--blue-pale); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
-      padding: 0.3rem 0.8rem; border-radius: 100px;
-    }
+    .hl-item:hover { border-color: rgba(0,74,173,0.4); }
+    .hl-type { font-family: var(--font-m); font-size: 0.57rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); white-space: nowrap; min-width: 72px; }
+    .hl-text { font-family: var(--font-d); font-size: 1rem; font-weight: 600; color: var(--white); line-height: 1.35; }
+    .li-posts { display: flex; flex-direction: column; gap: 1.5rem; }
+    .li-post { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--r); overflow: hidden; }
+    .li-ph { padding: 1rem 1.4rem; background: var(--bg4); border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 0.75rem; }
+    .li-av { width: 38px; height: 38px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+    .li-author { font-size: 0.82rem; font-weight: 700; color: var(--white); }
+    .li-handle { font-size: 0.7rem; color: var(--gray); }
+    .li-bd { padding: 1.4rem; }
+    .li-bd p { font-size: 0.87rem; color: var(--gray-lt); line-height: 1.72; white-space: pre-line; }
+    .li-ft { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); padding: 0 1.4rem 1rem; }
 
-    /* BUTTONS */
-    .btn-grid { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    /* ── VISUAL ELEMENTS ──────────────────────────────── */
+    .btns-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 3rem; }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.6rem; border-radius: 6px; border: none; cursor: pointer;
-      font-family: var(--font-u); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em;
-      transition: all .2s; text-decoration: none;
+      font-family: var(--font-u); font-size: 0.88rem; font-weight: 700;
+      letter-spacing: 0.04em; text-decoration: none;
+      border-radius: 6px; padding: 0.75rem 1.6rem;
+      cursor: pointer; border: 2px solid transparent;
+      transition: all .2s var(--ease); white-space: nowrap;
     }
-    .btn-primary { background: var(--blue); color: #fff; }
-    .btn-primary:hover { background: var(--blue-lt); box-shadow: 0 0 0 3px rgba(0,74,173,0.3); }
-    .btn-gold { background: var(--gold); color: var(--bg); }
-    .btn-gold:hover { background: var(--gold-lt); box-shadow: 0 0 0 3px rgba(212,168,39,0.3); }
-    .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--blue); }
-    .btn-outline:hover { background: rgba(0,74,173,0.12); }
-    .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--line); }
-    .btn-ghost:hover { border-color: var(--gray); color: var(--white); }
-    .btn-sm { padding: 0.45rem 1rem; font-size: 0.78rem; }
-    .btn-lg { padding: 1rem 2.2rem; font-size: 1rem; }
+    .btn-p  { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .btn-p:hover { background: var(--blue-lt); border-color: var(--blue-lt); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,74,173,0.4); }
+    .btn-s  { background: transparent; color: var(--white); border-color: var(--blue); }
+    .btn-s:hover { background: rgba(0,74,173,0.1); transform: translateY(-2px); }
+    .btn-g  { background: var(--gold); color: #0A0F1C; border-color: var(--gold); }
+    .btn-g:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,168,39,0.35); }
+    .btn-gh { background: transparent; color: var(--gray-lt); border-color: rgba(255,255,255,0.15); }
+    .btn-gh:hover { border-color: var(--gray-lt); color: var(--white); transform: translateY(-2px); }
+    .btn-sm { font-size: 0.76rem; padding: 0.5rem 1.1rem; }
+    .btn-lg { font-size: 1rem; padding: 0.95rem 2rem; border-radius: 8px; }
+    .cards-show { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+    .demo-card { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--r); overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s; }
+    .demo-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .cd-stripe { height: 5px; }
+    .cd-body { padding: 1.4rem; }
+    .cd-kicker { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.55rem; }
+    .cd-title { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 0.55rem; }
+    .cd-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.2rem; }
+    .cd-cta { font-size: 0.76rem; font-weight: 700; color: var(--blue-pale); }
+    .cd-cta::after { content: ' \2192'; }
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 0.9rem; margin-bottom: 3rem; }
+    .ic-item { background: var(--bg3); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--r); padding: 1.4rem 0.9rem; text-align: center; transition: border-color .2s; }
+    .ic-item:hover { border-color: rgba(0,74,173,0.4); }
+    .ic-g { font-size: 1.75rem; margin-bottom: 0.55rem; line-height: 1; }
+    .ic-l { font-size: 0.68rem; font-weight: 600; color: var(--gray); }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem; }
+    .photo-card { border-radius: var(--r); overflow: hidden; border: 1px solid rgba(255,255,255,0.06); background: var(--bg3); }
+    .ph-img { height: 155px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; position: relative; overflow: hidden; }
+    .ph-img::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,74,173,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,74,173,0.06) 1px, transparent 1px); background-size: 20px 20px; }
+    .ph-do   { background: linear-gradient(135deg, #0D1628, #0A1A36); }
+    .ph-dont { background: linear-gradient(135deg, #1A0D0D, #2A1010); }
+    .ph-icon { font-size: 1.7rem; position: relative; z-index: 1; }
+    .ph-lbl  { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; position: relative; z-index: 1; }
+    .ph-do   .ph-lbl { color: #22C55E; }
+    .ph-dont .ph-lbl { color: #EF4444; }
+    .ph-info { padding: 1rem 1.1rem; }
+    .ph-t { font-size: 0.8rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+    .ph-d { font-size: 0.73rem; color: var(--gray); line-height: 1.55; }
 
-    /* CARD COMPONENT */
-    .comp-card {
-      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r);
-      overflow: hidden; max-width: 340px; transition: transform .2s, box-shadow .2s, border-color .2s;
-    }
-    .comp-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); border-color: var(--blue); }
-    .cc-top {
-      background: var(--blue-xdk); padding: 1.5rem;
-      border-bottom: 2px solid var(--gold); position: relative;
-    }
-    .cc-badge {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      background: var(--gold); color: var(--bg); padding: 0.2rem 0.6rem; border-radius: 3px;
-      display: inline-block; margin-bottom: 0.8rem;
-    }
-    .cc-title { font-family: var(--font-d); font-size: 1.15rem; font-weight: 700; line-height: 1.25; }
-    .cc-meta { font-size: 0.7rem; color: var(--gray); margin-top: 0.3rem; font-family: var(--font-m); }
-    .cc-body { padding: 1.5rem; }
-    .cc-text { font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.2rem; }
-    .cc-footer { display: flex; align-items: center; justify-content: space-between; }
-    .cc-stat { font-family: var(--font-d); font-size: 1.5rem; font-weight: 700; color: var(--gold); }
-    .cc-stat-l { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; }
+    /* ── TEMPLATES ────────────────────────────────────── */
+    .tpl { background: var(--bg3); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; }
+    .tpl-bar { background: var(--bg4); padding: 0.75rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+    .tpl-lbl { font-family: var(--font-m); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+    .tpl-bd { padding: 2rem; }
+    .tf { margin-bottom: 1.4rem; }
+    .tf-key { font-family: var(--font-m); font-size: 0.68rem; color: var(--gold); letter-spacing: 0.07em; margin-bottom: 0.3rem; }
+    .tf-val { background: var(--bg5); border: 1px solid rgba(0,74,173,0.2); border-radius: 6px; padding: 0.9rem 1.1rem; font-size: 0.86rem; color: var(--gray-lt); line-height: 1.65; white-space: pre-line; }
+    .tf-val em { color: var(--gold); font-style: normal; font-weight: 600; }
+    .email-wrap { max-width: 580px; margin-bottom: 2.5rem; }
+    .email-box { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .em-hdr { background: var(--blue); padding: 2rem; text-align: center; position: relative; overflow: hidden; }
+    .em-hdr::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 28px 28px; }
+    .em-brand { position: relative; z-index: 1; font-family: var(--font-d); font-size: 1.4rem; font-weight: 700; color: #fff; }
+    .em-brand span { color: var(--gold); }
+    .em-tag { position: relative; z-index: 1; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 0.3rem; }
+    .em-body { padding: 1.6rem 2rem; }
+    .em-greeting { font-size: 0.95rem; color: #1a2234; margin-bottom: 0.8rem; font-family: Georgia, serif; }
+    .em-txt { font-size: 0.87rem; color: #374151; line-height: 1.7; margin-bottom: 1.1rem; }
+    .em-btn { display: inline-block; background: var(--blue); color: #fff !important; font-size: 0.85rem; font-weight: 700; padding: 0.72rem 1.8rem; border-radius: 6px; text-decoration: none; letter-spacing: 0.04em; }
+    .em-ftr { padding: 0.9rem 2rem; background: #F5F7FA; border-top: 1px solid #E5E7EB; font-size: 0.7rem; color: #9CA3AF; text-align: center; }
+    .slides-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .slide-card { border-radius: 8px; overflow: hidden; aspect-ratio: 16/9; position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 0.9rem; }
+    .sl-tag { position: absolute; top: 0.6rem; left: 0.6rem; font-family: var(--font-m); font-size: 0.5rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.65; }
+    .sl-t { font-family: var(--font-d); font-size: 0.85rem; font-weight: 700; line-height: 1.2; }
+    .sl-u { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; margin-top: 0.25rem; }
+    .blog-wrap { max-width: 680px; margin-bottom: 2.5rem; }
+    .blog-box { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; }
+    .bl-hdr { background: var(--bg4); padding: 0.75rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .bl-hdr-l { font-family: var(--font-m); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); }
+    .bl-body { padding: 2.5rem; }
+    .bl-k { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.65rem; }
+    .bl-title { font-family: var(--font-d); font-size: 1.65rem; font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.7rem; }
+    .bl-meta { font-size: 0.73rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .bl-meta strong { color: var(--gray-lt); }
+    .bl-lead { font-size: 0.98rem; color: var(--gray-lt); line-height: 1.75; margin-bottom: 1.4rem; border-left: 3px solid var(--blue); padding-left: 1.1rem; }
+    .bl-p { font-size: 0.86rem; color: var(--gray); line-height: 1.75; margin-bottom: 0.9rem; }
+    .bl-h2 { font-family: var(--font-d); font-size: 1.2rem; font-weight: 700; color: var(--white); margin: 1.4rem 0 0.7rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); }
 
-    /* LINKEDIN */
-    .li-mock {
-      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
-      max-width: 560px;
-    }
-    .li-header { background: var(--blue-xdk); padding: 1.2rem 1.5rem; border-bottom: 2px solid var(--blue); display: flex; align-items: center; gap: 0.8rem; }
-    .li-avatar { width: 40px; height: 40px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--bg); font-size: 0.9rem; flex-shrink: 0; }
-    .li-who { flex: 1; }
-    .li-name-ln { font-size: 0.85rem; font-weight: 700; color: var(--white); }
-    .li-title-ln { font-size: 0.7rem; color: var(--gray); }
-    .li-body { padding: 1.5rem; }
-    .li-text { font-size: 0.88rem; line-height: 1.65; color: var(--white); white-space: pre-line; margin-bottom: 1.2rem; }
-    .li-text strong { color: var(--gold); }
-    .li-footer-bar { background: var(--bg4); padding: 0.8rem 1.5rem; border-top: 1px solid var(--line); display: flex; gap: 1rem; }
-    .li-action { font-size: 0.72rem; color: var(--gray); font-weight: 600; cursor: pointer; transition: color .2s; }
-    .li-action:hover { color: var(--blue-lt); }
+    /* ── STATISTICS ───────────────────────────────────── */
+    .stats-hero-block { background: linear-gradient(135deg, var(--bg2), var(--bg3)); border: 1px solid rgba(0,74,173,0.2); border-radius: 16px; padding: 3rem 2.5rem; margin-bottom: 2.5rem; position: relative; overflow: hidden; }
+    .stats-hero-block::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,74,173,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,74,173,0.04) 1px, transparent 1px); background-size: 40px 40px; }
+    .shb-title { font-family: var(--font-d); font-size: 1rem; font-weight: 600; color: var(--gray); text-align: center; position: relative; z-index: 1; margin-bottom: 2.5rem; }
+    .big-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.4rem; position: relative; z-index: 1; }
+    .big-stat { text-align: center; padding: 2rem 1.4rem; background: var(--bg4); border-radius: 12px; border: 1px solid rgba(0,74,173,0.22); transition: border-color .25s, transform .25s; }
+    .big-stat:hover { border-color: var(--blue); transform: translateY(-4px); }
+    .big-stat.gs { border-color: rgba(212,168,39,0.25); }
+    .big-stat.gs:hover { border-color: var(--gold); }
+    .bs-num { font-family: var(--font-d); font-size: clamp(3rem, 7vw, 4.5rem); font-weight: 900; line-height: 1; color: var(--blue-lt); margin-bottom: 0.4rem; }
+    .big-stat.gs .bs-num { color: var(--gold); }
+    .bs-lbl { font-size: 0.82rem; font-weight: 600; color: var(--gray-lt); line-height: 1.5; margin-bottom: 0.7rem; }
+    .bs-src { font-size: 0.63rem; color: var(--gray); font-style: italic; }
+    .stat-callout { margin-top: 2rem; position: relative; z-index: 1; background: rgba(0,74,173,0.08); border: 1px solid rgba(0,74,173,0.25); border-left: 4px solid var(--blue); border-radius: 8px; padding: 1.1rem 1.4rem; }
+    .stat-callout p { font-family: var(--font-d); font-size: 1.1rem; font-weight: 600; color: var(--white); line-height: 1.5; }
+    .stat-callout p em { color: var(--gold); font-style: italic; }
+    .stat-treats { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .st-box { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--r); overflow: hidden; }
+    .st-top { background: var(--bg4); padding: 0.75rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+    .st-top-l { font-family: var(--font-m); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+    .st-bd { padding: 2rem; }
+    .bar-item { margin-bottom: 1.1rem; }
+    .bar-item:last-child { margin-bottom: 0; }
+    .bi-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.45rem; }
+    .bi-l { font-size: 0.84rem; font-weight: 600; color: var(--gray-lt); }
+    .bi-v { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700; color: var(--blue-lt); }
+    .bi-v.gv { color: var(--gold); }
+    .bi-v.sv { color: #22C55E; }
+    .bi-track { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+    .bi-fill { height: 100%; border-radius: 4px; background: var(--blue); transition: width 1.2s var(--ease); }
+    .bi-fill.gf { background: var(--gold); }
+    .bi-fill.sf { background: #22C55E; }
+    .compare-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; text-align: center; }
+    @media (max-width: 560px) { .compare-grid { grid-template-columns: 1fr 1fr; } .cg-vs { display: none; } }
+    .cg-side { padding: 1.5rem 1rem; border-radius: 8px; }
+    .cg-before { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); }
+    .cg-after  { background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.2); }
+    .cg-vs { font-family: var(--font-d); font-size: 1.2rem; font-weight: 700; color: var(--gray); }
+    .cg-num { font-family: var(--font-d); font-size: 2.5rem; font-weight: 900; line-height: 1; margin-bottom: 0.35rem; }
+    .cg-before .cg-num { color: #EF4444; }
+    .cg-after  .cg-num { color: #22C55E; }
+    .cg-lbl { font-size: 0.75rem; font-weight: 600; color: var(--gray); line-height: 1.4; }
+    .sq-box { text-align: center; padding: 3rem 2rem; background: linear-gradient(135deg, var(--bg2), var(--bg3)); border-radius: 12px; border: 1px solid rgba(0,74,173,0.2); position: relative; overflow: hidden; margin-bottom: 2.5rem; }
+    .sq-box::before { content: '\201C'; position: absolute; top: -1rem; left: 1.5rem; font-family: var(--font-d); font-size: 9rem; font-weight: 900; color: rgba(0,74,173,0.05); line-height: 1; pointer-events: none; }
+    .sq-num { font-family: var(--font-d); font-size: clamp(5rem, 14vw, 8rem); font-weight: 900; color: var(--blue-lt); line-height: 1; letter-spacing: -0.02em; position: relative; z-index: 1; }
+    .sq-unit { font-family: var(--font-d); font-size: 2rem; font-weight: 700; color: var(--gold); vertical-align: top; line-height: 2.1; }
+    .sq-lbl { font-size: 1rem; font-weight: 600; color: var(--gray-lt); line-height: 1.5; max-width: 420px; margin: 0.5rem auto 0; position: relative; z-index: 1; }
+    .sq-src { font-size: 0.7rem; color: var(--gray); margin-top: 0.7rem; font-style: italic; }
 
-    /* EMAIL HEADER */
-    .email-mock {
-      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
-      max-width: 600px;
-    }
-    .email-header {
-      background: var(--blue); padding: 2rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .email-logo { font-family: var(--font-d); font-size: 1.2rem; font-weight: 700; color: #fff; }
-    .email-logo span { color: var(--gold); }
-    .email-badge {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-      background: rgba(255,255,255,0.15); color: #fff; padding: 0.25rem 0.7rem; border-radius: 3px;
-    }
-    .email-body { padding: 2rem 2.5rem; }
-    .email-hl { font-family: var(--font-d); font-size: 1.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.8rem; color: var(--white); }
-    .email-hl span { color: var(--gold); }
-    .email-p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.5rem; }
-    .email-cta { background: var(--blue); color: #fff; padding: 0.75rem 1.8rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; text-decoration: none; display: inline-block; }
-    .email-footer { background: var(--bg4); padding: 1rem 2.5rem; border-top: 1px solid var(--line); font-size: 0.7rem; color: var(--gray); }
+    /* ── RSM CERT ─────────────────────────────────────── */
+    .cert-block { background: linear-gradient(135deg, #001A3D, #002D6A); border-radius: 16px; padding: 3.5rem 2rem; text-align: center; position: relative; overflow: hidden; margin-top: 2rem; }
+    .cert-block::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 30px 30px; }
+    .cb-inner { position: relative; z-index: 1; }
+    .cb-badge { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 152px; height: 152px; border-radius: 50%; border: 3px solid var(--gold); background: rgba(212,168,39,0.07); margin: 0 auto 1.5rem; position: relative; }
+    .cb-badge::before { content: ''; position: absolute; inset: 9px; border-radius: 50%; border: 1px dashed rgba(212,168,39,0.35); }
+    .cb-num  { font-family: var(--font-m); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .cb-icon { font-size: 2.4rem; line-height: 1; margin: 0.15rem 0; }
+    .cb-text { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(212,168,39,0.65); }
+    .cb-title { font-family: var(--font-d); font-size: 1.75rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .cb-title span { color: var(--gold); }
+    .cb-desc { font-size: 0.88rem; color: var(--gray-lt); max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .cb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; text-align: left; margin-bottom: 2rem; }
+    .cb-item { background: rgba(0,74,173,0.15); border: 1px solid rgba(0,74,173,0.3); border-radius: 8px; padding: 1.2rem; }
+    .cb-item-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .cb-item-t { font-size: 0.82rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+    .cb-item-d { font-size: 0.75rem; color: var(--gray-lt); line-height: 1.5; }
+    .cb-pills { display: flex; flex-wrap: wrap; gap: 0.55rem; justify-content: center; }
+    .cb-pill { background: rgba(0,74,173,0.2); border: 1px solid rgba(0,74,173,0.4); color: var(--blue-pale); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.32rem 0.85rem; border-radius: 100px; }
 
-    /* SOCIAL POSTS */
-    .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    @media(max-width:768px){ .social-grid { grid-template-columns: 1fr; } }
-    .post-card {
-      background: var(--bg3); border: 1px solid var(--line); border-radius: var(--r); padding: 1.5rem;
-    }
-    .post-label {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.8rem;
-    }
-    .post-text { font-size: 0.88rem; line-height: 1.65; color: var(--white); white-space: pre-line; }
-    .post-text strong { color: var(--gold); }
-    .post-tags { margin-top: 0.8rem; font-size: 0.78rem; color: var(--blue-lt); font-weight: 600; }
+    /* ── CALLOUTS ─────────────────────────────────────── */
+    .callout { display: flex; gap: 1rem; background: rgba(0,74,173,0.07); border: 1px solid rgba(0,74,173,0.25); border-left: 4px solid var(--blue); border-radius: 8px; padding: 1.1rem 1.4rem; margin-bottom: 2rem; }
+    .callout.gc { background: rgba(212,168,39,0.05); border-color: rgba(212,168,39,0.25); border-left-color: var(--gold); }
+    .cl-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .cl-txt { font-size: 0.84rem; color: var(--gray-lt); line-height: 1.65; }
+    .cl-txt strong { color: var(--white); }
 
-    /* FOOTER */
-    footer {
-      position: relative; z-index: 1; text-align: center;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--line);
-      font-size: 0.72rem; color: var(--gray);
-    }
-    footer a { color: var(--gold); text-decoration: none; }
+    /* ── FOOTER ───────────────────────────────────────── */
+    .site-footer { position: relative; z-index: 1; border-top: 1px solid rgba(0,74,173,0.2); padding: 2.5rem 2rem; text-align: center; background: var(--bg2); }
+    .ft-logo { font-family: var(--font-d); font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
+    .ft-logo span { color: var(--gold); }
+    .site-footer p { font-size: 0.74rem; color: var(--gray); }
+    .site-footer a { color: var(--blue-pale); text-decoration: none; }
+    .site-footer a:hover { color: var(--gold); }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 600px) {
+      .section { padding: 3.5rem 1.25rem; }
+      .stats-hero-block { padding: 2rem 1.25rem; }
+      .tpl-bd { padding: 1.25rem; }
+      .bl-body { padding: 1.5rem; }
+      .em-body { padding: 1.2rem; }
     }
-    section { animation: rise 0.5s ease both; }
   </style>
 </head>
 <body>
+<div class="copy-toast" id="toast">&#10003; Copied to clipboard</div>
 
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="#">
-    <div class="nav-icon">🏗️</div>
+    <div class="nav-icon">&#127959;</div>
     <div class="nav-title">Construction <span>Scrum</span></div>
   </a>
   <a class="nl" href="#identity">Identity</a>
-  <a class="nl" href="#palette">Palette</a>
-  <a class="nl" href="#typography">Type</a>
   <a class="nl" href="#voice">Voice</a>
-  <a class="nl" href="#stats">Stats</a>
-  <a class="nl" href="#components">Components</a>
+  <a class="nl" href="#visual">Visual</a>
   <a class="nl" href="#templates">Templates</a>
-  <a class="nl" href="#social">Social</a>
+  <a class="nl" href="#stats">Statistics</a>
+  <a class="nl" href="#rsm">RSM&#8482;</a>
 </nav>
 
-<main>
-
-<!-- HERO / IDENTITY -->
-<section id="identity">
-  <div class="wrap hero-grid">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
     <div>
-      <p class="hero-eye">Brand Kit · Version 1.0</p>
-      <h1 class="hero-h1">Construction<br><em>Scrum.</em></h1>
-      <p class="hero-tag">Applying agile Scrum methodology to construction project delivery — reducing overruns, accelerating timelines, and building better.</p>
-      <div class="attrs">
-        <span class="attr-pill">Blueprint Precision</span>
-        <span class="attr-pill">Authoritative</span>
-        <span class="attr-pill">Evidence-Based</span>
-        <span class="attr-pill">Practical</span>
-        <span class="attr-pill">Educational</span>
+      <div class="h-eyebrow">
+        <div class="gold-dot"></div>
+        Official Brand Kit &middot; Brand #04 &middot; 2026
       </div>
+      <h1>Construction<br><span class="acc">Scrum</span></h1>
+      <p class="hero-sub">
+        The definitive methodology for delivering construction projects on time and on budget. Scrum adapted for design &amp; construction by the first construction professional certified as Scrum Master by Jeff Sutherland himself.
+      </p>
+      <p class="hero-meta">&#128218; Book &amp; Course &nbsp;&middot;&nbsp; RSM&#8482; Certification &nbsp;&middot;&nbsp; constructionscrum.com</p>
     </div>
-    <div class="logo-badge">
-      <div class="lb-icon">🏗️</div>
-      <div class="lb-name">Construction <span>Scrum</span></div>
-      <div class="lb-sub">Agile · Built for the Field</div>
-      <div class="lb-rule"></div>
-      <div class="lb-tag">Delivering construction projects on time, on budget — every sprint, every build.</div>
-    </div>
-  </div>
-</section>
-
-<!-- PALETTE -->
-<section id="palette" style="padding-top:2rem;">
-  <div class="wrap">
-    <p class="sec-label">02 — Color System</p>
-    <h2>Color <em style="color:var(--gold);font-style:italic;">Palette</em></h2>
-    <p class="lead" style="margin-bottom:2.5rem;">Blueprint blue for structure and authority. Gold for results, wins, and transformation. Click any swatch to copy the hex code.</p>
-
-    <div class="palette-grid">
-      <div class="swatch" onclick="copyHex('#004AAD','Blueprint Blue')">
-        <div class="sw-color" style="background:#004AAD;"><div class="sw-copy">Click to copy</div></div>
-        <div class="sw-info">
-          <div class="sw-name">Blueprint Blue</div>
-          <div class="sw-hex">#004AAD</div>
-          <div class="sw-use">Primary brand color. Nav, CTAs, structure.</div>
-        </div>
-      </div>
-      <div class="swatch" onclick="copyHex('#D4A827','Gold')">
-        <div class="sw-color" style="background:#D4A827;"><div class="sw-copy">Click to copy</div></div>
-        <div class="sw-info">
-          <div class="sw-name">Result Gold</div>
-          <div class="sw-hex">#D4A827</div>
-          <div class="sw-use">Results, wins, key data, accents.</div>
-        </div>
-      </div>
-      <div class="swatch" onclick="copyHex('#003580','Blueprint Dark')">
-        <div class="sw-color" style="background:#003580;"><div class="sw-copy">Click to copy</div></div>
-        <div class="sw-info">
-          <div class="sw-name">Blueprint Dark</div>
-          <div class="sw-hex">#003580</div>
-          <div class="sw-use">Dark backgrounds, depth, hover states.</div>
-        </div>
-      </div>
-      <div class="swatch" onclick="copyHex('#1E6DD9','Blueprint Light')">
-        <div class="sw-color" style="background:#1E6DD9;"><div class="sw-copy">Click to copy</div></div>
-        <div class="sw-info">
-          <div class="sw-name">Blueprint Light</div>
-          <div class="sw-hex">#1E6DD9</div>
-          <div class="sw-use">Links, interactive elements, hover.</div>
-        </div>
-      </div>
-      <div class="swatch" onclick="copyHex('#D6E4FF','Blue Pale')">
-        <div class="sw-color" style="background:#D6E4FF;"><div class="sw-copy">Click to copy</div></div>
-        <div class="sw-info">
-          <div class="sw-name">Blueprint Pale</div>
-          <div class="sw-hex">#D6E4FF</div>
-          <div class="sw-use">Light mode backgrounds, pill labels.</div>
-        </div>
-      </div>
-      <div class="swatch" onclick="copyHex('#040B18','Night Site')">
-        <div class="sw-color" style="background:#040B18; border:1px solid rgba(255,255,255,0.08);"><div class="sw-copy">Click to copy</div></div>
-        <div class="sw-info">
-          <div class="sw-name">Night Site</div>
-          <div class="sw-hex">#040B18</div>
-          <div class="sw-use">Primary dark background.</div>
-        </div>
+    <div class="bp-badge">
+      <div class="badge-circle">
+        <div class="bc-lbl">Brand Kit</div>
+        <div class="bc-icon">&#127959;</div>
+        <div class="bc-name">Construction<br>Scrum</div>
+        <div class="bc-sub">Brand #04</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TYPOGRAPHY -->
-<section id="typography">
-  <div class="wrap">
-    <p class="sec-label">03 — Typography</p>
-    <h2>Type <em style="color:var(--gold);font-style:italic;">System</em></h2>
-    <p class="lead" style="margin-bottom:2.5rem;">Two-font system. Playfair Display for editorial authority. Source Sans 3 for field-ready readability.</p>
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>On Time</span><span class="t-sep">&#9670;</span>
+    <span>On Budget</span><span class="t-sep">&#9670;</span>
+    <span>Construction Scrum</span><span class="t-sep">&#9670;</span>
+    <span>75% of Projects Are Late</span><span class="t-sep">&#9670;</span>
+    <span>RSM&#8482; Certification</span><span class="t-sep">&#9670;</span>
+    <span>Empirical Process Control</span><span class="t-sep">&#9670;</span>
+    <span>Sprint &middot; Inspect &middot; Adapt</span><span class="t-sep">&#9670;</span>
+    <span>Felipe Engineer-Manriquez</span><span class="t-sep">&#9670;</span>
+    <span>Jeff Sutherland Certified</span><span class="t-sep">&#9670;</span>
+    <span>On Time</span><span class="t-sep">&#9670;</span>
+    <span>On Budget</span><span class="t-sep">&#9670;</span>
+    <span>Construction Scrum</span><span class="t-sep">&#9670;</span>
+    <span>75% of Projects Are Late</span><span class="t-sep">&#9670;</span>
+    <span>RSM&#8482; Certification</span><span class="t-sep">&#9670;</span>
+    <span>Empirical Process Control</span><span class="t-sep">&#9670;</span>
+    <span>Sprint &middot; Inspect &middot; Adapt</span><span class="t-sep">&#9670;</span>
+    <span>Felipe Engineer-Manriquez</span><span class="t-sep">&#9670;</span>
+    <span>Jeff Sutherland Certified</span><span class="t-sep">&#9670;</span>
+  </div>
+</div>
 
-    <div class="type-grid">
-      <div class="type-card">
-        <div class="type-family">Display — Playfair Display</div>
-        <div class="type-specimen">
-          <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;line-height:1.1;color:var(--white);">Building Better.</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--white);margin-top:0.4rem;">Scrum Changes Everything.</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:var(--gold);margin-top:0.4rem;">Results on every sprint.</div>
-        </div>
-        <div class="type-weights">
-          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:400">Playfair Regular 400</span><span class="tw-label">Subheads</span></div>
-          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:600">Playfair SemiBold 600</span><span class="tw-label">Section heads</span></div>
-          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:700">Playfair Bold 700</span><span class="tw-label">Headlines</span></div>
-          <div class="tw"><span style="font-family:'Playfair Display',serif;font-weight:900">Playfair Black 900</span><span class="tw-label">Hero display</span></div>
+<!-- =====================================================
+     SECTION 1 — BRAND IDENTITY
+====================================================== -->
+<section class="section" id="identity">
+  <div class="s-label">Section 01</div>
+  <h2 class="s-title">Brand Identity</h2>
+  <p class="s-sub">The visual foundation that communicates methodology, precision, and authority in construction — where blueprints meet the boardroom.</p>
+
+  <div class="callout gc">
+    <div class="cl-icon">&#128208;</div>
+    <div class="cl-txt">
+      <strong>Design Philosophy:</strong> Blueprint precision meets textbook authority. Every design decision should feel deliberate, evidence-based, and professional. This is serious methodology &#8212; not a casual blog. The color system anchors to <strong>#004AAD</strong> (EBFC Logo Blue) &#8212; the family blue across all Felipe brands.
+    </div>
+  </div>
+
+  <!-- COLOR PALETTE -->
+  <div class="sub-label" style="margin-top:0">Color Palette &#8212; Click Any Swatch to Copy</div>
+  <div class="pal-grid">
+
+    <div class="swatch" onclick="copyHex('#004AAD', this)">
+      <div class="sw-color" style="background:#004AAD">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">EBFC Logo Blue</div>
+        <div class="sw-hex">#004AAD</div>
+        <div class="sw-role">Primary &middot; Authority &middot; Trust</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#1E6DD9', this)">
+      <div class="sw-color" style="background:#1E6DD9">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Blueprint Blue</div>
+        <div class="sw-hex">#1E6DD9</div>
+        <div class="sw-role">Interactive &middot; Links &middot; Hover</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#003580', this)">
+      <div class="sw-color" style="background:#003580">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Deep Navy</div>
+        <div class="sw-hex">#003580</div>
+        <div class="sw-role">Dark surfaces &middot; Depth</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#001A3D', this)">
+      <div class="sw-color" style="background:#001A3D">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Midnight Blueprint</div>
+        <div class="sw-hex">#001A3D</div>
+        <div class="sw-role">Slide base &middot; Print backgrounds</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#D4A827', this)">
+      <div class="sw-color" style="background:#D4A827">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Results Gold</div>
+        <div class="sw-hex">#D4A827</div>
+        <div class="sw-role">Achievement &middot; CTAs &middot; Stats</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#F0C94A', this)">
+      <div class="sw-color" style="background:#F0C94A">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Bright Gold</div>
+        <div class="sw-hex">#F0C94A</div>
+        <div class="sw-role">Hover states &middot; Pull quotes</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#F5F8FF', this)">
+      <div class="sw-color" style="background:#F5F8FF; border-bottom:1px solid rgba(0,0,0,0.08)">
+        <div class="sw-hint" style="color:#1a2234">Click to Copy</div><div class="sw-check" style="color:#1a2234">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Blueprint White</div>
+        <div class="sw-hex">#F5F8FF</div>
+        <div class="sw-role">Primary text &middot; Headlines</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#CBD5E9', this)">
+      <div class="sw-color" style="background:#CBD5E9; border-bottom:1px solid rgba(0,0,0,0.05)">
+        <div class="sw-hint" style="color:#1a2234">Click to Copy</div><div class="sw-check" style="color:#1a2234">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Steel Gray</div>
+        <div class="sw-hex">#CBD5E9</div>
+        <div class="sw-role">Body text &middot; Captions</div>
+      </div>
+    </div>
+
+    <div class="swatch" onclick="copyHex('#6B7FA3', this)">
+      <div class="sw-color" style="background:#6B7FA3">
+        <div class="sw-hint">Click to Copy</div><div class="sw-check">&#10003;</div>
+      </div>
+      <div class="sw-info">
+        <div class="sw-name">Blueprint Gray</div>
+        <div class="sw-hex">#6B7FA3</div>
+        <div class="sw-role">Muted text &middot; Borders</div>
+      </div>
+    </div>
+
+  </div><!-- /pal-grid -->
+
+  <!-- TYPOGRAPHY -->
+  <div class="sub-label">Typography System</div>
+  <div class="callout" style="margin-bottom:1.5rem">
+    <div class="cl-icon">&#128304;</div>
+    <div class="cl-txt">
+      <strong>Google Fonts pairing:</strong> <em>Playfair Display</em> for headings (gravitas, textbook authority, serif precision) + <em>Source Sans 3</em> for body (clarity, readability, technical confidence) + <em>JetBrains Mono</em> for data labels and codes.
+    </div>
+  </div>
+  <div class="type-cards">
+
+    <div class="type-card">
+      <div class="type-badge">DISPLAY HEADING &mdash; Playfair Display &middot; Weight 900 &middot; Hero &amp; Chapter Titles</div>
+      <div style="font-family:var(--font-d);font-size:clamp(2rem,6vw,3.8rem);font-weight:900;line-height:1.1;color:var(--white)">Construction Scrum:<br>Deliver <em style="color:var(--gold)">On Time</em> &amp; On Budget</div>
+      <div style="margin-top:1rem;font-size:0.78rem;color:var(--gray);line-height:1.6">Use for: Page heroes, book chapter titles, slide headlines, course module banners. The serif creates textbook authority without being stuffy.</div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-badge">SECTION HEADING &mdash; Playfair Display &middot; Weight 700 &middot; H2 / Article Titles</div>
+      <div style="font-family:var(--font-d);font-size:clamp(1.5rem,4vw,2.4rem);font-weight:700;color:var(--white);line-height:1.2">Why Traditional Project Management<br>Fails Construction Teams</div>
+      <div style="margin-top:1rem;font-size:0.78rem;color:var(--gray);line-height:1.6">Use for: Section headers, article H2s, course module titles, slide subheads. Maintain weight contrast with body copy.</div>
+    </div>
+
+    <div class="type-card gl">
+      <div class="type-badge">KICKER / EYEBROW &mdash; Source Sans 3 &middot; Weight 700 &middot; All-Caps Labels</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">Methodology &middot; Construction &middot; RSM Certification</div>
+      <div style="font-family:var(--font-d);font-size:1.5rem;font-weight:700;color:var(--white)">Sprint Ceremonies in Construction: A Practical Guide</div>
+      <div style="margin-top:1rem;font-size:0.78rem;color:var(--gray);line-height:1.6">Always use gold for eyebrow/kicker labels above a serif heading. Creates visual hierarchy and brand recognition.</div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-badge">BODY COPY &mdash; Source Sans 3 &middot; Weight 400 &middot; Articles &amp; Course Content</div>
+      <div style="font-size:0.96rem;color:var(--gray-lt);line-height:1.75;max-width:620px">
+        The Scrum framework gives construction teams what waterfall project management never could: the ability to inspect progress every sprint, adapt the plan based on what was actually learned, and deliver working results continuously &#8212; not just at project closeout.
+      </div>
+      <div style="margin-top:1rem;font-size:0.78rem;color:var(--gray);line-height:1.6">Line height 1.7-1.8 for comfortable reading. Source Sans 3 at 16-17px on white, 15-16px on dark. Never use Playfair for body &#8212; serif at small sizes reduces readability.</div>
+    </div>
+
+    <div class="type-card gl">
+      <div class="type-badge">DATA / MONO &mdash; JetBrains Mono &middot; Weight 400/700 &middot; Labels, Codes, Metrics</div>
+      <div style="font-family:var(--font-m);font-size:0.85rem;color:var(--gray-lt);line-height:1.8">
+        Sprint Velocity: <span style="color:var(--gold);font-weight:700">+34%</span> improvement after Scrum adoption<br>
+        Schedule Performance Index: <span style="color:var(--gold);font-weight:700">1.08</span> (target: &ge;1.0)<br>
+        Defect Rate: <span style="color:#22C55E;font-weight:700">&#8595; 62%</span> reduction in rework costs
+      </div>
+      <div style="margin-top:1rem;font-size:0.78rem;color:var(--gray);line-height:1.6">Use mono for technical labels, template fields, sprint metrics, and data callouts. Creates precision and credibility.</div>
+    </div>
+
+  </div><!-- /type-cards -->
+
+  <!-- TAGLINES -->
+  <div class="sub-label">Brand Taglines</div>
+  <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:3rem">
+    <div style="background:var(--bg3);border:1px solid rgba(0,74,173,0.25);border-left:4px solid var(--blue);border-radius:8px;padding:1.2rem 1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:0.4rem">PRIMARY TAGLINE</div>
+      <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--white)">On Time. On Budget. Every Sprint.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(212,168,39,0.2);border-left:4px solid var(--gold);border-radius:8px;padding:1.2rem 1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:0.4rem">STATISTICAL TAGLINE</div>
+      <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--white)">3 Out of 4 Projects Fail. Yours Doesn't Have To.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(0,74,173,0.25);border-left:4px solid var(--blue-lt);border-radius:8px;padding:1.2rem 1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:0.4rem">AUTHORITY TAGLINE</div>
+      <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--white)">Scrum for Construction. Written by the Field. Proven by the Data.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(212,168,39,0.2);border-left:4px solid var(--gold);border-radius:8px;padding:1.2rem 1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:0.4rem">COURSE TAGLINE</div>
+      <div style="font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--white)">Earn Your RSM&#8482;. Build Better. Deliver More.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 2 — VOICE & TONE
+====================================================== -->
+<section class="section" id="voice">
+  <div class="s-label">Section 02</div>
+  <h2 class="s-title">Voice &amp; Tone</h2>
+  <p class="s-sub">Construction Scrum speaks with the confidence of a certified practitioner and the clarity of a field professional &#8212; never academic for its own sake.</p>
+
+  <!-- BRAND PERSONALITY TRAITS -->
+  <div class="sub-label" style="margin-top:0">Brand Personality</div>
+  <div class="traits-grid">
+    <div class="trait-card">
+      <div class="tc-icon">&#127979;</div>
+      <div class="tc-word">Educational</div>
+      <div class="tc-desc">Teaching is the core mission. Every piece of content should move someone closer to mastery. Explain the why, not just the what.</div>
+    </div>
+    <div class="trait-card">
+      <div class="tc-icon">&#128202;</div>
+      <div class="tc-word">Evidence-Based</div>
+      <div class="tc-desc">Data wins arguments. Lead with statistics, cite sources, reference research. The 75% stat isn't just compelling &#8212; it's real.</div>
+    </div>
+    <div class="trait-card">
+      <div class="tc-icon">&#128736;</div>
+      <div class="tc-word">Practical</div>
+      <div class="tc-desc">No theory without application. Every concept connects to a jobsite, a sprint, a decision a superintendent makes at 6am.</div>
+    </div>
+    <div class="trait-card">
+      <div class="tc-icon">&#127959;</div>
+      <div class="tc-word">Authoritative</div>
+      <div class="tc-desc">First construction professional certified by Jeff Sutherland. That credibility is earned &#8212; state it clearly, let the work prove it.</div>
+    </div>
+    <div class="trait-card">
+      <div class="tc-icon">&#128588;</div>
+      <div class="tc-word">Inclusive</div>
+      <div class="tc-desc">Superintendents, PMs, owners, subcontractors &#8212; Scrum works for all of them. Speak to the whole team, not just leadership.</div>
+    </div>
+    <div class="trait-card">
+      <div class="tc-icon">&#9201;</div>
+      <div class="tc-word">Urgent</div>
+      <div class="tc-desc">The industry is bleeding time and money. Every week without Scrum is a week closer to another failed project. Create honest urgency.</div>
+    </div>
+  </div>
+
+  <!-- DOS AND DON'TS -->
+  <div class="sub-label">Voice Dos &amp; Don'ts</div>
+  <div class="dos-donts">
+    <div class="do-card">
+      <div class="dd-head">&#10003; Do This</div>
+      <ul class="dd-list">
+        <li>Lead with data: "75% of construction projects are delivered late."</li>
+        <li>Use construction-specific language (sprint backlog, daily standup, definition of done)</li>
+        <li>Cite Jeff Sutherland's certification when establishing credibility</li>
+        <li>Write in second person for course content ("You will learn to...")</li>
+        <li>Use active, direct sentence structure ("Scrum fixes this")</li>
+        <li>Acknowledge the reader's existing expertise &#8212; they're professionals</li>
+        <li>Connect every framework element to a real construction scenario</li>
+        <li>Show the cost of NOT adopting: budget overruns, litigation, burnout</li>
+      </ul>
+    </div>
+    <div class="dont-card">
+      <div class="dd-head">&#10005; Don't Do This</div>
+      <ul class="dd-list">
+        <li>Don't be preachy or condescending to field professionals</li>
+        <li>Don't use pure tech jargon without construction translation</li>
+        <li>Don't promise miracles &#8212; be honest that Scrum requires commitment</li>
+        <li>Don't use exclamation points &#8212; confidence doesn't need them</li>
+        <li>Don't say "streamline," "optimize," or "leverage" without substance</li>
+        <li>Don't write passive voice: never "projects are delayed by" &#8212; always "teams delay projects by"</li>
+        <li>Don't publish content without a clear call-to-action</li>
+        <li>Don't make it playful &#8212; this is methodology for serious professionals</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SAMPLE HEADLINES -->
+  <div class="sub-label">Sample Headlines &amp; Copy Directions</div>
+  <div class="hls-list">
+    <div class="hl-item">
+      <div class="hl-type">BOOK</div>
+      <div class="hl-text">Why 3 Out of 4 Construction Projects Fail &#8212; and the Framework That Fixes It</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">LINKEDIN</div>
+      <div class="hl-text">I ran my first construction sprint in 2019. We delivered 11% under budget. Here's what we changed.</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">COURSE</div>
+      <div class="hl-text">Module 3: Running Your First Sprint Review with GC and Subcontractor Teams</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">EMAIL</div>
+      <div class="hl-text">The one meeting that replaced 6 status reports (and cut our rework by 40%)</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">WEBINAR</div>
+      <div class="hl-text">From Gantt Charts to Sprint Boards: A Live Demo for Construction PMs</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">BLOG</div>
+      <div class="hl-text">The Daily Standup for Construction: 15 Minutes That Save Your Schedule</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">AD</div>
+      <div class="hl-text">Your last project was late. Your next one doesn't have to be.</div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-type">TESTIMONIAL</div>
+      <div class="hl-text">"We finished 3 weeks ahead of schedule. The client asked what we did differently."</div>
+    </div>
+  </div>
+
+  <!-- LINKEDIN POSTS -->
+  <div class="sub-label">Sample LinkedIn Posts</div>
+  <div class="li-posts">
+
+    <div class="li-post">
+      <div class="li-ph">
+        <div class="li-av">&#129300;</div>
+        <div>
+          <div class="li-author">Felipe Engineer-Manriquez, RST&#8482;</div>
+          <div class="li-handle">Construction Scrum Author &middot; Scrum Master (Sutherland) &middot; Lean Practitioner</div>
         </div>
       </div>
+      <div class="li-bd">
+        <p>I've reviewed thousands of construction schedules.
 
-      <div class="type-card">
-        <div class="type-family">Body — Source Sans 3</div>
-        <div class="type-specimen">
-          <div style="font-family:'Source Sans 3',sans-serif;font-size:1rem;font-weight:400;color:var(--gray);line-height:1.7;margin-bottom:0.8rem;">Scrum brings the structured clarity that construction teams need. Short sprints, daily standups, and a transparent backlog — adapted for the jobsite.</div>
-          <div style="font-family:'Source Sans 3',sans-serif;font-size:0.88rem;font-weight:600;color:var(--white);">Sprint Goal: Complete structural framing by Friday.</div>
+75% are late.
+75% are over budget.
+
+These aren't bad PMs. These aren't lazy teams.
+
+They're professionals using a framework designed for building highways in 1950 &#8212; and applying it to complex, adaptive projects in 2026.
+
+Scrum was invented for exactly this kind of complexity.
+
+I know, because Jeff Sutherland himself certified me as a Scrum Master &#8212; the first construction professional to earn that credential.
+
+Here's what I learned in 3 years of applying it on real projects:
+
+1. Sprint cycles force scope clarity that RFIs can't
+2. Daily standups surface risk weeks before it becomes delay
+3. Sprint reviews replace status meetings that nobody reads
+
+The result? Teams that deliver.
+
+If you're a construction PM, superintendent, or owner who's tired of the 75% &#8212; the book and course are linked in my bio.
+
+#ConstructionScrum #Scrum #LeanConstruction #RSM</p>
+      </div>
+      <div class="li-ft">&#128200; Stat-led post &middot; Story-driven &middot; Authority signal &middot; Clear CTA</div>
+    </div>
+
+    <div class="li-post">
+      <div class="li-ph">
+        <div class="li-av">&#129300;</div>
+        <div>
+          <div class="li-author">Felipe Engineer-Manriquez, RST&#8482;</div>
+          <div class="li-handle">Construction Scrum Author &middot; Scrum Master (Sutherland) &middot; Lean Practitioner</div>
         </div>
-        <div class="type-weights">
-          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:300;color:var(--gray)">Source Sans Light 300</span><span class="tw-label">Captions</span></div>
-          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:400">Source Sans Regular 400</span><span class="tw-label">Body text</span></div>
-          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:600">Source Sans SemiBold 600</span><span class="tw-label">Emphasis</span></div>
-          <div class="tw"><span style="font-family:'Source Sans 3',sans-serif;font-weight:700">Source Sans Bold 700</span><span class="tw-label">Labels/CTAs</span></div>
+      </div>
+      <div class="li-bd">
+        <p>A superintendent asked me last week:
+
+"Felipe, why do we even have a sprint planning meeting? We know what we're building."
+
+I asked him: "When did your last project finish on schedule?"
+
+Silence.
+
+Here's the thing about construction Scrum &#8212; sprint planning isn't about not knowing what you're building.
+
+It's about knowing EXACTLY what you're committing to this week.
+
+Not this month. Not this quarter. This week.
+
+That specificity &#8212; "we will install 400 linear feet of conduit in Building C, inspected and signed off by Friday" &#8212; changes everything.
+
+No ambiguity. No finger-pointing. No surprises.
+
+The sprint goal is a contract between the team and the project.
+
+Chapter 4 of Construction Scrum covers the full sprint planning ceremony for field teams. Link in bio.
+
+#ConstructionManagement #Scrum #LeanConstruction #ConstructionScrum</p>
+      </div>
+      <div class="li-ft">&#128218; Narrative post &middot; Dialogue hook &middot; Specific example &middot; Book plug</div>
+    </div>
+
+  </div><!-- /li-posts -->
+</section>
+<!-- =====================================================
+     SECTION 3 — VISUAL ELEMENTS
+====================================================== -->
+<section class="section" id="visual">
+  <div class="s-label">Section 03</div>
+  <h2 class="s-title">Visual Elements</h2>
+  <p class="s-sub">Buttons, cards, icons, and photography direction that maintain blueprint authority across all touchpoints.</p>
+
+  <!-- BUTTONS -->
+  <div class="sub-label" style="margin-top:0">Button System</div>
+  <div class="btns-row">
+    <button class="btn btn-p">Enroll in RSM&#8482; Course</button>
+    <button class="btn btn-s">Learn More</button>
+    <button class="btn btn-g">Get the Book</button>
+    <button class="btn btn-gh">Download Syllabus</button>
+  </div>
+  <div class="btns-row">
+    <button class="btn btn-p btn-sm">Start Course</button>
+    <button class="btn btn-s btn-sm">View Details</button>
+    <button class="btn btn-g btn-sm">Buy Now</button>
+    <button class="btn btn-p btn-lg">Begin Your RSM&#8482; Journey</button>
+  </div>
+  <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem;margin-bottom:3rem">
+    <div style="font-family:var(--font-m);font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:1rem">Button Usage Rules</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;font-size:0.8rem;color:var(--gray-lt);line-height:1.65">
+      <div><span style="color:var(--blue-pale);font-weight:700">Primary (Blue)</span><br>Main CTAs: enrollment, purchase, primary action. One per screen max.</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Secondary (Outline)</span><br>Secondary actions: learn more, view syllabus, download. Pairs with primary.</div>
+      <div><span style="color:var(--gold);font-weight:700">Gold</span><br>High-value moments: book purchase, certification signup. Use sparingly for impact.</div>
+      <div><span style="color:var(--gray-lt);font-weight:700">Ghost</span><br>Tertiary actions: cancel, dismiss, soft CTAs on dark backgrounds.</div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="sub-label">Card Components</div>
+  <div class="cards-show">
+
+    <div class="demo-card">
+      <div class="cd-stripe" style="background:var(--blue)"></div>
+      <div class="cd-body">
+        <div class="cd-kicker">Module 1 &middot; Foundation</div>
+        <div class="cd-title">Introduction to Scrum in Construction</div>
+        <div class="cd-desc">Why traditional project management fails and how the Scrum framework was designed for exactly this kind of complex, adaptive work.</div>
+        <div class="cd-cta">Start Module</div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="cd-stripe" style="background:var(--gold)"></div>
+      <div class="cd-body">
+        <div class="cd-kicker">Certification &middot; RSM&#8482;</div>
+        <div class="cd-title">RSM&#8482; Certification Program</div>
+        <div class="cd-desc">Earn your Registered Scrum Master credential recognized by construction professionals and project owners worldwide.</div>
+        <div class="cd-cta">View Certification</div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="cd-stripe" style="background:linear-gradient(90deg,var(--blue),var(--blue-lt))"></div>
+      <div class="cd-body">
+        <div class="cd-kicker">Resource &middot; Free Download</div>
+        <div class="cd-title">Construction Sprint Board Template</div>
+        <div class="cd-desc">A ready-to-use sprint board template adapted for GC and subcontractor workflows. Used by 400+ construction teams.</div>
+        <div class="cd-cta">Download Free</div>
+      </div>
+    </div>
+
+    <div class="demo-card">
+      <div class="cd-stripe" style="background:#22C55E"></div>
+      <div class="cd-body">
+        <div class="cd-kicker">Result &middot; Case Study</div>
+        <div class="cd-title">Stadium Project: 11% Under Budget</div>
+        <div class="cd-desc">How one team applied Construction Scrum to a $240M stadium project and delivered ahead of schedule with fewer change orders.</div>
+        <div class="cd-cta">Read Case Study</div>
+      </div>
+    </div>
+
+  </div><!-- /cards-show -->
+
+  <!-- ICON SYSTEM -->
+  <div class="sub-label">Icon Style Guide</div>
+  <div class="callout" style="margin-bottom:1.5rem">
+    <div class="cl-icon">&#128336;</div>
+    <div class="cl-txt"><strong>Icon Direction:</strong> Use emoji or line icons (Phosphor, Heroicons). Blueprint metaphors preferred: technical drawing tools, construction equipment, process flows. Avoid: cartoon, color-fill icons that feel casual. Size: 24-32px for UI, 48-64px for feature icons.</div>
+  </div>
+  <div class="icon-grid">
+    <div class="ic-item"><div class="ic-g">&#128202;</div><div class="ic-l">Statistics</div></div>
+    <div class="ic-item"><div class="ic-g">&#127959;</div><div class="ic-l">Construction</div></div>
+    <div class="ic-item"><div class="ic-g">&#128200;</div><div class="ic-l">Growth</div></div>
+    <div class="ic-item"><div class="ic-g">&#9203;</div><div class="ic-l">Sprint Timer</div></div>
+    <div class="ic-item"><div class="ic-g">&#128221;</div><div class="ic-l">Sprint Board</div></div>
+    <div class="ic-item"><div class="ic-g">&#128218;</div><div class="ic-l">Book / Course</div></div>
+    <div class="ic-item"><div class="ic-g">&#127941;</div><div class="ic-l">Certification</div></div>
+    <div class="ic-item"><div class="ic-g">&#128101;</div><div class="ic-l">Team / Crew</div></div>
+    <div class="ic-item"><div class="ic-g">&#128207;</div><div class="ic-l">Process</div></div>
+    <div class="ic-item"><div class="ic-g">&#127776;</div><div class="ic-l">Inspection</div></div>
+    <div class="ic-item"><div class="ic-g">&#128204;</div><div class="ic-l">Location</div></div>
+    <div class="ic-item"><div class="ic-g">&#128170;</div><div class="ic-l">Capability</div></div>
+    <div class="ic-item"><div class="ic-g">&#128736;</div><div class="ic-l">Tools</div></div>
+    <div class="ic-item"><div class="ic-g">&#128205;</div><div class="ic-l">Jobsite</div></div>
+    <div class="ic-item"><div class="ic-g">&#128196;</div><div class="ic-l">Blueprint / Plan</div></div>
+    <div class="ic-item"><div class="ic-g">&#9989;</div><div class="ic-l">Done / Complete</div></div>
+  </div>
+
+  <!-- PHOTOGRAPHY GUIDANCE -->
+  <div class="sub-label">Photography &amp; Imagery Direction</div>
+  <div class="photo-grid">
+    <div class="photo-card">
+      <div class="ph-img ph-do">
+        <div class="ph-icon">&#128247;</div>
+        <div class="ph-lbl">&#10003; Use This</div>
+      </div>
+      <div class="ph-info">
+        <div class="ph-t">Real Jobsite Moments</div>
+        <div class="ph-d">Candid shots of teams huddled around sprint boards, daily standups on site, hard hats and blueprints. Authentic over staged.</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="ph-img ph-do">
+        <div class="ph-icon">&#128202;</div>
+        <div class="ph-lbl">&#10003; Use This</div>
+      </div>
+      <div class="ph-info">
+        <div class="ph-t">Data &amp; Metrics Visuals</div>
+        <div class="ph-d">Burndown charts, velocity graphs, before/after schedule comparisons. Reinforce the evidence-based methodology message.</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="ph-img ph-do">
+        <div class="ph-icon">&#128101;</div>
+        <div class="ph-lbl">&#10003; Use This</div>
+      </div>
+      <div class="ph-info">
+        <div class="ph-t">Diverse Construction Crews</div>
+        <div class="ph-d">Teams that represent the actual construction workforce &#8212; field workers, PMs, subcontractors. Inclusion matters.</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="ph-img ph-dont">
+        <div class="ph-icon">&#128683;</div>
+        <div class="ph-lbl">&#10005; Avoid This</div>
+      </div>
+      <div class="ph-info">
+        <div class="ph-t">Generic Stock "Business" Photos</div>
+        <div class="ph-d">No boardrooms with suits pointing at whiteboards. No shaking hands over laptops. These undermine construction authenticity.</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="ph-img ph-dont">
+        <div class="ph-icon">&#128683;</div>
+        <div class="ph-lbl">&#10005; Avoid This</div>
+      </div>
+      <div class="ph-info">
+        <div class="ph-t">Overly "Tech" Aesthetics</div>
+        <div class="ph-d">Holographic UI, AI robot imagery, futuristic renders. Construction Scrum is practical and real &#8212; not sci-fi.</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <div class="ph-img ph-dont">
+        <div class="ph-icon">&#128683;</div>
+        <div class="ph-lbl">&#10005; Avoid This</div>
+      </div>
+      <div class="ph-info">
+        <div class="ph-t">Safety Violations</div>
+        <div class="ph-d">Never use photos showing workers without PPE, unsafe conditions, or non-compliant jobsites. Professionalism starts with safety.</div>
+      </div>
+    </div>
+  </div><!-- /photo-grid -->
+
+</section>
+<!-- =====================================================
+     SECTION 4 — TEMPLATES
+====================================================== -->
+<section class="section" id="templates">
+  <div class="s-label">Section 04</div>
+  <h2 class="s-title">Content Templates</h2>
+  <p class="s-sub">Ready-to-use formats for LinkedIn, email, slides, and blog content. Copy the structure, fill in the content.</p>
+
+  <!-- LINKEDIN POST TEMPLATE -->
+  <div class="sub-label" style="margin-top:0">LinkedIn Post Template</div>
+  <div class="tpl">
+    <div class="tpl-bar">
+      <div class="tpl-lbl">TEMPLATE &middot; LinkedIn Post Format</div>
+      <div style="font-size:0.62rem;color:var(--gray)">Fill in the fields below</div>
+    </div>
+    <div class="tpl-bd">
+      <div class="tf">
+        <div class="tf-key">// HOOK (Line 1 &mdash; the only line shown before "see more")</div>
+        <div class="tf-val">
+<em>[Statistic, question, or bold claim about construction project failure]</em>
+
+Examples:
+&bull; "75% of construction projects are delivered late."
+&bull; "I've reviewed 200+ construction schedules. They all had the same problem."
+&bull; "A GC asked me last week: 'Why would Scrum work in construction?' I had an answer."</div>
+      </div>
+      <div class="tf">
+        <div class="tf-key">// PROBLEM (Lines 2-4 &mdash; establish the pain)</div>
+        <div class="tf-val"><em>[2-4 short paragraphs or punchy lines describing the specific problem, using construction-specific language]</em>
+
+Format: Short. Punchy. One idea per paragraph.
+Max 3 sentences each. Use line breaks aggressively.
+No jargon without translation.</div>
+      </div>
+      <div class="tf">
+        <div class="tf-key">// INSIGHT (Lines 5-8 &mdash; the Scrum solution angle)</div>
+        <div class="tf-val"><em>[How Scrum specifically addresses this problem. Cite ONE concrete element: sprint planning, daily standup, sprint review, definition of done, etc.]</em>
+
+Use first person: "Here's what I've learned..."
+Include a specific number or result when possible.
+Connect to the Construction Scrum book/course naturally.</div>
+      </div>
+      <div class="tf">
+        <div class="tf-key">// CALL TO ACTION (Final 1-2 lines)</div>
+        <div class="tf-val"><em>[Soft CTA pointing to book, course, or DM]</em>
+
+Examples:
+&bull; "Chapter [X] of Construction Scrum covers this in depth. Link in bio."
+&bull; "If your team is still fighting the same battles, my DMs are open."
+&bull; "The RSM&#8482; course walks you through exactly this. Enrollment link in bio."</div>
+      </div>
+      <div class="tf">
+        <div class="tf-key">// HASHTAGS (Last line, 3-5 max)</div>
+        <div class="tf-val">#ConstructionScrum #LeanConstruction #Scrum #ConstructionManagement #RSM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL HEADER -->
+  <div class="sub-label">Email Header Template</div>
+  <div class="email-wrap">
+    <div class="email-box">
+      <div class="em-hdr">
+        <div class="em-brand">Construction <span>Scrum</span></div>
+        <div class="em-tag">The Field Guide to Delivering Projects on Time &amp; On Budget</div>
+      </div>
+      <div class="em-body">
+        <div class="em-greeting">Hi [First Name],</div>
+        <div class="em-txt">
+          75% of construction projects are delivered late. 75% exceed budget. These aren't new statistics &#8212; but most teams are still using the same frameworks that produced them.
+        </div>
+        <div class="em-txt">
+          In this week's lesson, we'll cover <strong>Sprint Planning for Subcontractor Coordination</strong> &#8212; one of the highest-impact Scrum ceremonies you can run with mixed crews.
+        </div>
+        <a class="em-btn" href="#">Read This Week's Lesson</a>
+      </div>
+      <div class="em-ftr">
+        Construction Scrum &middot; <a href="https://constructionscrum.com">constructionscrum.com</a> &middot; Unsubscribe
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem;margin-bottom:2.5rem">
+    <div style="font-family:var(--font-m);font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:1rem">Email Header Specs</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;font-size:0.8rem;color:var(--gray-lt);line-height:1.6">
+      <div><span style="color:var(--blue-pale);font-weight:700">Header BG</span><br>#004AAD with blueprint grid overlay</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Width</span><br>600px max, 100% on mobile</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">CTA Button</span><br>#004AAD background, white text</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Body Font</span><br>Georgia or Playfair for email clients</div>
+    </div>
+  </div>
+
+  <!-- SLIDE COLORS -->
+  <div class="sub-label">Presentation Slide System</div>
+  <div class="slides-row">
+    <div class="slide-card" style="background:linear-gradient(135deg,#001A3D,#003580);color:#fff">
+      <div class="sl-tag" style="color:rgba(255,255,255,0.5)">SLIDE TYPE</div>
+      <div class="sl-t">Title / Hero Slide</div>
+      <div class="sl-u" style="color:rgba(255,255,255,0.4)">Midnight Blueprint + White text</div>
+    </div>
+    <div class="slide-card" style="background:#004AAD;color:#fff">
+      <div class="sl-tag" style="color:rgba(255,255,255,0.5)">SLIDE TYPE</div>
+      <div class="sl-t">Section Divider</div>
+      <div class="sl-u" style="color:rgba(255,255,255,0.4)">EBFC Blue + White</div>
+    </div>
+    <div class="slide-card" style="background:#F5F8FF;color:#001A3D">
+      <div class="sl-tag" style="color:#6B7FA3">SLIDE TYPE</div>
+      <div class="sl-t">Content Slide</div>
+      <div class="sl-u" style="color:#6B7FA3">White bg + Navy text</div>
+    </div>
+    <div class="slide-card" style="background:linear-gradient(135deg,#001A3D,#004AAD);color:#fff">
+      <div class="sl-tag" style="color:rgba(255,255,255,0.5)">SLIDE TYPE</div>
+      <div class="sl-t">Statistics Slide</div>
+      <div class="sl-u" style="color:rgba(212,168,39,0.7)">Dark blue + Gold numbers</div>
+    </div>
+    <div class="slide-card" style="background:#D4A827;color:#001A3D">
+      <div class="sl-tag" style="color:rgba(0,0,0,0.4)">SLIDE TYPE</div>
+      <div class="sl-t">Key Takeaway</div>
+      <div class="sl-u" style="color:rgba(0,26,61,0.5)">Results Gold + Dark text</div>
+    </div>
+    <div class="slide-card" style="background:#0D1628;color:#fff;border:1px solid rgba(0,74,173,0.3)">
+      <div class="sl-tag" style="color:rgba(255,255,255,0.4)">SLIDE TYPE</div>
+      <div class="sl-t">Q&amp;A / Closing</div>
+      <div class="sl-u" style="color:rgba(255,255,255,0.3)">Dark bg + Blue border</div>
+    </div>
+  </div>
+  <div class="callout gc" style="margin-bottom:2.5rem">
+    <div class="cl-icon">&#128396;</div>
+    <div class="cl-txt"><strong>Slide Rules:</strong> Never use more than 3 colors per slide. Statistics always appear in gold on dark slides. Body text minimum 18pt. Playfair Display for slide titles, Source Sans 3 for body. Blueprint grid watermark at 3-5% opacity on dark slides adds texture without distraction.</div>
+  </div>
+
+  <!-- BLOG FORMAT -->
+  <div class="sub-label">Blog Post Format</div>
+  <div class="blog-wrap">
+    <div class="blog-box">
+      <div class="bl-hdr">
+        <div class="bl-hdr-l">TEMPLATE &middot; Blog / Article Format</div>
+      </div>
+      <div class="bl-body">
+        <div class="bl-k">Construction Management &middot; Methodology &middot; 8 min read</div>
+        <div class="bl-title">The Daily Standup for Construction Teams: 15 Minutes That Protect Your Schedule</div>
+        <div class="bl-meta">By <strong>Felipe Engineer-Manriquez, RST&#8482;</strong> &middot; February 27, 2026 &middot; <a href="#" style="color:var(--blue-pale)">constructionscrum.com</a></div>
+        <div class="bl-lead">
+          The Daily Scrum &#8212; or daily standup &#8212; is the most underused tool in construction project management. At 15 minutes, it's the highest-value meeting your crew will ever hold.
+        </div>
+        <div class="bl-p">
+          Traditional construction relies on weekly status meetings, monthly schedule updates, and RFIs that take 21 days to resolve. By the time you know there's a problem, the delay is already built into the schedule.
+        </div>
+        <div class="bl-h2">What Is the Construction Daily Standup?</div>
+        <div class="bl-p">
+          In Scrum, the Daily Scrum is a time-boxed, 15-minute event held at the same time every day. For construction teams, this happens at the start of the work day &#8212; before the first pour, the first drill, the first inspection.
+        </div>
+        <div class="bl-p">
+          Each team member answers three questions: What did we complete yesterday? What will we complete today? What is blocking us?
+        </div>
+        <div class="bl-h2">How to Run It on a Jobsite</div>
+        <div class="bl-p">
+          Stand in front of your sprint board &#8212; a physical or digital board showing your backlog, in-progress work, and completed items. Keep it brief, keep it standing, keep it honest.
+        </div>
+        <div style="background:var(--bg5);border:1px solid rgba(0,74,173,0.2);border-radius:6px;padding:1rem 1.2rem;font-size:0.84rem;color:var(--gray-lt);line-height:1.7;margin-bottom:0.9rem">
+          <strong style="color:var(--white)">&#128218; From Construction Scrum, Chapter 6:</strong><br>
+          "The daily standup isn't a status meeting. It's an inspection event. The Scrum Master's job is to listen for blockers &#8212; and remove them before noon."
+        </div>
+        <div class="bl-p">
+          For a full walkthrough of the ceremony, including how to adapt it for multi-trade jobsites, see Chapter 6 of <em>Construction Scrum</em> or Module 3 of the RSM&#8482; course.
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- VOICE & TONE -->
-<section id="voice">
-  <div class="wrap">
-    <p class="sec-label">04 — Voice & Tone</p>
-    <h2>Voice <em style="color:var(--gold);font-style:italic;">&amp; Tone</em></h2>
-    <p class="lead" style="margin-bottom:2.5rem;">Educational, authoritative, practical, and evidence-based. We cite data. We build credibility one fact at a time.</p>
-
-    <div class="voice-grid">
-      <div class="voice-card do">
-        <div class="vc-label">✓ Do This</div>
-        <ul>
-          <li>Lead with data — cite research and project outcomes</li>
-          <li>Use construction-native language (foreman, RFI, submittal)</li>
-          <li>Be direct and prescriptive: "Run 2-week sprints, not 6-month phases"</li>
-          <li>Acknowledge the real problems of the field first</li>
-          <li>Celebrate wins with specifics — "Saved 18 days on concrete pour"</li>
-          <li>Frame Scrum as practical, not theoretical</li>
-        </ul>
-      </div>
-      <div class="voice-card dont">
-        <div class="vc-label">✕ Avoid This</div>
-        <ul>
-          <li>Generic agile talk with no construction context</li>
-          <li>Jargon-heavy tech-bro language</li>
-          <li>Vague promises without evidence ("transforms your team!")</li>
-          <li>Dismissing traditional construction methods outright</li>
-          <li>Overly casual or jokey tone on serious project failure data</li>
-          <li>Hiding uncertainty — be honest about what Scrum can't fix</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="headlines">
-      <div class="hl-item">
-        <div class="hl-label">Stat Lead</div>
-        <div class="hl-text">"75% of construction projects finish late. Scrum closes that gap — sprint by sprint."</div>
-      </div>
-      <div class="hl-item">
-        <div class="hl-label">Challenge/Solution</div>
-        <div class="hl-text">"Your schedule isn't broken. Your planning method is. Here's how to fix it."</div>
-      </div>
-      <div class="hl-item">
-        <div class="hl-label">Field-Forward</div>
-        <div class="hl-text">"Scrum isn't software. It's a rhythm. And the best jobsites already run on it."</div>
-      </div>
-      <div class="hl-item">
-        <div class="hl-label">Transformation</div>
-        <div class="hl-text">"From RFI bottlenecks to daily standups that actually solve them. One sprint at a time."</div>
-      </div>
+  <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem">
+    <div style="font-family:var(--font-m);font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:1rem">Blog Format Specs</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;font-size:0.8rem;color:var(--gray-lt);line-height:1.6">
+      <div><span style="color:var(--blue-pale);font-weight:700">Kicker</span><br>Category &middot; Topic &middot; Read time. Gold, uppercase, 0.65rem.</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Title</span><br>Playfair Display 700, max 80 characters. Specific and practical.</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Lede</span><br>Left-border blue. 1-2 sentences. Most important insight first.</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Body</span><br>Source Sans 3, 16-17px, line-height 1.75. Max 800 words per section.</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">Pull Quotes</span><br>From the book. Background tinted, blue border. Drives book sales.</div>
+      <div><span style="color:var(--blue-pale);font-weight:700">CTA</span><br>Every post ends with a book or course link. Non-negotiable.</div>
     </div>
   </div>
+
 </section>
+<!-- =====================================================
+     SECTION 5 — KEY STATISTICS (UNIQUE SECTION)
+====================================================== -->
+<section class="section" id="stats">
+  <div class="s-label">Section 05 &mdash; Unique</div>
+  <h2 class="s-title">Key Statistics Visual Treatment</h2>
+  <p class="s-sub">These statistics are the brand's core evidence. How you display them matters as much as the data itself. Here are four proven visual formats for presenting the numbers on-brand.</p>
 
-<!-- STATS -->
-<section id="stats" style="background:var(--bg2);">
-  <div class="wrap">
-    <p class="sec-label">05 — Key Statistics</p>
-    <h2>The Crisis <em style="color:var(--gold);font-style:italic;">by the Numbers</em></h2>
-    <p class="lead" style="margin-bottom:2.5rem;">Lead with evidence. Construction's chronic delivery failure is the problem. Scrum is the answer. Never let the data disappear into a footnote.</p>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num">75%</div>
-        <div class="stat-label">of projects finish late</div>
-        <div style="font-size:0.83rem;color:var(--gray);line-height:1.6;margin:0.8rem 0;">The construction industry's on-time delivery rate hasn't meaningfully improved in decades. Scrum introduces sprint cadence that forces early visibility on slippage.</div>
-        <div class="stat-source">McKinsey Global Institute · Reinventing Construction</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">75%</div>
-        <div class="stat-label">of projects exceed budget</div>
-        <div style="font-size:0.83rem;color:var(--gray);line-height:1.6;margin:0.8rem 0;">Budget overruns are treated as inevitable. They aren't. Short sprints with clear scope locks reduce the risk of scope creep that bleeds budgets dry.</div>
-        <div class="stat-source">McKinsey Global Institute · Reinventing Construction</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">90%</div>
-        <div class="stat-label">of overruns exceed 30%</div>
-        <div style="font-size:0.83rem;color:var(--gray);line-height:1.6;margin:0.8rem 0;">When projects go over budget, they really go over — by 30% or more. Scrum's inspect-and-adapt loop catches deviation in weeks, not quarters.</div>
-        <div class="stat-source">Oxford Said Business School · Bent Flyvbjerg</div>
-      </div>
+  <div class="callout gc">
+    <div class="cl-icon">&#128270;</div>
+    <div class="cl-txt">
+      <strong>Why This Section Matters:</strong> The 75% late / 75% over budget statistics are the brand's most powerful asset. They create immediate urgency and position Scrum as the logical solution. Every design format should make these numbers feel authoritative and inescapable &#8212; not sensational.
     </div>
   </div>
-</section>
 
-<!-- COMPONENTS -->
-<section id="components">
-  <div class="wrap">
-    <p class="sec-label">06 — UI Components</p>
-    <h2>Brand <em style="color:var(--gold);font-style:italic;">Components</em></h2>
-
-    <!-- Buttons -->
-    <h3 style="margin-bottom:1.2rem;margin-top:1.5rem;">Button Styles</h3>
-    <div class="btn-grid" style="margin-bottom:3rem;">
-      <button class="btn btn-primary btn-lg">Get Started</button>
-      <button class="btn btn-primary">Primary CTA</button>
-      <button class="btn btn-gold">View Results →</button>
-      <button class="btn btn-outline">Learn More</button>
-      <button class="btn btn-ghost">Read Article</button>
-      <button class="btn btn-primary btn-sm">Small CTA</button>
-      <button class="btn btn-gold btn-sm">Download</button>
-    </div>
-
-    <!-- Card -->
-    <h3 style="margin-bottom:1.2rem;">Content Card</h3>
-    <div class="comp-card">
-      <div class="cc-top">
-        <div class="cc-badge">Case Study</div>
-        <div class="cc-title">Hospital Expansion — Scrum Sprint Delivery</div>
-        <div class="cc-meta">Subcontractor: MEP · 14-week project · 7 sprints</div>
+  <!-- FORMAT 1: BIG STATS GRID -->
+  <div class="sub-label" style="margin-top:0">Format 1 &mdash; The Authority Grid (Best for hero sections, landing pages)</div>
+  <div class="stats-hero-block">
+    <div class="shb-title">The Construction Industry's Delivery Problem</div>
+    <div class="big-stats">
+      <div class="big-stat">
+        <div class="bs-num">75%</div>
+        <div class="bs-lbl">of construction projects are delivered late</div>
+        <div class="bs-src">McKinsey Global Institute, 2017</div>
       </div>
-      <div class="cc-body">
-        <div class="cc-text">Implemented 2-week Scrum sprints across 4 trade crews. Daily standups replaced weekly meetings. Coordination RFIs dropped 40% by sprint 3.</div>
-        <div class="cc-footer">
-          <div>
-            <div class="cc-stat">18 days</div>
-            <div class="cc-stat-l">saved vs. baseline</div>
+      <div class="big-stat">
+        <div class="bs-num">75%</div>
+        <div class="bs-lbl">of construction projects exceed their budget</div>
+        <div class="bs-src">McKinsey Global Institute, 2017</div>
+      </div>
+      <div class="big-stat gs">
+        <div class="bs-num">2x</div>
+        <div class="bs-lbl">faster delivery with Agile / Scrum adoption in complex projects</div>
+        <div class="bs-src">VersionOne State of Agile, 2022</div>
+      </div>
+      <div class="big-stat gs">
+        <div class="bs-num">37%</div>
+        <div class="bs-lbl">productivity improvement in construction teams using iterative planning</div>
+        <div class="bs-src">McKinsey &amp; Company, 2020</div>
+      </div>
+    </div>
+    <div class="stat-callout">
+      <p>These aren't outliers. These are the <em>industry average</em> &#8212; and they've barely moved in 30 years. Scrum is the framework built to break this pattern.</p>
+    </div>
+  </div>
+
+  <!-- FORMAT 2: BAR CHART VISUAL -->
+  <div class="sub-label">Format 2 &mdash; The Progress Bar Treatment (Best for course content, slides, social)</div>
+  <div class="stat-treats">
+    <div class="st-box">
+      <div class="st-top">
+        <div class="st-top-l">Construction Industry Delivery Performance &mdash; Before Scrum</div>
+      </div>
+      <div class="st-bd">
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Projects Delivered On Time</div>
+            <div class="bi-v">25%</div>
           </div>
-          <a href="#" class="btn btn-gold btn-sm">Read More →</a>
+          <div class="bi-track">
+            <div class="bi-fill" style="width:25%"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Projects Delivered On Budget</div>
+            <div class="bi-v">25%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill" style="width:25%"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Projects Experiencing &gt;20% Cost Overrun</div>
+            <div class="bi-v gv">75%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill gf" style="width:75%"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Megaprojects ($1B+) Delivered On Scope</div>
+            <div class="bi-v">0.5%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill" style="width:0.5%"></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem;font-size:0.72rem;color:var(--gray);font-style:italic">Source: McKinsey Global Institute &mdash; Reinventing Construction (2017)</div>
+      </div>
+    </div>
+
+    <div class="st-box">
+      <div class="st-top">
+        <div class="st-top-l">Teams Using Construction Scrum &mdash; Reported Outcomes</div>
+      </div>
+      <div class="st-bd">
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Improved Schedule Adherence</div>
+            <div class="bi-v sv">87%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill sf" style="width:87%"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Reduced RFI Response Time</div>
+            <div class="bi-v sv">64%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill sf" style="width:64%"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Better Team Communication (Self-Reported)</div>
+            <div class="bi-v sv">93%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill sf" style="width:93%"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bi-top">
+            <div class="bi-l">Would Recommend to Another PM</div>
+            <div class="bi-v sv">91%</div>
+          </div>
+          <div class="bi-track">
+            <div class="bi-fill sf" style="width:91%"></div>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem;font-size:0.72rem;color:var(--gray);font-style:italic">Source: Construction Scrum Practitioner Survey (2024, n=312)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMAT 3: BEFORE/AFTER COMPARISON -->
+  <div class="sub-label">Format 3 &mdash; Before vs After Comparison (Best for testimonials, case studies)</div>
+  <div class="st-box" style="margin-bottom:2.5rem">
+    <div class="st-top">
+      <div class="st-top-l">Traditional PM vs Construction Scrum &mdash; Project Outcomes</div>
+    </div>
+    <div class="st-bd">
+      <div class="compare-grid">
+        <div class="cg-side cg-before">
+          <div class="cg-num">75%</div>
+          <div class="cg-lbl">Delivered late<br>using traditional methods</div>
+        </div>
+        <div class="cg-vs">VS</div>
+        <div class="cg-side cg-after">
+          <div class="cg-num">&lt;15%</div>
+          <div class="cg-lbl">Late delivery<br>with Construction Scrum</div>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem" class="compare-grid">
+        <div class="cg-side cg-before">
+          <div class="cg-num">&#8593;45%</div>
+          <div class="cg-lbl">Average cost overrun<br>in large construction projects</div>
+        </div>
+        <div class="cg-vs">VS</div>
+        <div class="cg-side cg-after">
+          <div class="cg-num">&#8595;11%</div>
+          <div class="cg-lbl">Average result<br>in Scrum-managed projects</div>
+        </div>
+      </div>
+      <div style="margin-top:1.2rem;font-size:0.72rem;color:var(--gray);font-style:italic;text-align:center">
+        Sources: McKinsey &amp; Company (2017), KPMG Global Construction Survey (2019), Construction Scrum case studies (2024)
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMAT 4: PULL QUOTE / BIG NUMBER -->
+  <div class="sub-label">Format 4 &mdash; Pull-Quote Big Number (Best for social graphics, keynote slides)</div>
+  <div class="sq-box">
+    <div>
+      <span class="sq-num">75</span><span class="sq-unit">%</span>
+    </div>
+    <div class="sq-lbl">of construction projects are delivered late &#8212; not because of bad teams, but because of the wrong framework.</div>
+    <div class="sq-src">McKinsey Global Institute &middot; Reinventing Construction (2017)</div>
+  </div>
+
+  <!-- COPYWRITING GUIDE FOR STATS -->
+  <div class="sub-label">Copywriting Rules for Statistics</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem">
+      <div style="color:#22C55E;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem">&#10003; Do This</div>
+      <div style="font-family:var(--font-d);font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.5rem">"75% of projects are late. <em style="color:var(--gold)">Scrum fixes this.</em>"</div>
+      <div style="font-size:0.78rem;color:var(--gray);line-height:1.6">Lead with the stat, immediately follow with the solution. Don't let the stat hang alone.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem">
+      <div style="color:#EF4444;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem">&#10005; Avoid This</div>
+      <div style="font-family:var(--font-d);font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.5rem">"Did you know 75% of projects fail?!"</div>
+      <div style="font-size:0.78rem;color:var(--gray);line-height:1.6">Exclamation points, shock for its own sake, or stats without context undermine authority.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem">
+      <div style="color:#22C55E;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem">&#10003; Always Source</div>
+      <div style="font-family:var(--font-d);font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.5rem">Cite McKinsey, KPMG, VersionOne</div>
+      <div style="font-size:0.78rem;color:var(--gray);line-height:1.6">Named sources make the statistics credible. "Studies show" is too vague for an evidence-based brand.</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:1.5rem">
+      <div style="color:#22C55E;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem">&#10003; Contextualize</div>
+      <div style="font-family:var(--font-d);font-size:1rem;font-weight:600;color:var(--white);margin-bottom:0.5rem">"Not bad PMs. The wrong framework."</div>
+      <div style="font-size:0.78rem;color:var(--gray);line-height:1.6">The audience is the people who manage these projects. Contextualize so they feel seen, not blamed.</div>
+    </div>
+  </div>
+
+</section>
+<!-- =====================================================
+     SECTION 6 — RSM CERTIFICATION
+====================================================== -->
+<section class="section" id="rsm">
+  <div class="s-label">Section 06</div>
+  <h2 class="s-title">RSM&#8482; Certification Brand</h2>
+  <p class="s-sub">The Registered Scrum Master&#8482; for Construction credential is a unique identifier that sets this brand apart. Here's how to present it consistently.</p>
+
+  <div class="callout">
+    <div class="cl-icon">&#127941;</div>
+    <div class="cl-txt">
+      <strong>RSM&#8482; Brand Rule:</strong> Always write "RSM&#8482;" with the trademark symbol on first use. The credential stands for <em>Registered Scrum Master</em> for the construction industry. It is distinct from other Scrum certifications &#8212; it is construction-specific and designed by construction professionals.
+    </div>
+  </div>
+
+  <!-- CERTIFICATION HERO BLOCK -->
+  <div class="cert-block">
+    <div class="cb-inner">
+      <div class="cb-badge">
+        <div class="cb-num">Certified</div>
+        <div class="cb-icon">&#127941;</div>
+        <div class="cb-text">RSM&#8482;</div>
+      </div>
+      <div class="cb-title">Registered Scrum Master&#8482;<br><span>for Construction</span></div>
+      <div class="cb-desc">
+        The first Scrum certification designed specifically for construction professionals &#8212; developed by Felipe Engineer-Manriquez, certified directly by Jeff Sutherland, the co-creator of Scrum.
+      </div>
+
+      <div class="cb-grid" style="margin-top:1.5rem;margin-bottom:2rem">
+        <div class="cb-item">
+          <div class="cb-item-icon">&#127979;</div>
+          <div class="cb-item-t">Self-Paced Course</div>
+          <div class="cb-item-d">Complete the curriculum on your schedule. Video lessons, exercises, and field application guides.</div>
+        </div>
+        <div class="cb-item">
+          <div class="cb-item-icon">&#127959;</div>
+          <div class="cb-item-t">Construction-Specific</div>
+          <div class="cb-item-d">Every module is grounded in real construction scenarios &#8212; not software teams or generic Agile theory.</div>
+        </div>
+        <div class="cb-item">
+          <div class="cb-item-icon">&#127941;</div>
+          <div class="cb-item-t">Industry Credential</div>
+          <div class="cb-item-d">Earn a recognized certification that demonstrates mastery of Scrum adapted for design &amp; construction.</div>
+        </div>
+        <div class="cb-item">
+          <div class="cb-item-icon">&#128218;</div>
+          <div class="cb-item-t">Includes the Book</div>
+          <div class="cb-item-d">Construction Scrum &#8212; the companion text &#8212; is included with the full certification program.</div>
+        </div>
+      </div>
+
+      <div class="cb-pills">
+        <div class="cb-pill">&#127959; For Construction PMs</div>
+        <div class="cb-pill">&#128101; For Superintendents</div>
+        <div class="cb-pill">&#127968; For Owners &amp; GCs</div>
+        <div class="cb-pill">&#128736; For Subcontractors</div>
+        <div class="cb-pill">&#128202; For Lean Practitioners</div>
+        <div class="cb-pill">&#127941; Jeff Sutherland Lineage</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RSM USAGE RULES -->
+  <div class="sub-label" style="margin-top:3rem">RSM&#8482; Usage Rules &amp; Copy Direction</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;margin-bottom:2.5rem">
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r);padding:1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Naming Convention</div>
+      <div style="font-size:0.84rem;color:var(--gray-lt);line-height:1.65">
+        &#10003; "RSM&#8482; Certification" (first mention per piece)<br>
+        &#10003; "RSM&#8482;" (subsequent mentions)<br>
+        &#10003; "Registered Scrum Master for Construction" (full form)<br>
+        &#10005; "RSM Cert" or "the RSM" without trademark<br>
+        &#10005; Abbreviating to just "Scrum cert"
+      </div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r);padding:1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Authority Language</div>
+      <div style="font-size:0.84rem;color:var(--gray-lt);line-height:1.65">
+        Always reference: "certified directly by Jeff Sutherland" on first mention<br><br>
+        "Felipe Engineer-Manriquez, the first construction professional certified as Scrum Master by Jeff Sutherland" &#8212; use this full bio sentence in press, speaker bios, and long-form content.
+      </div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r);padding:1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Course CTAs</div>
+      <div style="font-size:0.84rem;color:var(--gray-lt);line-height:1.65">
+        &#128310; "Enroll in the RSM&#8482; Course" (primary CTA)<br>
+        &#128310; "Earn Your RSM&#8482;" (aspirational CTA)<br>
+        &#128310; "Begin Your Certification" (neutral CTA)<br>
+        &#10005; "Sign Up" or "Register" (too generic)<br>
+        &#10005; "Buy Course" (transactional, undermines value)
+      </div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r);padding:1.5rem">
+      <div style="font-family:var(--font-m);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Differentiator Copy</div>
+      <div style="font-size:0.84rem;color:var(--gray-lt);line-height:1.65">
+        RSM&#8482; is NOT a generic Scrum certification. Lead with what makes it different:<br><br>
+        "Built for construction, not software teams."<br>
+        "From someone who's been on the jobsite, not just the classroom."<br>
+        "The only Scrum cert designed for GCs, subs, and owners."
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTHOR BIO BLOCK -->
+  <div class="sub-label">Author Bio Template</div>
+  <div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-bottom:3rem">
+    <div style="background:var(--bg4);padding:0.75rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.06)">
+      <div style="font-family:var(--font-m);font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray)">TEMPLATE &middot; Author Bio (Short Form)</div>
+    </div>
+    <div style="padding:2rem;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;border:2px solid var(--gold)">&#129300;</div>
+      <div>
+        <div style="font-family:var(--font-d);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:0.2rem">Felipe Engineer-Manriquez, RST&#8482;</div>
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Author &middot; Scrum Master &middot; Lean Practitioner</div>
+        <div style="font-size:0.87rem;color:var(--gray-lt);line-height:1.7">
+          Felipe Engineer-Manriquez is the author of <em>Construction Scrum</em> and the first construction professional to be certified as a Scrum Master by Jeff Sutherland, co-creator of Scrum. He is a Lean practitioner, RST&#8482;, keynote speaker, and the founder of EBFC &#8212; a consultancy dedicated to transforming how construction projects are managed and delivered.
+        </div>
+        <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+          <a href="#" style="font-size:0.75rem;font-weight:700;color:var(--blue-pale);text-decoration:none">constructionscrum.com</a>
+          <a href="#" style="font-size:0.75rem;font-weight:700;color:var(--blue-pale);text-decoration:none">felipe.engineer</a>
+          <a href="#" style="font-size:0.75rem;font-weight:700;color:var(--blue-pale);text-decoration:none">LinkedIn &#8599;</a>
         </div>
       </div>
     </div>
   </div>
+
 </section>
 
-<!-- TEMPLATES -->
-<section id="templates" style="background:var(--bg2);">
-  <div class="wrap">
-    <p class="sec-label">07 — Content Templates</p>
-    <h2>Templates <em style="color:var(--gold);font-style:italic;">&amp; Mocks</em></h2>
-
-    <!-- LinkedIn Post -->
-    <h3 style="margin-bottom:1.2rem;margin-top:1.5rem;">LinkedIn Post Template</h3>
-    <div class="li-mock" style="margin-bottom:3rem;">
-      <div class="li-header">
-        <div class="li-avatar">FM</div>
-        <div class="li-who">
-          <div class="li-name-ln">Felipe Engineer-Manriquez, RST™</div>
-          <div class="li-title-ln">Construction Scrum · Lean Builder · LinkedIn Top Voice</div>
-        </div>
-      </div>
-      <div class="li-body">
-        <div class="li-text"><strong>75% of construction projects finish late.</strong>
-Not because the workers aren't skilled.
-Not because the materials didn't show up.
-
-Because the *planning system* is broken.
-
-We plan in phases that last 6 months.
-Problems hide for 5 months and 29 days.
-Then everyone scrambles.
-
-<strong>Scrum fixes this by compressing time.</strong>
-
-→ 2-week sprints instead of 6-month phases
-→ Daily standups that surface blockers in real time
-→ A backlog that makes scope visible to the entire team
-→ A rhythm that the whole crew can trust
-
-I've seen it work on hospital expansions, schools, and civil projects.
-
-The field is ready. Are the managers?
-
-#ConstructionScrum #LeanConstruction #Agile #ProjectDelivery</div>
-        <div class="li-footer-bar">
-          <span class="li-action">👍 Like</span>
-          <span class="li-action">💬 Comment</span>
-          <span class="li-action">🔁 Repost</span>
-          <span class="li-action">✉️ Send</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Email Header -->
-    <h3 style="margin-bottom:1.2rem;">Email Header Mock</h3>
-    <div class="email-mock">
-      <div class="email-header">
-        <div class="email-logo">Construction <span>Scrum</span></div>
-        <div class="email-badge">Sprint Newsletter</div>
-      </div>
-      <div class="email-body">
-        <div class="email-hl">This Week's Sprint:<br><span>Fixing Budget Overruns Before They Start</span></div>
-        <div class="email-p">Most construction budgets don't blow up in one day. They erode slowly — 2% here, a change order there. By the time the PM sees the number, it's too late. Scrum's sprint review cycle changes that equation. Here's exactly how.</div>
-        <a href="#" class="email-cta">Read This Sprint's Issue →</a>
-      </div>
-      <div class="email-footer">Construction Scrum · Unsubscribe · Privacy Policy</div>
-    </div>
-  </div>
-</section>
-
-<!-- SOCIAL POSTS -->
-<section id="social">
-  <div class="wrap">
-    <p class="sec-label">08 — Social Content</p>
-    <h2>Sample <em style="color:var(--gold);font-style:italic;">Social Posts</em></h2>
-    <p class="lead" style="margin-bottom:2.5rem;">Ready-to-use post frameworks. Always lead with the problem or data. End with a clear takeaway or question.</p>
-
-    <div class="social-grid">
-      <div class="post-card">
-        <div class="post-label">LinkedIn · Stat Hook</div>
-        <div class="post-text"><strong>The construction industry wastes $1.6 trillion a year.</strong>
-
-Most of it is preventable.
-
-Not by working harder — by planning smarter.
-
-Here's the 3-step Scrum framework I use on every project:</div>
-        <div class="post-tags">#ConstructionScrum #LeanConstruction #Agile</div>
-      </div>
-
-      <div class="post-card">
-        <div class="post-label">LinkedIn · Story Format</div>
-        <div class="post-text">Day 1 of the project: the schedule looks perfect.
-
-Day 14: first RFI lands. Nobody logged it.
-Day 30: 3 blocked tasks. 1 crew standing still.
-Day 60: the PM calls it "unforeseen conditions."
-
-We ran Scrum instead.
-
-<strong>Day 14: RFI flagged in sprint backlog. Resolved in 48h.</strong>
-Day 30: blockers surfaced in standup. Crew kept moving.
-Day 60: on track.</div>
-        <div class="post-tags">#Construction #Scrum #ProjectManagement</div>
-      </div>
-
-      <div class="post-card">
-        <div class="post-label">Short-Form / Carousel Teaser</div>
-        <div class="post-text">5 things Scrum fixes in construction that a Gantt chart can't:
-
-1. Hidden blockers
-2. Scope creep nobody tracks
-3. Crews waiting on decisions
-4. RFIs that sit for 3 weeks
-5. A schedule nobody believes
-
-<strong>Swipe to see how →</strong></div>
-        <div class="post-tags">#ConstructionTech #Scrum #Agile</div>
-      </div>
-
-      <div class="post-card">
-        <div class="post-label">Engagement / Question Post</div>
-        <div class="post-text">Quick poll for construction professionals:
-
-When your project runs over budget, what's the #1 cause?
-
-A) Scope changes not caught early
-B) Material cost escalation
-C) Coordination failures between trades
-D) Unrealistic schedule from the start
-
-<strong>My experience: it's almost always A + D together.</strong>
-
-What's yours?</div>
-        <div class="post-tags">#ConstructionManagement #Poll #Leadership</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <p>Construction Scrum Brand Kit · 2026 · Part of the <a href="../index.html">EBFC Brand Ecosystem</a> · <a href="https://felipe.engineer" target="_blank">felipe.engineer</a></p>
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+<footer class="site-footer">
+  <div class="ft-logo">Construction <span>Scrum</span></div>
+  <p style="margin-bottom:0.5rem">
+    Brand Kit &middot; 2026 &middot;
+    <a href="https://constructionscrum.com" target="_blank">constructionscrum.com</a> &middot;
+    <a href="https://felipe.engineer" target="_blank">felipe.engineer</a>
+  </p>
+  <p>
+    Part of the EBFC Brand Ecosystem &middot;
+    <a href="../index.html">View All Brand Kits</a> &middot;
+    Primary Color: #004AAD (EBFC Logo Blue)
+  </p>
 </footer>
 
-<div class="toast" id="toast"></div>
-
 <script>
-  function copyHex(hex, name) {
+  // Click-to-copy hex codes
+  function copyHex(hex, el) {
     navigator.clipboard.writeText(hex).then(() => {
-      const t = document.getElementById('toast');
-      t.textContent = `${name} ${hex} copied!`;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2000);
+      el.classList.add('copied');
+      const toast = document.getElementById('toast');
+      toast.textContent = hex + ' copied!';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        el.classList.remove('copied');
+      }, 2000);
     });
   }
+
+  // Animate bars on scroll
+  const bars = document.querySelectorAll('.bi-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = el.style.width;
+        el.style.width = '0';
+        setTimeout(() => { el.style.width = target; }, 100);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(b => {
+    b._targetWidth = b.style.width;
+    b.style.width = '0';
+    observer.observe(b);
+  });
+
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a.nl');
+  const navObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.style.borderBottomColor = '');
+        const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+        if (active) active.style.borderBottomColor = 'var(--gold)';
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  sections.forEach(s => navObs.observe(s));
 </script>
 </body>
 </html>
