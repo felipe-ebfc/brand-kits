@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EBFC AI — Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0D0D0F; --bg-card: #141416; --bg-card2: #1A1A1E;
+      --blue: #004AAD; --blue-lt: #1A6CD4; --blue-dim: #003080;
+      --gold: #D4A827; --gold-lt: #E4C04A; --gold-dim: #9A7A1A;
+      --gold-glow: rgba(212,168,39,0.15);
+      --white: #FFFFFF; --gray: #888888; --gray-dim: #555555;
+      --line: rgba(0,74,173,0.2); --line-h: rgba(212,168,39,0.3);
+      --font-h: 'Bebas Neue', sans-serif;
+      --font-b: 'Inter', sans-serif;
+      --font-ui: 'Space Grotesk', sans-serif;
+      --ease: cubic-bezier(0.22,0.61,0.36,1); --r: 8px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--white);font-family:var(--font-b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 50% -5%,rgba(0,74,173,0.12) 0%,transparent 65%)}
+
+    nav{position:sticky;top:0;z-index:100;background:rgba(13,13,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0 2rem;display:flex;align-items:center;height:58px;overflow-x:auto}
+    nav a{color:var(--gray);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:0 1.2rem;height:100%;display:flex;align-items:center;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    nav a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+    .nav-logo{font-family:var(--font-h);font-size:1.4rem;color:var(--white)!important;letter-spacing:.06em;border-bottom:none!important;margin-right:auto;padding-left:0!important}
+    .nav-logo span{color:var(--gold)}
+
+    .hero{position:relative;z-index:1;padding:7rem 2rem 5rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+    .hero-eyebrow{font-family:var(--font-ui);font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;opacity:0;animation:rise .8s var(--ease) .1s forwards}
+    .hero h1{font-family:var(--font-h);font-size:clamp(3.5rem,10vw,7rem);line-height:.95;color:var(--white);opacity:0;animation:rise .8s var(--ease) .25s forwards}
+    .hero h1 span{color:var(--gold)}
+    .hero-tagline{margin-top:1.2rem;font-family:var(--font-ui);font-size:1.1rem;font-weight:400;color:var(--gray);letter-spacing:.04em;max-width:500px;opacity:0;animation:rise .8s var(--ease) .4s forwards}
+    .hero-divider{display:flex;align-items:center;gap:1rem;width:min(340px,80vw);margin:2.5rem 0;opacity:0;animation:rise .8s var(--ease) .55s forwards}
+    .hero-divider span{flex:1;height:1px;background:var(--line)}
+    .hero-gem{width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--bg-card);border:1px solid var(--line);border-radius:100px;padding:.4rem 1rem;font-size:.78rem;color:var(--gray);opacity:0;animation:rise .8s var(--ease) .65s forwards}
+    .hero-badge b{color:var(--blue-lt)}
+    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+    .section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 2rem}
+    .section+.section{border-top:1px solid var(--line)}
+    .section-label{font-family:var(--font-ui);font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+    .section-title{font-family:var(--font-h);font-size:clamp(2rem,4vw,3rem);color:var(--white);margin-bottom:2.5rem;line-height:1}
+
+    .palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem}
+    .swatch{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
+    .swatch:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+    .swatch-color{height:90px;position:relative}
+    .swatch-copy-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.08em;opacity:0;transition:opacity .2s}
+    .swatch:hover .swatch-copy-hint{opacity:1}
+    .swatch-info{background:var(--bg-card);padding:.8rem}
+    .swatch-name{font-family:var(--font-ui);font-size:.78rem;font-weight:600;color:var(--white);margin-bottom:.2rem}
+    .swatch-hex{font-size:.72rem;color:var(--gray);font-family:'Courier New',monospace}
+    .swatch-role{font-size:.65rem;color:var(--gray-dim);margin-top:.25rem}
+    .copy-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--bg);font-size:.82rem;font-weight:700;padding:.6rem 1.4rem;border-radius:100px;opacity:0;pointer-events:none;z-index:9999;transition:opacity .3s}
+    .copy-toast.show{opacity:1}
+
+    .type-grid{display:flex;flex-direction:column;gap:2.5rem}
+    .type-specimen{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:2rem}
+    .type-meta{font-family:var(--font-ui);font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--line)}
+
+    .logo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+    .logo-box{border-radius:var(--r);border:1px solid var(--line);padding:3rem 2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;text-align:center}
+    .logo-box.dark{background:var(--bg-card)}
+    .logo-box.light{background:#FFFFFF}
+    .logo-box.blue{background:var(--blue)}
+    .logo-text{font-family:var(--font-h);font-size:2.4rem;letter-spacing:.06em}
+    .logo-text span{color:var(--gold)}
+    .logo-box p{font-family:var(--font-ui);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+
+    .voice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .voice-pill{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem 1.5rem;text-align:center}
+    .voice-word{font-family:var(--font-h);font-size:1.7rem;color:var(--gold);display:block;margin-bottom:.3rem}
+    .voice-desc{font-size:.75rem;color:var(--gray);line-height:1.5}
+
+    .dos-donts{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    @media(max-width:600px){.dos-donts{grid-template-columns:1fr}}
+    .do-col,.dont-col{background:var(--bg-card);border-radius:var(--r);overflow:hidden}
+    .do-header,.dont-header{padding:.8rem 1.2rem;font-family:var(--font-ui);font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    .do-header{background:rgba(76,175,128,.12);color:#4CAF80;border-bottom:1px solid rgba(76,175,128,.2)}
+    .dont-header{background:rgba(229,82,82,.1);color:#E55252;border-bottom:1px solid rgba(229,82,82,.2)}
+    .do-list,.dont-list{list-style:none;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.6rem}
+    .do-list li,.dont-list li{font-size:.82rem;color:var(--gray);padding-left:1.2rem;position:relative;line-height:1.5}
+    .do-list li::before{content:'✓';position:absolute;left:0;color:#4CAF80;font-weight:700}
+    .dont-list li::before{content:'✕';position:absolute;left:0;color:#E55252;font-weight:700}
+
+    .tagline-stack{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2.5rem}
+    .tagline-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem 1.6rem;position:relative;overflow:hidden}
+    .tagline-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--blue),var(--gold))}
+    .tagline-label{font-family:var(--font-ui);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+    .tagline-text{font-family:var(--font-h);font-size:1.6rem;color:var(--white)}
+
+    .specs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+    .spec-box{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem}
+    .spec-box h4{font-family:var(--font-h);font-size:1.1rem;color:var(--gold);margin-bottom:.6rem}
+    .spec-box p{font-size:.78rem;color:var(--gray);line-height:1.6}
+    .spec-dim{background:var(--bg-card2);border:1px dashed var(--line-h);border-radius:var(--r);padding:1rem;text-align:center;margin-top:.5rem}
+    .spec-dim span{font-family:var(--font-ui);font-size:.85rem;font-weight:600;color:var(--white)}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:2.5rem 2rem;text-align:center}
+    footer p{font-size:.75rem;color:var(--gray-dim)}
+    footer a{color:var(--gold);text-decoration:none}
+    @media(max-width:700px){.hero{padding:5rem 1.5rem 3rem}.section{padding:3rem 1.5rem}.palette-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<div class="copy-toast" id="toast">Copied!</div>
+
+<nav>
+  <a class="nav-logo" href="#">EBFC <span>AI</span></a>
+  <a href="#palette">Color</a>
+  <a href="#typography">Type</a>
+  <a href="#logo">Logo</a>
+  <a href="#taglines">Taglines</a>
+  <a href="#voice">Voice</a>
+  <a href="#usage">Usage</a>
+  <a href="#social">Social</a>
+</nav>
+
+<header class="hero">
+  <p class="hero-eyebrow">Brand Kit · 2026</p>
+  <h1>EBFC <span>AI</span></h1>
+  <p class="hero-tagline">The AI That Speaks Construction</p>
+  <div class="hero-divider"><span></span><div class="hero-gem"></div><span></span></div>
+  <div class="hero-badge"><b>ebfc.ai</b> · Personal AI Companion for Construction Professionals</div>
+</header>
+
+<!-- COLOR PALETTE -->
+<section class="section" id="palette">
+  <p class="section-label">01 — Color Palette</p>
+  <h2 class="section-title">BRAND COLORS</h2>
+  <div class="palette-grid" id="paletteGrid"></div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section" id="typography">
+  <p class="section-label">02 — Typography</p>
+  <h2 class="section-title">TYPE SYSTEM</h2>
+  <div class="type-grid">
+    <div class="type-specimen">
+      <p class="type-meta">Headlines — Bebas Neue</p>
+      <p style="font-family:var(--font-h);font-size:clamp(2.4rem,6vw,4rem);color:var(--white);line-height:1;margin-bottom:.5rem">THE AI THAT SPEAKS CONSTRUCTION</p>
+      <p style="font-family:var(--font-h);font-size:clamp(1.6rem,4vw,2.4rem);color:var(--white);line-height:1;margin-bottom:.5rem">YOUR COMPANION FOR THE JOURNEY</p>
+      <p style="font-size:.72rem;color:var(--gray-dim);margin-top:1rem">Bebas Neue — All caps, bold impact. Use for: Hero text, section headers, feature callouts. Always uppercase.</p>
+    </div>
+    <div class="type-specimen">
+      <p class="type-meta">Body — Inter</p>
+      <p style="font-family:var(--font-b);font-size:1rem;color:var(--gray);line-height:1.7;margin-bottom:.5rem">Inter is the primary body typeface. Clean, legible, and optimized for screens. Used for all paragraph text, descriptions, UI labels, and documentation.</p>
+      <p style="font-family:var(--font-b);font-size:.82rem;color:var(--gray-dim);line-height:1.6">Caption: EBFC AI is a personal AI companion for construction professionals. · Inter 400</p>
+      <p style="font-size:.72rem;color:var(--gray-dim);margin-top:1rem">Inter — 300 / 400 / 500 / 600 / 700 · Use for: Body, captions, descriptions, long-form content</p>
+    </div>
+    <div class="type-specimen" style="background:var(--bg-card2)">
+      <p class="type-meta">UI Elements — Space Grotesk</p>
+      <p style="font-family:var(--font-ui);font-size:1rem;font-weight:600;color:var(--white);margin-bottom:.5rem">BUTTONS · NAVIGATION · LABELS · BADGES</p>
+      <p style="font-family:var(--font-ui);font-size:.85rem;color:var(--gray);line-height:1.6;margin-bottom:.5rem">Space Grotesk brings a technical, engineered feel to interactive elements. Its monospaced DNA gives UI a precision aesthetic that resonates with construction professionals.</p>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
+        <span style="font-family:var(--font-ui);font-size:.78rem;font-weight:600;color:var(--bg);background:var(--gold);padding:.4rem 1rem;border-radius:var(--r)">Get Started</span>
+        <span style="font-family:var(--font-ui);font-size:.78rem;font-weight:600;color:var(--gold);border:1px solid var(--gold);padding:.4rem 1rem;border-radius:var(--r)">Learn More</span>
+        <span style="font-family:var(--font-ui);font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-lt);padding:.4rem 0">NAV LINK</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section class="section" id="logo">
+  <p class="section-label">03 — Logo</p>
+  <h2 class="section-title">LOGO & WORDMARK</h2>
+  <div class="logo-grid" style="margin-bottom:1.5rem">
+    <div class="logo-box dark">
+      <div class="logo-text" style="color:var(--white)">EBFC <span>AI</span></div>
+      <p style="color:var(--gray)">Primary — Dark background</p>
+    </div>
+    <div class="logo-box light">
+      <div class="logo-text" style="color:var(--bg)">EBFC <span style="color:var(--gold)">AI</span></div>
+      <p style="color:var(--bg);opacity:.6">Reversed — Light background</p>
+    </div>
+    <div class="logo-box blue">
+      <div class="logo-text" style="color:var(--white)">EBFC <span style="color:var(--gold)">AI</span></div>
+      <p style="color:var(--white);opacity:.7">On Blue — Brand background</p>
+    </div>
+  </div>
+  <div style="background:var(--bg-card);border:1px dashed var(--line-h);border-radius:var(--r);padding:2rem;text-align:center">
+    <p style="font-family:var(--font-ui);font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem">Clear Zone Rule</p>
+    <div style="display:inline-flex;padding:1.2rem;border:1px dashed rgba(212,168,39,.4)">
+      <span style="font-family:var(--font-h);font-size:2rem;color:var(--white)">EBFC <span style="color:var(--gold)">AI</span></span>
+    </div>
+    <p style="font-size:.75rem;color:var(--gray);margin-top:1.2rem;line-height:1.6">Maintain clear zone equal to the height of "E" on all sides. "EBFC" always in bold white/dark. "AI" always in gold accent.</p>
+    <p style="font-size:.72rem;color:var(--gray-dim);margin-top:.5rem">Minimum size: 120px wide (digital) · Never stretch, skew, or separate "EBFC" from "AI"</p>
+  </div>
+</section>
+
+<!-- TAGLINES -->
+<section class="section" id="taglines">
+  <p class="section-label">04 — Taglines</p>
+  <h2 class="section-title">MESSAGING HIERARCHY</h2>
+  <div class="tagline-stack">
+    <div class="tagline-card">
+      <p class="tagline-label">Primary Tagline</p>
+      <p class="tagline-text">THE AI THAT SPEAKS CONSTRUCTION</p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Secondary Tagline</p>
+      <p class="tagline-text">YOUR AI COMPANION FOR THE CONSTRUCTION JOURNEY</p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Tertiary — Feature-level</p>
+      <p class="tagline-text">IT REMEMBERS. IT DRAFTS. IT KEEPS YOU MOVING.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE & TONE -->
+<section class="section" id="voice">
+  <p class="section-label">05 — Voice & Tone</p>
+  <h2 class="section-title">HOW WE SOUND</h2>
+  <div class="voice-grid">
+    <div class="voice-pill"><span class="voice-word">Fluent</span><span class="voice-desc">We speak construction natively — RFIs, submittals, punchlists. No translation needed.</span></div>
+    <div class="voice-pill"><span class="voice-word">Companion</span><span class="voice-desc">Not a replacement. A partner. We ride alongside you — never above you.</span></div>
+    <div class="voice-pill"><span class="voice-word">Direct</span><span class="voice-desc">Construction professionals don't have time for fluff. Get to the point. Add value.</span></div>
+    <div class="voice-pill"><span class="voice-word">Warm</span><span class="voice-desc">Technical precision meets human understanding. We care about the craft and the people.</span></div>
+  </div>
+  <p style="font-family:var(--font-b);font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:2rem;max-width:700px"><strong style="color:var(--white)">Core principle:</strong> We speak your language. EBFC AI doesn't translate construction into tech-speak. It was born from construction — the same jobsites, the same deadlines, the same pressure. It's the AI that already gets it.</p>
+</section>
+
+<!-- USAGE GUIDELINES -->
+<section class="section" id="usage">
+  <p class="section-label">06 — Usage Guidelines</p>
+  <h2 class="section-title">DO'S AND DON'TS</h2>
+  <div class="dos-donts">
+    <div class="do-col">
+      <div class="do-header">✓ Do</div>
+      <ul class="do-list">
+        <li>Use construction terminology naturally — RFI, submittal, punchlist, daily log</li>
+        <li>Position as companion/partner, never replacement</li>
+        <li>Lead with practical outcomes: time saved, drafts generated, context remembered</li>
+        <li>Keep "EBFC" and "AI" as two visual units — EBFC bold, AI in gold</li>
+        <li>Use dark backgrounds as primary — this is a premium product</li>
+        <li>Reference real construction workflows and pain points</li>
+        <li>Speak directly: "Your AI" not "An AI solution"</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="dont-header">✕ Don't</div>
+      <ul class="dont-list">
+        <li>Use Silicon Valley jargon: "disrupt," "leverage AI," "paradigm shift"</li>
+        <li>Show hard-hat stock photos or cliché construction imagery</li>
+        <li>Claim to replace human judgment or expertise</li>
+        <li>Use light/white as primary background — it breaks the premium feel</li>
+        <li>Separate "EBFC" from "AI" in the logo — they're one unit</li>
+        <li>Oversell capabilities — be honest about what the AI can and can't do</li>
+        <li>Use blue and gold in equal proportion — blue leads, gold accents</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<section class="section" id="social">
+  <p class="section-label">07 — Social Media</p>
+  <h2 class="section-title">SOCIAL SPECS & TEMPLATES</h2>
+  <div class="specs-grid" style="margin-bottom:2rem">
+    <div class="spec-box">
+      <h4>LINKEDIN BANNER</h4>
+      <p>Company page banner image</p>
+      <div class="spec-dim"><span>1128 × 191 px</span></div>
+      <p style="margin-top:.5rem">Dark background (#0D0D0F). Logo left-aligned. Tagline right. Subtle blue gradient.</p>
+    </div>
+    <div class="spec-box">
+      <h4>PROFILE PICTURE</h4>
+      <p>Company avatar / profile image</p>
+      <div class="spec-dim"><span>300 × 300 px</span></div>
+      <p style="margin-top:.5rem">"EBFC AI" wordmark centered on dark background. Gold "AI" accent. No tagline at this size.</p>
+    </div>
+    <div class="spec-box">
+      <h4>POST IMAGE</h4>
+      <p>LinkedIn feed image</p>
+      <div class="spec-dim"><span>1200 × 627 px</span></div>
+      <p style="margin-top:.5rem">Dark bg. Headline in Bebas Neue. Supporting text in Inter. Gold CTA element. Logo bottom-right.</p>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-h);font-size:1.5rem;color:var(--white);margin-bottom:1rem">POST TEMPLATES</h3>
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    <div class="tagline-card">
+      <p class="tagline-label">Product Announcement</p>
+      <p style="font-size:.88rem;color:var(--gray);line-height:1.7"><strong style="color:var(--white)">Your RFI responses just got a co-pilot.</strong><br><br>EBFC AI remembers your project context, drafts responses in your voice, and keeps your documentation moving.<br><br>This isn't generic AI shoved into construction. This was built from 25+ years on jobsites.<br><br>→ ebfc.ai<br><br><span style="color:var(--blue-lt)">#ConstructionTech #EBFCAI #BuiltForConstruction</span></p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Thought Leadership</p>
+      <p style="font-size:.88rem;color:var(--gray);line-height:1.7"><strong style="color:var(--white)">Construction doesn't need more AI tools. It needs AI that understands construction.</strong><br><br>Most AI products ask you to translate your world into their language.<br><br>We built EBFC AI the other way around. It already speaks submittals, punchlists, and daily logs. Because it was born from them.<br><br>The question isn't "can AI help construction?" — it's "does this AI actually get it?"<br><br><span style="color:var(--blue-lt)">#ConstructionAI #EBFCAI #TheAIThatSpeaksConstruction</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>EBFC AI Brand Kit · 2026 · <a href="https://ebfc.ai" target="_blank">ebfc.ai</a></p>
+  <p style="margin-top:.4rem;opacity:.6">The AI That Speaks Construction</p>
+</footer>
+
+<script>
+const palette=[
+  {name:'EBFC Blue',hex:'#004AAD',role:'Primary brand color · Headers, links, key UI'},
+  {name:'Gold Accent',hex:'#D4A827',role:'CTA buttons · Highlights · "AI" wordmark'},
+  {name:'Dark Background',hex:'#0D0D0F',role:'Page background · Primary surface'},
+  {name:'Card Surface',hex:'#141416',role:'Elevated cards · Secondary surface'},
+  {name:'White',hex:'#FFFFFF',role:'Primary text · Headlines · High contrast'},
+  {name:'Gray',hex:'#888888',role:'Body text · Descriptions · Secondary copy'},
+  {name:'Blue Light',hex:'#1A6CD4',role:'Hover states · Links · Interactive elements'},
+  {name:'Gold Dim',hex:'#9A7A1A',role:'Subtle accents · Borders · Gradients'},
+];
+const grid=document.getElementById('paletteGrid');
+palette.forEach(c=>{const el=document.createElement('div');el.className='swatch';el.innerHTML=`<div class="swatch-color" style="background:${c.hex}"><div class="swatch-copy-hint">Click to copy</div></div><div class="swatch-info"><p class="swatch-name">${c.name}</p><p class="swatch-hex">${c.hex}</p><p class="swatch-role">${c.role}</p></div>`;el.addEventListener('click',()=>{navigator.clipboard.writeText(c.hex).then(()=>{const t=document.getElementById('toast');t.textContent='Copied '+c.hex;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)})});grid.appendChild(el)});
+const obs=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}}),{threshold:.1});
+document.querySelectorAll('.section').forEach(s=>{s.style.opacity='0';s.style.transform='translateY(24px)';s.style.transition='opacity .7s ease,transform .7s ease';obs.observe(s)});
+</script>
+</body>
+</html>
