@@ -12,6 +12,10 @@
       --bg: #FAF7F2; --bg-card: #FFFFFF; --bg-card2: #F6F6F6;
       --brown: #9C9387; --brown-lt: #B8AFA1; --brown-dim: #7D756A;
       --beige: #D5CFC7; --beige-lt: #E5DFD5;
+      --cerulean: #2D7EB8; --cerulean-lt: #5B8FB9; --cerulean-dim: #1A5E8F;
+      --magenta: #D847A3; --purple: #7B5E9B; --gold: #F2D04B;
+      --sage: #A2C38A; --teal: #78B5B8; --olive: #6B7B4C;
+      --canary: #FFEB3B; --lime: #B2FF59; --coral: #FF8A80;
       --ink: #1B1B1B; --ink-deep: #0C0C0C; --white: #FFFFFF;
       --gray: #5E5E5E; --gray-dim: #808080; --gray-lt: #A4A4A4;
       --line: rgba(156,147,135,0.25); --line-h: rgba(156,147,135,0.4);
@@ -23,24 +27,24 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--ink);font-family:var(--font-b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 50% -5%,rgba(156,147,135,0.15) 0%,transparent 65%)}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 50% -5%,rgba(45,126,184,0.12) 0%,transparent 65%)}
 
     nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0 2rem;display:flex;align-items:center;height:60px;overflow-x:auto}
     nav a{color:var(--gray);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:0 1.2rem;height:100%;display:flex;align-items:center;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
-    nav a:hover{color:var(--brown-dim);border-bottom-color:var(--brown-dim)}
+    nav a:hover{color:var(--cerulean);border-bottom-color:var(--cerulean)}
     .nav-logo{font-family:var(--font-h);font-size:1.3rem;color:var(--ink-deep)!important;letter-spacing:.02em;border-bottom:none!important;margin-right:auto;padding-left:0!important;font-weight:700}
-    .nav-logo span{color:var(--brown-dim)}
+    .nav-logo span{color:var(--cerulean)}
 
     .hero{position:relative;z-index:1;padding:6rem 2rem 5rem;text-align:center;display:flex;flex-direction:column;align-items:center}
     .hero-eyebrow{font-family:var(--font-ui);font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brown-dim);margin-bottom:1.2rem;opacity:0;animation:rise .8s var(--ease) .1s forwards}
     .hero h1{font-family:var(--font-h);font-size:clamp(3rem,8vw,6rem);line-height:1.05;color:var(--ink-deep);opacity:0;animation:rise .8s var(--ease) .25s forwards;font-weight:700}
-    .hero h1 span{color:var(--brown-dim);font-style:italic}
+    .hero h1 span{color:var(--cerulean);font-style:italic}
     .hero-tagline{margin-top:1.2rem;font-family:var(--font-ui);font-size:1.1rem;font-weight:400;color:var(--gray);letter-spacing:.04em;max-width:520px;opacity:0;animation:rise .8s var(--ease) .4s forwards}
     .hero-divider{display:flex;align-items:center;gap:1rem;width:min(340px,80vw);margin:2.5rem 0;opacity:0;animation:rise .8s var(--ease) .55s forwards}
     .hero-divider span{flex:1;height:1px;background:var(--line-h)}
     .hero-gem{width:8px;height:8px;background:var(--brown-dim);transform:rotate(45deg)}
     .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--bg-card);border:1px solid var(--line);border-radius:100px;padding:.4rem 1rem;font-size:.78rem;color:var(--gray);opacity:0;animation:rise .8s var(--ease) .65s forwards;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
-    .hero-badge b{color:var(--brown-dim)}
+    .hero-badge b{color:var(--cerulean)}
     @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
     .section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 2rem}
@@ -138,7 +142,13 @@
 <section class="section" id="palette">
   <p class="section-label">01 — Color Palette</p>
   <h2 class="section-title">Brand Colors</h2>
-  <div class="palette-grid" id="paletteGrid"></div>
+  <p style="font-family:var(--font-b);font-size:.95rem;color:var(--gray);line-height:1.7;margin-bottom:1.5rem;max-width:720px">Three palettes work together: <strong style="color:var(--cerulean)">Illustration Colors</strong> from the book cover (the vibrant personality), <strong style="color:var(--brown-dim)">Scrum Board Colors</strong> for task columns and workflow, and <strong style="color:var(--ink-deep)">Neutral Foundation</strong> for structural type and layout.</p>
+  <h3 style="font-family:var(--font-h);font-size:1.3rem;color:var(--cerulean);margin:1.5rem 0 .8rem;font-weight:700">Illustration Colors — Book Cover</h3>
+  <div class="palette-grid" id="paletteGrid1"></div>
+  <h3 style="font-family:var(--font-h);font-size:1.3rem;color:var(--brown-dim);margin:2rem 0 .8rem;font-weight:700">Scrum Board Colors — Task Columns</h3>
+  <div class="palette-grid" id="paletteGrid2"></div>
+  <h3 style="font-family:var(--font-h);font-size:1.3rem;color:var(--ink-deep);margin:2rem 0 .8rem;font-weight:700">Neutral Foundation — Structure & Type</h3>
+  <div class="palette-grid" id="paletteGrid3"></div>
 </section>
 
 <!-- TYPOGRAPHY -->
@@ -324,22 +334,49 @@
 </footer>
 
 <script>
-const palette=[
-  {name:'Warm Brown',hex:'#9C9387',role:'Primary accent · Section headings · Quote text'},
-  {name:'Warm Brown 2',hex:'#948E85',role:'Alt section headings · Secondary accent'},
-  {name:'Warm Brown 3',hex:'#7D756A',role:'Tertiary accent · Quote attribution'},
-  {name:'Beige',hex:'#D5CFC7',role:'Callout backgrounds · Pro tip sections'},
-  {name:'Ink',hex:'#1B1B1B',role:'Primary text · Subheadings · Body'},
-  {name:'Ink Deep',hex:'#0C0C0C',role:'Hero text on dark · Button background'},
-  {name:'Page BG',hex:'#FAF7F2',role:'Page background · Light surface'},
-  {name:'Card BG',hex:'#F6F6F6',role:'Footer · Alt section backgrounds'},
-  {name:'White',hex:'#FFFFFF',role:'Text on dark · High contrast · Cards'},
-  {name:'Gray',hex:'#5E5E5E',role:'Secondary text · Captions'},
-  {name:'Gray Light',hex:'#A4A4A4',role:'Muted text · Borders'},
-  {name:'Gray Dim',hex:'#808080',role:'Disabled · Placeholder · Subtle UI'},
-];
-const grid=document.getElementById('paletteGrid');
-palette.forEach(c=>{const el=document.createElement('div');el.className='swatch';el.innerHTML=`<div class="swatch-color" style="background:${c.hex}"><div class="swatch-copy-hint">Click to copy</div></div><div class="swatch-info"><p class="swatch-name">${c.name}</p><p class="swatch-hex">${c.hex}</p><p class="swatch-role">${c.role}</p></div>`;el.addEventListener('click',()=>{navigator.clipboard.writeText(c.hex).then(()=>{const t=document.getElementById('toast');t.textContent='Copied '+c.hex;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)})});grid.appendChild(el)});
+const palettes={
+  illustration:[
+    {name:'Cerulean Blue',hex:'#2D7EB8',role:'Book cover background · Primary illustration tone'},
+    {name:'Vibrant Magenta',hex:'#D847A3',role:'Character clothing · Hero accent · Energy'},
+    {name:'Dusty Purple',hex:'#7B5E9B',role:'Character clothing · Secondary accent'},
+    {name:'Golden Yellow',hex:'#F2D04B',role:'Character clothing · Warmth · Optimism'},
+    {name:'Sage Green',hex:'#A2C38A',role:'Character clothing · Growth · Balance'},
+    {name:'Muted Teal',hex:'#78B5B8',role:'Character clothing · Calm · Focus'},
+    {name:'Steel Blue',hex:'#5B8FB9',role:'Character clothing · Trust · Structure'},
+    {name:'Olive Green',hex:'#6B7B4C',role:'Character clothing · Earthiness'},
+    {name:'Canary Yellow',hex:'#FFEB3B',role:'Sticky notes · Highlight accents · Energy'},
+    {name:'Lime Green',hex:'#B2FF59',role:'Accent sticky notes · Celebration'},
+    {name:'Coral Pink',hex:'#FF8A80',role:'Accent sticky notes · Push-pins · Alert'},
+    {name:'Bright Blue',hex:'#3B82F6',role:'Sprint loop · Framework diagram · Process'},
+    {name:'Bright Red',hex:'#EF4444',role:'Product Owner · Target · Priority'},
+  ],
+  scrumBoard:[
+    {name:'Lavender',hex:'#D1C4E9',role:'Backlog column · Planning'},
+    {name:'Pale Yellow',hex:'#FFF9C4',role:'To-Do column · Queued'},
+    {name:'Sky Blue',hex:'#B3E5FC',role:'Doing column · In progress'},
+    {name:'Pale Orange',hex:'#FFE0B2',role:'Done column · Completed'},
+    {name:'Mint Green',hex:'#C8E6C9',role:'Priority markers · Special tasks'},
+  ],
+  neutral:[
+    {name:'Warm Brown',hex:'#9C9387',role:'Section headings · Quote text · Primary accent'},
+    {name:'Warm Brown 2',hex:'#948E85',role:'Alt section headings · Secondary accent'},
+    {name:'Warm Brown 3',hex:'#7D756A',role:'Tertiary accent · Quote attribution'},
+    {name:'Beige',hex:'#D5CFC7',role:'Callout backgrounds · Pro tip sections'},
+    {name:'Soft Taupe',hex:'#C5B196',role:'Table tone · Warm neutral · Earthiness'},
+    {name:'Ink',hex:'#1B1B1B',role:'Primary text · Subheadings · Body'},
+    {name:'Charcoal',hex:'#333333',role:'Text in illustrations · Outlines · Hand-drawn elements'},
+    {name:'Ink Deep',hex:'#0C0C0C',role:'Hero text on dark · Button background'},
+    {name:'Page BG',hex:'#FAF7F2',role:'Page background · Light surface'},
+    {name:'Card BG',hex:'#F6F6F6',role:'Footer · Alt section backgrounds'},
+    {name:'White',hex:'#FFFFFF',role:'Text on dark · High contrast · Cards · Whiteboard'},
+    {name:'Gray',hex:'#5E5E5E',role:'Secondary text · Captions'},
+    {name:'Gray Light',hex:'#A4A4A4',role:'Muted text · Borders'},
+  ]
+};
+function renderPalette(gridId,colors){const grid=document.getElementById(gridId);colors.forEach(c=>{const el=document.createElement('div');el.className='swatch';el.innerHTML=`<div class="swatch-color" style="background:${c.hex}"><div class="swatch-copy-hint">Click to copy</div></div><div class="swatch-info"><p class="swatch-name">${c.name}</p><p class="swatch-hex">${c.hex}</p><p class="swatch-role">${c.role}</p></div>`;el.addEventListener('click',()=>{navigator.clipboard.writeText(c.hex).then(()=>{const t=document.getElementById('toast');t.textContent='Copied '+c.hex;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)})});grid.appendChild(el)});}
+renderPalette('paletteGrid1',palettes.illustration);
+renderPalette('paletteGrid2',palettes.scrumBoard);
+renderPalette('paletteGrid3',palettes.neutral);
 const obs=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}}),{threshold:.1});
 document.querySelectorAll('.section').forEach(s=>{s.style.opacity='0';s.style.transform='translateY(24px)';s.style.transition='opacity .7s ease,transform .7s ease';obs.observe(s)});
 </script>
