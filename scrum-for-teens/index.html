@@ -1,1 +1,347 @@
-file_placeholder_will_be_replaced
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrum for Teens — Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAF7F2; --bg-card: #FFFFFF; --bg-card2: #F6F6F6;
+      --brown: #9C9387; --brown-lt: #B8AFA1; --brown-dim: #7D756A;
+      --beige: #D5CFC7; --beige-lt: #E5DFD5;
+      --ink: #1B1B1B; --ink-deep: #0C0C0C; --white: #FFFFFF;
+      --gray: #5E5E5E; --gray-dim: #808080; --gray-lt: #A4A4A4;
+      --line: rgba(156,147,135,0.25); --line-h: rgba(156,147,135,0.4);
+      --font-h: 'Playfair Display', Georgia, serif;
+      --font-b: 'Source Sans Pro', Arial, sans-serif;
+      --font-ui: 'Source Sans Pro', Arial, sans-serif;
+      --ease: cubic-bezier(0.22,0.61,0.36,1); --r: 6px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--ink);font-family:var(--font-b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 50% -5%,rgba(156,147,135,0.15) 0%,transparent 65%)}
+
+    nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0 2rem;display:flex;align-items:center;height:60px;overflow-x:auto}
+    nav a{color:var(--gray);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:0 1.2rem;height:100%;display:flex;align-items:center;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    nav a:hover{color:var(--brown-dim);border-bottom-color:var(--brown-dim)}
+    .nav-logo{font-family:var(--font-h);font-size:1.3rem;color:var(--ink-deep)!important;letter-spacing:.02em;border-bottom:none!important;margin-right:auto;padding-left:0!important;font-weight:700}
+    .nav-logo span{color:var(--brown-dim)}
+
+    .hero{position:relative;z-index:1;padding:6rem 2rem 5rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+    .hero-eyebrow{font-family:var(--font-ui);font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brown-dim);margin-bottom:1.2rem;opacity:0;animation:rise .8s var(--ease) .1s forwards}
+    .hero h1{font-family:var(--font-h);font-size:clamp(3rem,8vw,6rem);line-height:1.05;color:var(--ink-deep);opacity:0;animation:rise .8s var(--ease) .25s forwards;font-weight:700}
+    .hero h1 span{color:var(--brown-dim);font-style:italic}
+    .hero-tagline{margin-top:1.2rem;font-family:var(--font-ui);font-size:1.1rem;font-weight:400;color:var(--gray);letter-spacing:.04em;max-width:520px;opacity:0;animation:rise .8s var(--ease) .4s forwards}
+    .hero-divider{display:flex;align-items:center;gap:1rem;width:min(340px,80vw);margin:2.5rem 0;opacity:0;animation:rise .8s var(--ease) .55s forwards}
+    .hero-divider span{flex:1;height:1px;background:var(--line-h)}
+    .hero-gem{width:8px;height:8px;background:var(--brown-dim);transform:rotate(45deg)}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--bg-card);border:1px solid var(--line);border-radius:100px;padding:.4rem 1rem;font-size:.78rem;color:var(--gray);opacity:0;animation:rise .8s var(--ease) .65s forwards;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+    .hero-badge b{color:var(--brown-dim)}
+    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+    .section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 2rem}
+    .section+.section{border-top:1px solid var(--line)}
+    .section-label{font-family:var(--font-ui);font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brown-dim);margin-bottom:.6rem}
+    .section-title{font-family:var(--font-h);font-size:clamp(2rem,4vw,3rem);color:var(--ink-deep);margin-bottom:2.5rem;line-height:1.1;font-weight:700}
+
+    .palette-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}
+    .swatch{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s;background:var(--bg-card)}
+    .swatch:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .swatch-color{height:90px;position:relative}
+    .swatch-copy-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.5);color:var(--ink-deep);font-size:.7rem;font-weight:600;letter-spacing:.08em;opacity:0;transition:opacity .2s}
+    .swatch:hover .swatch-copy-hint{opacity:1}
+    .swatch-info{background:var(--bg-card);padding:.8rem}
+    .swatch-name{font-family:var(--font-ui);font-size:.78rem;font-weight:600;color:var(--ink-deep);margin-bottom:.2rem}
+    .swatch-hex{font-size:.72rem;color:var(--gray);font-family:'Courier New',monospace}
+    .swatch-role{font-size:.65rem;color:var(--gray-dim);margin-top:.25rem}
+    .copy-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--brown-dim);color:var(--white);font-size:.82rem;font-weight:700;padding:.6rem 1.4rem;border-radius:100px;opacity:0;pointer-events:none;z-index:9999;transition:opacity .3s}
+    .copy-toast.show{opacity:1}
+
+    .type-grid{display:flex;flex-direction:column;gap:2.5rem}
+    .type-specimen{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:2rem}
+    .type-meta{font-family:var(--font-ui);font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brown-dim);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--line)}
+
+    .logo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+    .logo-box{border-radius:var(--r);border:1px solid var(--line);padding:3rem 2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;text-align:center}
+    .logo-box.light{background:#FFFFFF}
+    .logo-box.beige{background:var(--beige)}
+    .logo-box.dark{background:var(--ink-deep)}
+    .logo-text{font-family:var(--font-h);font-size:2.2rem;letter-spacing:.02em;font-weight:700}
+    .logo-text span{color:var(--brown-dim)}
+    .logo-box p{font-family:var(--font-ui);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+
+    .voice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .voice-pill{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem 1.5rem;text-align:center}
+    .voice-word{font-family:var(--font-h);font-size:1.5rem;color:var(--brown-dim);display:block;margin-bottom:.3rem;font-weight:700}
+    .voice-desc{font-size:.75rem;color:var(--gray);line-height:1.5}
+
+    .dos-donts{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    @media(max-width:600px){.dos-donts{grid-template-columns:1fr}}
+    .do-col,.dont-col{background:var(--bg-card);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+    .do-header,.dont-header{padding:.8rem 1.2rem;font-family:var(--font-ui);font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    .do-header{background:rgba(76,175,128,.12);color:#4CAF80;border-bottom:1px solid rgba(76,175,128,.2)}
+    .dont-header{background:rgba(229,82,82,.1);color:#E55252;border-bottom:1px solid rgba(229,82,82,.2)}
+    .do-list,.dont-list{list-style:none;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.6rem}
+    .do-list li,.dont-list li{font-size:.82rem;color:var(--gray);padding-left:1.2rem;position:relative;line-height:1.5}
+    .do-list li::before{content:'✓';position:absolute;left:0;color:#4CAF80;font-weight:700}
+    .dont-list li::before{content:'✕';position:absolute;left:0;color:#E55252;font-weight:700}
+
+    .tagline-stack{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2.5rem}
+    .tagline-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem 1.6rem;position:relative;overflow:hidden}
+    .tagline-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--brown),var(--brown-dim))}
+    .tagline-label{font-family:var(--font-ui);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--brown-dim);margin-bottom:.4rem}
+    .tagline-text{font-family:var(--font-h);font-size:1.5rem;color:var(--ink-deep);font-weight:700;line-height:1.2}
+
+    .specs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+    .spec-box{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem}
+    .spec-box h4{font-family:var(--font-h);font-size:1.1rem;color:var(--brown-dim);margin-bottom:.6rem;font-weight:700}
+    .spec-box p{font-size:.78rem;color:var(--gray);line-height:1.6}
+    .spec-dim{background:var(--bg-card2);border:1px dashed var(--line-h);border-radius:var(--r);padding:1rem;text-align:center;margin-top:.5rem}
+    .spec-dim span{font-family:var(--font-ui);font-size:.85rem;font-weight:600;color:var(--ink-deep)}
+
+    .btn-primary{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-ui);font-size:14px;font-weight:700;color:var(--white);background:var(--ink-deep);padding:8px 32px;border-radius:4px;border:none;height:56px;text-decoration:none}
+    .btn-primary:hover{opacity:.85}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--line);padding:2.5rem 2rem;text-align:center;background:var(--bg-card2)}
+    footer p{font-size:.75rem;color:var(--gray-dim)}
+    footer a{color:var(--brown-dim);text-decoration:none}
+    @media(max-width:700px){.hero{padding:5rem 1.5rem 3rem}.section{padding:3rem 1.5rem}.palette-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<div class="copy-toast" id="toast">Copied!</div>
+
+<nav>
+  <a class="nav-logo" href="#">Scrum <span>for Teens</span></a>
+  <a href="#palette">Color</a>
+  <a href="#typography">Type</a>
+  <a href="#logo">Logo</a>
+  <a href="#taglines">Taglines</a>
+  <a href="#voice">Voice</a>
+  <a href="#usage">Usage</a>
+  <a href="#social">Social</a>
+</nav>
+
+<header class="hero">
+  <p class="hero-eyebrow">Brand Kit · 2026</p>
+  <h1>Scrum <span>for Teens</span></h1>
+  <p class="hero-tagline">Level Up Your Learning with Half the Effort</p>
+  <div class="hero-divider"><span></span><div class="hero-gem"></div><span></span></div>
+  <div class="hero-badge"><b>scrumforteens.com</b> · The ultimate guide to Scrum for teen readers</div>
+</header>
+
+<!-- COLOR PALETTE -->
+<section class="section" id="palette">
+  <p class="section-label">01 — Color Palette</p>
+  <h2 class="section-title">Brand Colors</h2>
+  <div class="palette-grid" id="paletteGrid"></div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section" id="typography">
+  <p class="section-label">02 — Typography</p>
+  <h2 class="section-title">Type System</h2>
+  <div class="type-grid">
+    <div class="type-specimen">
+      <p class="type-meta">Headlines — Playfair Display (400/700)</p>
+      <p style="font-family:var(--font-h);font-size:clamp(2.4rem,6vw,4rem);color:var(--ink-deep);line-height:1.05;margin-bottom:.5rem;font-weight:700">Scrum for Teens: Empower Readers</p>
+      <p style="font-family:var(--font-h);font-size:clamp(1.6rem,4vw,2.4rem);color:var(--ink-deep);line-height:1.1;margin-bottom:.5rem;font-weight:400">News and Workshops</p>
+      <p style="font-size:.72rem;color:var(--gray-dim);margin-top:1rem">Playfair Display — Elegant serif for section headings (H1 62px, H2 38px). Use for: hero text, section titles, pull quotes. Weights: 400 (subheadings) and 700 (hero).</p>
+    </div>
+    <div class="type-specimen">
+      <p class="type-meta">Body — Source Sans Pro (400/600/700)</p>
+      <p style="font-family:var(--font-b);font-size:1rem;color:var(--gray);line-height:1.7;margin-bottom:.5rem">Source Sans Pro is the primary body typeface — clean, legible, and optimized for screens. Used for all paragraph text, descriptions, UI labels, and navigation.</p>
+      <p style="font-family:var(--font-b);font-size:.82rem;color:var(--gray-dim);line-height:1.6">Caption: Noah, the teenage author of "Scrum for Teens," uses Scrum to succeed in school and beyond. · Source Sans Pro 400</p>
+      <p style="font-size:.72rem;color:var(--gray-dim);margin-top:1rem">Source Sans Pro — 400 / 600 / 700 · Use for: Body, nav, captions, buttons (14px 700), descriptions</p>
+    </div>
+    <div class="type-specimen" style="background:var(--bg-card2)">
+      <p class="type-meta">UI Elements — Source Sans Pro</p>
+      <p style="font-family:var(--font-ui);font-size:1rem;font-weight:600;color:var(--ink-deep);margin-bottom:.5rem">BUTTONS · NAVIGATION · LABELS · FORMS</p>
+      <p style="font-family:var(--font-ui);font-size:.85rem;color:var(--gray);line-height:1.6;margin-bottom:.5rem">Source Sans Pro doubles as the UI typeface — same family, different weights. Buttons use 14px 700. Nav is 16px 400. Kickers/eyebrows use 14px 400 uppercase with letter-spacing.</p>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
+        <span class="btn-primary" style="height:auto;padding:.5rem 1.4rem;font-size:.82rem">Buy Now</span>
+        <span style="font-family:var(--font-ui);font-size:.78rem;font-weight:600;color:var(--brown-dim);border:1px solid var(--brown-dim);padding:.4rem 1rem;border-radius:var(--r)">Learn More</span>
+        <span style="font-family:var(--font-ui);font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);padding:.4rem 0">NAV LINK</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section class="section" id="logo">
+  <p class="section-label">03 — Logo</p>
+  <h2 class="section-title">Logo & Wordmark</h2>
+
+  <!-- Book cover as primary brand asset -->
+  <p style="font-family:var(--font-ui);font-size:.72rem;color:var(--brown-dim);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem">Primary Brand Asset — Book Cover</p>
+  <div class="logo-grid" style="margin-bottom:1.5rem">
+    <div class="logo-box light" style="grid-column:1/-1;padding:2rem">
+      <img src="book-cover.png" alt="Scrum for Teens book cover" style="max-height:340px;height:auto;box-shadow:0 12px 40px rgba(0,0,0,.15);border-radius:4px">
+      <p style="color:var(--gray);margin-top:.5rem">Book Cover (984×1477)</p>
+      <a href="book-cover.png" download style="font-size:.7rem;color:var(--brown-dim);text-decoration:none;font-family:var(--font-ui);letter-spacing:.08em;font-weight:600">⬇ DOWNLOAD PNG</a>
+    </div>
+  </div>
+
+  <p style="font-family:var(--font-ui);font-size:.72rem;color:var(--brown-dim);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem">Wordmark — CSS Text Versions</p>
+  <div class="logo-grid" style="margin-bottom:1.5rem">
+    <div class="logo-box light">
+      <div class="logo-text" style="color:var(--ink-deep)">Scrum <span>for Teens</span></div>
+      <p style="color:var(--gray)">Primary — Light background</p>
+    </div>
+    <div class="logo-box beige">
+      <div class="logo-text" style="color:var(--ink-deep)">Scrum <span style="color:var(--brown-dim)">for Teens</span></div>
+      <p style="color:var(--gray);opacity:.8">On beige — Brand background</p>
+    </div>
+    <div class="logo-box dark">
+      <div class="logo-text" style="color:var(--white)">Scrum <span style="color:var(--brown-lt)">for Teens</span></div>
+      <p style="color:var(--white);opacity:.7">Reversed — Dark background</p>
+    </div>
+  </div>
+
+  <div style="background:var(--bg-card);border:1px dashed var(--line-h);border-radius:var(--r);padding:2rem;text-align:center">
+    <p style="font-family:var(--font-ui);font-size:.72rem;color:var(--brown-dim);font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem">Clear Zone Rule</p>
+    <div style="display:inline-flex;padding:1.2rem;border:1px dashed var(--brown-dim)">
+      <span style="font-family:var(--font-h);font-size:1.8rem;color:var(--ink-deep);font-weight:700">Scrum <span style="color:var(--brown-dim)">for Teens</span></span>
+    </div>
+    <p style="font-size:.75rem;color:var(--gray);margin-top:1.2rem;line-height:1.6">Maintain clear zone equal to the height of "S" on all sides. "Scrum" in Playfair Display 700, always in ink or white. "for Teens" in Playfair Display 400, always in warm brown accent.</p>
+    <p style="font-size:.72rem;color:var(--gray-dim);margin-top:.5rem">Minimum size: 120px wide (digital) · Never stretch, skew, or separate "Scrum" from "for Teens"</p>
+  </div>
+</section>
+
+<!-- TAGLINES -->
+<section class="section" id="taglines">
+  <p class="section-label">04 — Taglines</p>
+  <h2 class="section-title">Messaging Hierarchy</h2>
+  <div class="tagline-stack">
+    <div class="tagline-card">
+      <p class="tagline-label">Primary Tagline</p>
+      <p class="tagline-text">LEVEL UP YOUR LEARNING WITH HALF THE EFFORT</p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Hero Headline</p>
+      <p class="tagline-text">EMPOWER READERS TO MASTER SCRUM AND SUCCEED</p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Pull Quote (Editorial Voice)</p>
+      <p class="tagline-text">"YOU'RE NOT JUST PLANNING OR DREAMING — YOU'RE DOING."</p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Feature-level</p>
+      <p class="tagline-text">SPRINT YOUR WAY TO DONE — WITHOUT THE STRESS</p>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE & TONE -->
+<section class="section" id="voice">
+  <p class="section-label">05 — Voice & Tone</p>
+  <h2 class="section-title">How We Sound</h2>
+  <div class="voice-grid">
+    <div class="voice-pill"><span class="voice-word">Empowering</span><span class="voice-desc">Speaks directly to teens as capable, not clueless. "You can do this."</span></div>
+    <div class="voice-pill"><span class="voice-word">Approachable</span><span class="voice-desc">Warm, friendly, never jargon-heavy. No corporate speak.</span></div>
+    <div class="voice-pill"><span class="voice-word">Credible</span><span class="voice-desc">Grounded in real results — classroom wins, competition victories.</span></div>
+    <div class="voice-pill"><span class="voice-word">Teen-Friendly</span><span class="voice-desc">Uses analogies teens relate to (sports, gaming, Shakespeare). No condescension.</span></div>
+  </div>
+  <p style="font-family:var(--font-b);font-size:.9rem;color:var(--gray);line-height:1.7;margin-bottom:2rem;max-width:700px"><strong style="color:var(--ink-deep)">Core principle:</strong> We speak directly to teens — "you," "your," not "students" or "users." Short paragraphs (2–3 sentences). Active voice. Encouragement over instruction. Real stories: Noah's journey, classroom wins, competition results.</p>
+</section>
+
+<!-- USAGE GUIDELINES -->
+<section class="section" id="usage">
+  <p class="section-label">06 — Usage Guidelines</p>
+  <h2 class="section-title">Do's and Don'ts</h2>
+  <div class="dos-donts">
+    <div class="do-col">
+      <div class="do-header">✓ Do</div>
+      <ul class="do-list">
+        <li>Address readers as "you" — never "students" or "users"</li>
+        <li>Use warm browns and beige as primary palette — this is a friendly brand</li>
+        <li>Keep "Scrum" in ink/white and "for Teens" in warm brown accent</li>
+        <li>Lead with real outcomes: competition wins, classroom success stories</li>
+        <li>Use sports/gaming/Shakespeare analogies — they land with teen readers</li>
+        <li>Reference Noah's authorship journey — teen-to-teen voice matters</li>
+        <li>Keep paragraphs 2–3 sentences max on screen</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="dont-header">✕ Don't</div>
+      <ul class="dont-list">
+        <li>Use corporate jargon: "leverage," "synergy," "optimization"</li>
+        <li>Condescend or talk down to teen readers</li>
+        <li>Separate "Scrum" from "for Teens" in the wordmark — one unit</li>
+        <li>Use blue, green, or other brand colors from EBFC AI — this is a separate brand</li>
+        <li>Lead with abstract benefits — ground in real, specific examples</li>
+        <li>Use hard-hat or stock construction photos — this is education, not jobsites</li>
+        <li>Oversell — be honest about what Scrum can and can't do for teens</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<section class="section" id="social">
+  <p class="section-label">07 — Social Media</p>
+  <h2 class="section-title">Social Specs & Templates</h2>
+  <div class="specs-grid" style="margin-bottom:2rem">
+    <div class="spec-box">
+      <h4>LINKEDIN BANNER</h4>
+      <p>Company page banner image</p>
+      <div class="spec-dim"><span>1128 × 191 px</span></div>
+      <p style="margin-top:.5rem">Light background (#FAF7F2). Book cover left-aligned. Tagline right. Warm brown accent line.</p>
+    </div>
+    <div class="spec-box">
+      <h4>PROFILE PICTURE</h4>
+      <p>Company avatar / profile image</p>
+      <div class="spec-dim"><span>300 × 300 px</span></div>
+      <p style="margin-top:.5rem">"Scrum for Teens" wordmark centered on light background. Brown accent on "for Teens". No tagline at this size.</p>
+    </div>
+    <div class="spec-box">
+      <h4>POST IMAGE</h4>
+      <p>LinkedIn/Instagram feed image</p>
+      <div class="spec-dim"><span>1200 × 627 px</span></div>
+      <p style="margin-top:.5rem">Light bg. Headline in Playfair Display. Supporting text in Source Sans Pro. Brown CTA element. Logo bottom-right.</p>
+    </div>
+  </div>
+  <h3 style="font-family:var(--font-h);font-size:1.5rem;color:var(--ink-deep);margin-bottom:1rem;font-weight:700">Post Templates</h3>
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    <div class="tagline-card">
+      <p class="tagline-label">Book Announcement</p>
+      <p style="font-size:.88rem;color:var(--gray);line-height:1.7"><strong style="color:var(--ink-deep)">Scrum isn't just for software teams. It's for you.</strong><br><br>Noah Engineer-Manriquez wrote "Scrum for Teens" to show how the same framework that builds software can help you level up your learning — with half the effort.<br><br>Real stories. Real workflows. Real wins.<br><br>→ scrumforteens.com<br><br><span style="color:var(--brown-dim)">#ScrumForTeens #AgileLearning #LevelUp</span></p>
+    </div>
+    <div class="tagline-card">
+      <p class="tagline-label">Workshop Promo</p>
+      <p style="font-size:.88rem;color:var(--gray);line-height:1.7"><strong style="color:var(--ink-deep)">From sticky notes to nationals.</strong><br><br>See how one teen used Scrum to turn classroom chaos into competition wins. The same framework scales from school projects to robotics championships.<br><br>If you're a teen (or teach one), this is for you.<br><br><span style="color:var(--brown-dim)">#ScrumBoard #TeenScrum #AgileEducation</span></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Scrum for Teens Brand Kit · 2026 · <a href="https://scrumforteens.com" target="_blank">scrumforteens.com</a></p>
+  <p style="margin-top:.4rem;opacity:.6">Level Up Your Learning with Half the Effort</p>
+</footer>
+
+<script>
+const palette=[
+  {name:'Warm Brown',hex:'#9C9387',role:'Primary accent · Section headings · Quote text'},
+  {name:'Warm Brown 2',hex:'#948E85',role:'Alt section headings · Secondary accent'},
+  {name:'Warm Brown 3',hex:'#7D756A',role:'Tertiary accent · Quote attribution'},
+  {name:'Beige',hex:'#D5CFC7',role:'Callout backgrounds · Pro tip sections'},
+  {name:'Ink',hex:'#1B1B1B',role:'Primary text · Subheadings · Body'},
+  {name:'Ink Deep',hex:'#0C0C0C',role:'Hero text on dark · Button background'},
+  {name:'Page BG',hex:'#FAF7F2',role:'Page background · Light surface'},
+  {name:'Card BG',hex:'#F6F6F6',role:'Footer · Alt section backgrounds'},
+  {name:'White',hex:'#FFFFFF',role:'Text on dark · High contrast · Cards'},
+  {name:'Gray',hex:'#5E5E5E',role:'Secondary text · Captions'},
+  {name:'Gray Light',hex:'#A4A4A4',role:'Muted text · Borders'},
+  {name:'Gray Dim',hex:'#808080',role:'Disabled · Placeholder · Subtle UI'},
+];
+const grid=document.getElementById('paletteGrid');
+palette.forEach(c=>{const el=document.createElement('div');el.className='swatch';el.innerHTML=`<div class="swatch-color" style="background:${c.hex}"><div class="swatch-copy-hint">Click to copy</div></div><div class="swatch-info"><p class="swatch-name">${c.name}</p><p class="swatch-hex">${c.hex}</p><p class="swatch-role">${c.role}</p></div>`;el.addEventListener('click',()=>{navigator.clipboard.writeText(c.hex).then(()=>{const t=document.getElementById('toast');t.textContent='Copied '+c.hex;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)})});grid.appendChild(el)});
+const obs=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}}),{threshold:.1});
+document.querySelectorAll('.section').forEach(s=>{s.style.opacity='0';s.style.transform='translateY(24px)';s.style.transition='opacity .7s ease,transform .7s ease';obs.observe(s)});
+</script>
+</body>
+</html>
